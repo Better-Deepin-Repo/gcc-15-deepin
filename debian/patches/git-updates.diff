@@ -1,0 +1,7 @@
+# DP: updates from the 14 branch upto 20241102 (9b1f15e1e14).
+
+LANG=C git diff --no-renames --src-prefix=a/src/ --dst-prefix=b/src/ \
+	04696df09633baf97cdbbdd6e9929b9d472161d3 9b1f15e1e141a6bf478deb2f8818fa3b555fa772 \
+	| awk '/^diff .*\.texi/ {skip=1; next} /^diff / { skip=0 } skip==0' \
+	| grep -v -E '^(diff|index)'
+
