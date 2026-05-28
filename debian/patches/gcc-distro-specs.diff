@@ -14,15 +14,7 @@
  #define INCLUDE_STRING
  #include "config.h"
  #include "system.h"
-@@ -458,6 +463,7 @@ static const char *debug_level_greater_t
- static const char *dwarf_version_greater_than_spec_func (int, const char **);
- static const char *find_fortran_preinclude_file (int, const char **);
- static const char *join_spec_func (int, const char **);
-+static const char *get_pkg_metadata_spec_func (int, const char **);
- static char *convert_white_space (char *);
- static char *quote_spec (char *);
- static char *quote_spec_arg (char *);
-@@ -987,6 +993,121 @@ proper position among the other output f
+@@ -991,6 +996,148 @@ proper position among the other output f
  #define LINK_GCC_C_SEQUENCE_SPEC "%G %{!nolibc:%L %G}"
  #endif
  
@@ -114,16 +106,42 @@
 +# endif
 +#endif
 +
-+#ifndef PKG_METADATA_SPEC
-+# ifdef DIST_DEFAULT_PKG_METADATA_SPEC
-+#  define PKG_METADATA_SPEC " %:get-pkg-metadata() "
++/* Guarantee zero initialization of padding bits in automatic variable
++   initializers. */
++#ifndef INIT_ZERO_ALL_SPEC
++# ifdef DIST_DEFAULT_INIT_ZERO_ALL
++#  define INIT_ZERO_ALL_SPEC " %{!fzero-init-padding-bits*:-fzero-init-padding-bits=all}"
 +# else
-+#  define PKG_METADATA_SPEC ""
++#  define INIT_ZERO_ALL_SPEC ""
++# endif
++#endif
++
++/* Emit a warning on unicode bidi characters which can be used to hide
++   malicious code from human reviewers.  */
++#ifndef BIDI_WARNING_SPEC
++# ifdef DIST_DEFAULT_BIDI_WARNING
++#  define BIDI_WARNING_SPEC " %{!Wno-bidi-chars:%{!Wbidi-chars*:-Wbidi-chars=any}}"
++# else
++#  define BIDI_WARNING_SPEC ""
++# endif
++#endif
++
++/* Enable sframe support by default.  */
++#ifndef SFRAME_SPEC
++# ifdef DIST_DEFAULT_SFRAME
++#  define SFRAME_SPEC " %{!m16:%{!m32:%{!mx32:%{!ffreestanding:--gsframe}}}}"
++# else
++#  define SFRAME_SPEC ""
 +# endif
 +#endif
 +
 +/* Don't enable any of those for the offload compilers,
 +   unsupported.  */
++#if !defined(DISTRO_DEFAULT_ASM_SPEC) && !defined(ACCEL_COMPILER)
++# define DISTRO_DEFAULT_ASM_SPEC SFRAME_SPEC
++#else
++# define DISTRO_DEFAULT_ASM_SPEC ""
++#endif
 +#if !defined(DISTRO_DEFAULT_CPP_SPEC) && !defined(ACCEL_COMPILER)
 +# define DISTRO_DEFAULT_CPP_SPEC TIMET64_SPEC FORTIFY_SOURCE_SPEC
 +#else
@@ -131,12 +149,13 @@
 +#endif
 +#if !defined(DISTRO_DEFAULT_SPEC) && !defined(ACCEL_COMPILER)
 +# define DISTRO_DEFAULT_SPEC ASYNC_UNWIND_SPEC SSP_DEFAULT_SPEC \
-+		FORMAT_SECURITY_SPEC STACK_CLASH_SPEC CF_PROTECTION_SPEC
++		FORMAT_SECURITY_SPEC STACK_CLASH_SPEC CF_PROTECTION_SPEC \
++		INIT_ZERO_ALL_SPEC BIDI_WARNING_SPEC
 +#else
 +# define DISTRO_DEFAULT_SPEC ""
 +#endif
 +#if !defined(DISTRO_DEFAULT_LINK_SPEC) && !defined(ACCEL_COMPILER)
-+# define DISTRO_DEFAULT_LINK_SPEC RELRO_SPEC PKG_METADATA_SPEC
++# define DISTRO_DEFAULT_LINK_SPEC RELRO_SPEC
 +#else
 +# define DISTRO_DEFAULT_LINK_SPEC ""
 +#endif
@@ -144,7 +163,7 @@
  #ifndef LINK_SSP_SPEC
  #ifdef TARGET_LIBC_PROVIDES_SSP
  #define LINK_SSP_SPEC "%{fstack-protector|fstack-protector-all" \
-@@ -1043,7 +1164,7 @@ proper position among the other output f
+@@ -1047,7 +1194,7 @@ proper position among the other output f
  #ifndef LINK_PIE_SPEC
  #ifdef HAVE_LD_PIE
  #ifndef LD_PIE_SPEC
@@ -153,7 +172,7 @@
  #endif
  #else
  #define LD_PIE_SPEC ""
-@@ -1160,6 +1281,7 @@ proper position among the other output f
+@@ -1164,6 +1311,7 @@ proper position among the other output f
     "%{flto|flto=*:%<fcompare-debug*} \
      %{flto} %{fno-lto} %{flto=*} %l " LINK_PIE_SPEC \
     "%{fuse-ld=*:-fuse-ld=%*} " LINK_COMPRESS_DEBUG_SPEC \
@@ -161,16 +180,17 @@
     "%X %{o*} %{e*} %{N} %{n} %{r}\
      %{s} %{t} %{u*} %{z} %{Z} %{!nostdlib:%{!r:%{!nostartfiles:%S}}} \
      %{static|no-pie|static-pie:} %@{L*} %(link_libgcc) " \
-@@ -1204,6 +1326,8 @@ static const char *cpp_spec = CPP_SPEC;
+@@ -1208,6 +1356,9 @@ static const char *cpp_spec = CPP_SPEC;
  static const char *cc1_spec = CC1_SPEC OS_CC1_SPEC;
  static const char *cc1plus_spec = CC1PLUS_SPEC;
  static const char *link_gcc_c_sequence_spec = LINK_GCC_C_SEQUENCE_SPEC;
++static const char *distro_default_asm_spec = DISTRO_DEFAULT_ASM_SPEC;
 +static const char *distro_default_cpp_spec = DISTRO_DEFAULT_CPP_SPEC;
 +static const char *distro_default_spec = DISTRO_DEFAULT_SPEC;
  static const char *link_ssp_spec = LINK_SSP_SPEC;
  static const char *asm_spec = ASM_SPEC;
  static const char *asm_final_spec = ASM_FINAL_SPEC;
-@@ -1264,7 +1388,7 @@ static const char *cpp_options =
+@@ -1268,7 +1419,7 @@ static const char *cpp_options =
  "%(cpp_unique_options) %1 %{m*} %{std*&ansi&trigraphs} %{W*&pedantic*} %{w}\
   %{f*} %{g*:%{%:debug-level-gt(0):%{g*}\
   %{!fno-working-directory:-fworking-directory}}} %{O*}\
@@ -179,7 +199,15 @@
  
  /* Pass -d* flags, possibly modifying -dumpdir, -dumpbase et al.
  
-@@ -1458,9 +1582,9 @@ static const struct compiler default_com
+@@ -1306,6 +1457,7 @@ static const char *asm_options =
+    to the assembler equivalents.  */
+ "%{v} %{w:-W} %{I*} "
+ #endif
++DISTRO_DEFAULT_ASM_SPEC
+ "%(asm_debug_option)"
+ ASM_COMPRESS_DEBUG_SPEC
+ "%a %Y %{c:%W{o*}%{!o*:-o %w%b%O}}%{!c:-o %d%w%u%O}";
+@@ -1462,9 +1614,9 @@ static const struct compiler default_com
        %{save-temps*|traditional-cpp|no-integrated-cpp:%(trad_capable_cpp) \
  	  %(cpp_options) -o %{save-temps*:%b.i} %{!save-temps*:%g.i} \n\
  	    cc1 -fpreprocessed %{save-temps*:%b.i} %{!save-temps*:%g.i} \
@@ -191,7 +219,7 @@
        %{!fsyntax-only:%(invoke_as)}}}}", 0, 0, 1},
    {"-",
     "%{!E:%e-E or -x required when input is from standard input}\
-@@ -1474,18 +1598,18 @@ static const struct compiler default_com
+@@ -1478,18 +1630,18 @@ static const struct compiler default_com
  	  %{save-temps*|traditional-cpp|no-integrated-cpp:%(trad_capable_cpp) \
  		%(cpp_options) -o %{save-temps*:%b.i} %{!save-temps*:%g.i} \n\
  		    cc1 -fpreprocessed %{save-temps*:%b.i} %{!save-temps*:%g.i} \
@@ -213,57 +241,16 @@
    {".s", "@assembler", 0, 0, 0},
    {"@assembler",
     "%{!M:%{!MM:%{!E:%{!S:as %(asm_debug) %(asm_options) %i %A }}}}", 0, 0, 0},
-@@ -1717,6 +1841,8 @@ static struct spec_list static_specs[] =
+@@ -1721,6 +1873,9 @@ static struct spec_list static_specs[] =
    INIT_STATIC_SPEC ("cc1_options",		&cc1_options),
    INIT_STATIC_SPEC ("cc1plus",			&cc1plus_spec),
    INIT_STATIC_SPEC ("link_gcc_c_sequence",	&link_gcc_c_sequence_spec),
 +  INIT_STATIC_SPEC ("distro_defaults",		&distro_default_spec),
++  INIT_STATIC_SPEC ("distro_defaults_asm",	&distro_default_asm_spec),
 +  INIT_STATIC_SPEC ("distro_defaults_cpp",	&distro_default_cpp_spec),
    INIT_STATIC_SPEC ("link_ssp",			&link_ssp_spec),
    INIT_STATIC_SPEC ("endfile",			&endfile_spec),
    INIT_STATIC_SPEC ("link",			&link_spec),
-@@ -1791,6 +1917,7 @@ static const struct spec_function static
-   { "dwarf-version-gt",		dwarf_version_greater_than_spec_func },
-   { "fortran-preinclude-file",	find_fortran_preinclude_file},
-   { "join",			join_spec_func},
-+  { "get-pkg-metadata",         get_pkg_metadata_spec_func },
- #ifdef EXTRA_SPEC_FUNCTIONS
-   EXTRA_SPEC_FUNCTIONS
- #endif
-@@ -10355,6 +10482,33 @@ getenv_spec_function (int argc, const ch
- 
-   return result;
- }
-+
-+/* get-pkg-metadata built-in spec function.
-+
-+   Returns an --package-metadata option, built from the environment variable
-+   ELF_PACKAGE_METADATA.
-+    - Do not construct an option, if NO_PKG_METADATA is defined.
-+    - If the environment variable is undefined, don't build that option.  */
-+
-+static const char *
-+get_pkg_metadata_spec_func (int argc ATTRIBUTE_UNUSED, const char **argv ATTRIBUTE_UNUSED)
-+{
-+  const char *option = "--package-metadata=%s";
-+  const char *pkg_metadata = env.get ("ELF_PACKAGE_METADATA");
-+  const char *no_pkg_metadata = env.get ("NO_PACKAGE_METADATA");
-+  char *result;
-+
-+  if (no_pkg_metadata)
-+    return NULL;
-+
-+  if (!pkg_metadata)
-+    return NULL;
-+
-+  result = XNEWVAR (char, strlen(option) + strlen(pkg_metadata));
-+  sprintf (result, option, pkg_metadata);
-+
-+  return result;
-+}
- 
- /* if-exists built-in spec function.
- 
 --- a/src/gcc/cp/lang-specs.h
 +++ b/src/gcc/cp/lang-specs.h
 @@ -57,7 +57,7 @@ along with GCC; see the file COPYING3.

@@ -1,23 +1,23 @@
-#! /bin/sh
+#! /bin/bash
 
 # script to trick the build daemons and output something, if there is
 # still test/build activity
 
 # $1: primary file to watch. if there is activity on this file, we do nothing
-# $2+: files to watch to look for activity despite no output in $1
+# $2: build dir to search for dejagnu log files
 #      if the files are modified or are newly created, then the message
 #      is printed on stdout.
 #      if nothing is modified, don't output anything (so the buildd timeout
 #      hits).
 
 pidfile=logwatch.pid
-timeout=3600
-message='\nlogwatch still running\n'
+timeout=1800
+message='logwatch still running'
 
 usage()
 {
     echo >&2 "usage: `basename $0` [-p <pidfile>] [-t <timeout>] [-m <message>]"
-    echo >&2 "           <logfile> [<logfile> ...]"
+    echo >&2 "           <primary logfile> <build dir>"
     exit 1
 }
 
@@ -50,7 +50,9 @@ done
 
 logfile="$1"
 shift
-otherlogs="$@"
+builddir="$1"
+shift
+[ $# -eq 0 ] || usage
 
 cleanup()
 {
@@ -62,43 +64,62 @@ cleanup()
 
 echo $$ > $pidfile
 
-update()
+declare -A stamps
+
+find_logs()
 {
-    _logvar=$1
-    _othervar=$2
-
-    # logfile may not exist yet
-    if [ -r $logfile ]; then
-	_logtail="`tail -10 $logfile | md5sum` $f"
-    else
-	_logtail="does not exist: $logfile"
-    fi
-    eval $_logvar="'$_logtail'"
-
-    _othertails=''
-    for f in $otherlogs; do
-	if [ -r $f ]; then
-	    _othertails="$_othertails `tail -10 $f | md5sum` $f"
-	else
-	    _othertails="$_othertails does not exist: $f"
+    for f in $(find $builddir -name '*.log' \
+			       ! -name config.log \
+			       ! -path '*/ada/acats?/tests/*.log' \
+			       ! -path '*/libbacktrace/*.log')
+    do
+	if [ ! -v stamps[$f] ]; then
+	    stamps[$f]=$(date -u -r $f '+%s')
 	fi
     done
-    eval $_othervar="'$_othertails'"
 }
 
-update logtail othertails
+# wait for test startups
+sleep 30
+find_logs
+
+# activity in the main log file
+sleep 10
+st_logfile=$(date -u -r $logfile '+%s')
+
+sleep 10
+
 while true; do
-    sleep $timeout
-    update newlogtail newothertails
-    if [ "$logtail" != "$newlogtail" ]; then
+    find_logs
+    sleep 10
+    stamp=$(date -u -r $logfile '+%s')
+    if [ $stamp -gt $st_logfile ]; then
 	# there is still action in the primary logfile. do nothing.
-	logtail="$newlogtail"
-    elif [ "$othertails" != "$newothertails" ]; then
-	# there is still action in the other log files, so print the message
-	/bin/echo -e $message
-	othertails="$newothertails"
+	st_logfile=$stamp
     else
-	# nothing changed in the other log files. maybe a timeout ...
-	:
+	activity=0
+	for log in "${!stamps[@]}"; do
+	    [ -f $log ] || continue
+	    stamp=$(date -u -r $log '+%s')
+	    if [ $stamp -gt ${stamps[$log]} ]; then
+		if [ $activity -eq 0 ]; then
+		    echo
+		fi
+		echo "[$(date -u -r $log '+%T')] $log: $message"
+		tail -3 $log
+		activity=$(expr $activity + 1)
+		stamps[$log]=$stamp
+	    fi
+	done
+	if [ $activity -gt 0 ]; then
+	    # already emitted messages above
+	    echo
+	else
+	    # nothing changed in the other log files. maybe a timeout ...
+	    :
+	fi
     fi
+    sleep $timeout
 done
+
+exit 0

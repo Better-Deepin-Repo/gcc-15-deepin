@@ -2,7 +2,7 @@
 
 --- a/src/gcc/Makefile.in
 +++ b/src/gcc/Makefile.in
-@@ -312,7 +312,7 @@ LINKER += $(LD_PICFLAG)
+@@ -314,7 +314,7 @@ LINKER += $(LD_PICFLAG)
  ifeq (@DO_LINK_MUTEX@,true)
  LLINKER = $(SHELL) $(srcdir)/lock-and-run.sh linkfe.lck $(LINKER)
  else

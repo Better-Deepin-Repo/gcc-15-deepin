@@ -1,3 +1,743 @@
+gcc-15 (15.2.0-17) unstable; urgency=medium
+
+  * Update to git 20260423 from the gcc-15 branch.
+    - Fix PR target/69639 (MingW), PR tree-optimization/123002,
+      PR target/124876 (x86), PR tree-optimization/124802,
+      PR tree-optimization/124677, PR debug/124644, PR tree-optimization/124555,
+      PR tree-optimization/120987, PR target/124670 (bpf),
+      PR target/123271 (ARM), PR target/124710 (x86), PR target/105192 (MIPS),
+      PR target/124613 (RISCV), PR target/123017 (AArch64),
+      PR target/124674 (AArch64), PR tree-optimization/124627, PR ada/124836,
+      PR ada/124607, PR ada/124606, PR c/124635, PR c/122572, PR c++/120338,
+      PR c++/121643, PR c++/123975, PR c++/121961, PR c++/117133, PR c++/124768,
+      PR c++/124773, PR c++/123700, PR c++/123529, PR c++/98930, PR c++/118630,
+      PR c++/124735, PR c++/124781, PR c++/124785, PR c++/124477, PR c++/123665,
+      PR c++/123408, PR c++/122621, PR d/123411, PR fortran/100155,
+      PR fortran/102619, PR fortran/95879, PR fortran/95879, PR fortran/66973,
+      PR fortran/124652, PR fortran/117303, PR fortran/120723,
+      PR fortran/124751, PR fortran/100194, PR fortran/124567,
+      PR fortran/121342, PR fortran/120713, PR fortran/124631,
+      PR fortran/95338, PR fortran/102459, PR fortran/82721, PR fortran/84245,
+      PR fortran/119273, PR fortran/105168, PR libstdc++/124463.
+  * Update the ada-armel-libatomic patch for PR ada/107475.
+  * Build gcc itself with branch-protection (Emanuele Rocca). Closes: #1130592.
+    - On arm64 by appending CFLAGS_SECURE to BOOT_CFLAGS.
+    - Set BOOT_CFLAGS explicitly instead of relying on upstream defaults.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 23 Apr 2026 12:06:05 +0200
+
+gcc-15 (15.2.0-16) unstable; urgency=medium
+
+  * Update to git 20260321 from the gcc-15 branch.
+    - Fix PR target/124461 (x86), PR target/123457 (AArch64),
+      PR target/124126 (AArch64), PR target/123285 (AArch64),
+      PR target/124409 (RISCV), PR tree-optimization/119568,
+      PR tree-optimization/121103, PR rtl-optimization/122170,
+      PR rtl-optimization/123294, PR tree-optimization/123645,
+      PR target/124147 (RISCV), PR target/122448 (RISCV),
+      PR target/112400 (VAX), PR tree-optimization/124135,
+      PR tree-optimization/124358, PR target/124349 (x86),
+      PR target/124367 (x86), PR target/124366 (x86),
+      PR target/124341 (x86), PR target/124349 (x86),
+      PR target/124315 (x86), PR target/124335 (x86),
+      PR target/124294 (x86), PR target/124138 (x86), PR middle-end/124056,
+      PR rtl-optimization/116600, PR middle-end/123386, PR c/101312,
+      PR tree-optimization/123672, PR middle-end/123978, PR c++/123818,
+      PR middle-end/122689, PR tree-optimization/121104,
+      PR tree-optimization/123864, PR c++/123790, PR middle-end/123876,
+      PR ada/107475, PR c/105555, PR c/123365, PR c++/124309,
+      PR c++/124311, PR c++/124431, PR c++/120685, PR c++/123889,
+      PR c++/123578, PR c++/123737, PR c++/123667, PR c++/123684,
+      PR fortran/124450, PR fortran/121743, PR preprocessor/105412,
+      PR preprocessor/123273, PR target/124365 (AArch64),
+      PR libstdc++/124015, PR libstdc++/121771, PR rtl-optimization/121649,
+      PR middle-end/123573, PR middle-end/123175, PR tree-optimization/124132,
+      PR tree-optimization/124130, PR tree-optimization/123596,
+      PR tree-optimization/123298, PR tree-optimization/123061,
+      PR tree-optimization/123636, PR tree-optimization/122537,
+      PR tree-optimization/121726, PR ipa/123416, PR tree-optimization/116747,
+      PR ipa/111036, PR c++/124489, PR c++/120039, PR c++/122559,
+      PR fortran/122046, PR fortran/124161, PR fortran/120286,
+      PR fortran/102596, PR fortran/106946, PR fortran/124482,
+      PR libstdc++/124568, PR libstdc++/124124, PR libstdc++/105580.
+  * For backports, require binutils (>= 2.40) on riscv64.
+  * Fix PR ada/107475 also for armhf and s390x.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 22 Mar 2026 10:52:07 +0100
+
+gcc-15 (15.2.0-15) unstable; urgency=medium
+
+  * Update to git 20260307 from the gcc-15 branch.
+    - Fix PR ada/124226, PR ada/124224, PR target/123807 (loongarch).
+      PR middle-end/124250, PR ipa/122856, PR target/122097 (loongarch),
+      PR ada/124285, PR ada/123306, PR c++/123845, PR lto/121588,
+      PR libstdc++/124363, PR libstdc++/114865, PR libstdc++/123875.
+  * Fix backport builds for Ubuntu 24.04.
+  * Fix PR demangler/106641, taken from the trunk.
+  * libsanitizer/TSan: Fix determining static TLS blocks. Addresses: #1126312.
+  * Stop building packages now built by GCC 16.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 07 Mar 2026 12:32:03 +0100
+
+gcc-15 (15.2.0-14) unstable; urgency=medium
+
+  * Update to git 20260223 from the gcc-15 branch.
+    - Fix PR c++/120974, PR target/121571, PR target/124134 (ARM),
+      PR target/123206 (AArch64), PR tree-optimization/117217,
+      PR ipa/106260, PR target/123910 (RISCV), PR middle-end/123447,
+      PR target/123624 (AArch64), PR rtl-optimization/116479,
+      PR tree-optimization/123940, PR target/123870 (RISCV),
+      PR target/123969 (RISCV), PR target/123971 (RISCV),
+      PR target/123806 (RISCV), PR rtl-optimization/121787,
+      PR target/122869 (RISCV), PR pch/14940, PR target/122781 (S390),
+      PR ada/124106, PR ada/124054, PR ada/124025, PR c++/123989,
+      PR c++/121822, PR c++/122318, PR c++/101670, PR d/124026,
+      PR fortran/123961, PR c++/124153, PR c++/119756, PR libstdc++/122821,
+      PR libstdc++/123991, PR libstdc++/124024.
+  * Fix build when building without common libraries.
+  * Re-enable profiled build on armhf to check for PR target/119937.
+  * Re-enable lto build on loong64. Closes: #1127462.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 23 Feb 2026 10:34:32 +0100
+
+gcc-15 (15.2.0-13) unstable; urgency=medium
+
+  * Update to git 20260207 from the gcc-15 branch.
+    - Fix PR tree-optimization/123513, PR target/123607 (x86), PR target/120250,
+      PR rtl-optimization/123523, PR tree-optimization/123431,
+      PR target/123489 (x86), PR middle-end/111817, PR rtl-optimization/119291,
+      PR rtl-optimization/121773, PR tree-optimization/123351,
+      PR tree-optimization/123372, PR target/123217 (x86),
+      PR target/123155 (x86), PR target/123460, PR rtl-optimization/123121,
+      PR middle-end/123392, PR target/123521 (loongarch), PR diagnostics/120063,
+      PR tree-optimization/123300, PR target/123484 (x86),
+      PR tree-optimization/123040, PR target/121192, PR target/121485 (RISCV),
+      PR tree-optimization/122868, PR debug/121964, PR ada/68179, PR ada/123589,
+      PR ada/123371, PR ada/123306, PR ada/123088, PR ada/123302, PR ada/123289,
+      PR ada/123185, PR ada/123060, PR analyzer/123085, PR analyzer/122975,
+      PR c/123156, PR c++/123331, PR c++/91388, PR c++/122772, PR c++/122834,
+      PR c++/121966, PR c++/116952, PR c++/122048, PR c++/121854, PR c++/122922,
+      PR libfortran/122936, PR libstdc++/122907, PR libstdc++/122812,
+      PR target/123092, PR target/117575 (loongarch), PR c++/122550,
+      PR c++/122070, PR target/123766 (loongarch), PR target/123807 (loongarch),
+      PR middle-end/123703, PR tree-optimization/123736, PR middle-end/123107,
+      PR tree-optimization/123741, PR tree-optimization/123602,
+      PR tree-optimization/122793, PR target/119130 (PPC),
+      PR target/123742 (ARM), PR ada/123902, PR ada/121316, PR ada/123867,
+      PR ada/123861, PR ada/123857, PR ada/123832, PR ada/123580,
+      PR c++/123676, PR c++/122494, PR c++/123814, PR c++/123597,
+      PR d/123264, PR d/123407, PR d/123046, PR d/123349, PR d/123419,
+      PR d/123798, PR d/121477, PR d/123422, PR d/120096, PR d/122817,
+      PR libstdc++/123147, PR target/123584 (AArch64), PR target/123779 (x86),
+      PR target/122051 (RISCV), PR target/120642 (RISCV),
+      PR target/123548 (AArch64), PR debug/123886, PR tree-optimization/123794,
+      PR middle-end/123775, PR tree-optimization/123729, PR middle-end/123575,
+      PR tree-optimization/123537, PR ipa/116296, PR tree-optimization/110043,
+      PR tree-optimization/109410, PR rtl-optimization/106859,
+      PR middle-end/123887, PR middle-end/123887, PR c++/122169, PR d/123633,
+      PR libstdc++/90192, PR libstdc++/114153.
+  * Don't complain about missing gccrs and gcobc man pages.
+  * Stop building multilibs for s390x. Closes: #1125358.
+  * Add again build dependency on python3-check-jsonschema, needed for tests.
+  * Fix D #22463: SOURCE_DATE_EPOCH parsing incorrectly affected by system
+    timezone. Closes: #1126512.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 07 Feb 2026 15:26:50 +0100
+
+gcc-15 (15.2.0-12) unstable; urgency=medium
+
+  * Update to git 20251217 from the gcc-15 branch.
+    - Fix PR target/123022 (RISCV), PR target/122652 (RISCV),
+      PR target/122656 (RISCV), PR ada/123138, PR ada/123060, PR ada/123096,
+      PR ada/123088, PR c/123018, PR c++/122752, PR c++/122668, PR c++/114764,
+      PR fortran/107406, PR fortran/122977, PR libstdc++/122907,
+      PR libstdc++/122812.
+    - libstdc++: Update tzdata to 2025c.
+  * Log the available disk space for the build.
+  * Build liblsan and libtsan on s390x.
+  * Update sanitizer symbols files.
+  * Disable the LTO build on loong64 (requested by Adrian Glaubitz).
+  * Enable PAC/BTI/GCS on arm64 for libgfortran (Emanuele Rocca).
+    Closes: #1123084.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 17 Dec 2025 17:52:48 +0100
+
+gcc-15 (15.2.0-11) unstable; urgency=medium
+
+  * Update to git 20251209 from the gcc-15 branch.
+    - Fix PR target/122991 (AArch64), PR tree-optimization/122943,
+      PR middle-end/120052, PR middle-end/120564, PR ada/123037, PR ada/115305,
+      PR middle-end/122624, PR c/121506, PR c++/121445, PR c++/120876,
+      PR lto/122515.
+  * Fix Algol-68 build on sparc64, patch taken from the trunk.
+  * Don't rely on python3-check-jsonschema for testing, still having
+    unpackaged dependencies.
+  * Add architectureVariant to ELF_PACKAGE_METADATA.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 09 Dec 2025 21:10:53 +0100
+
+gcc-15 (15.2.0-10) unstable; urgency=medium
+
+  * Update to git 20251202 from the gcc-15 branch.
+    - Fix PR target/122858 (ARM), PR target/110796 (ARM),
+      PR target/118446 (ARM), PR target/122867 (ARM), PR target/122692 (RISCV),
+      PR c++/122658, PR c++/121325, PR c++/122789, PR libstdc++/122921,
+      PR libstdc++/122842.
+  * Update algol68 to the gcc-15 branch 20251030.
+  * Fix some lintian warnings, override some more.
+  * Manage the libasan and libcc1 symbols files with the symbols helper.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 02 Dec 2025 14:07:24 +0100
+
+gcc-15 (15.2.0-9) unstable; urgency=medium
+
+  * Update to git 20251122 from the gcc-15 branch.
+    - Fix PR tree-optimization/122225, PR target/122695 (loongarch),
+      PR target/122539 (ARM), PR lto/122515, PR target/121853 (AArch64),
+      PR tree-optimization/121776, PR middle-end/121581,
+      PR rtl-optimization/122627, PR target/119275 (RISCV),
+      PR target/122216 (ARM), PR target/122175 (ARM), PR target/122189 (ARM),
+      PR target/122446 (x86), PR lto/122620, PR target/122097 (loongarch),
+      PR ada/111433, PR ada/122640, PR c++/120529, PR c++/119580,
+      PR c++/122677, PR c++/122625, PR fortran/122709, PR libstdc++/122743,
+      PR libstdc++/122726, PR libstdc++/122661.
+  * Build using amdgcn-tools-21 instead of -19.
+  * Update VCS attributes.
+  * Add libgcobol symbols file.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 22 Nov 2025 13:14:34 +0100
+
+gcc-15 (15.2.0-8) unstable; urgency=medium
+
+  * Update to git 20251111 from the gcc-15 branch.
+    - Fix PR tree-optimization/122012, PR target/99930 (x86),
+      PR target/122323 (x86), PR ada/118782 (closes: #749574), PR ada/81087,
+      PR c++/122302, PR target/118460 (ARM), PR target/122516 (AVR),
+      PR rtl-optimization/122321, PR target/122270 (RISCV, LP: #2126058),
+      PR target/122527 (AVR), PR tree-optimization/118012,
+      PR tree-optimization/122505, PR tree-optimization/122408,
+      PR tree-optimization/122394, PR target/120674 (RISCV),
+      PR target/121604 (AArch64), PR target/119079 (x86), PR ada/118208,
+      PR c++/122253, PR c++/122421, PR c++/122381, PR c++/122192,
+      PR c++/122310, PR fortran/114023, PR fortran/122386,
+      PR fortran/122206, PR fortran/107968.
+  * Bootstrap using GCC 15.
+  * Disable sframe generation for Ubuntu 26.04 LTS.
+  * Ignore some bootstrap comparison failures on sh4. Closes: #1119146.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 11 Nov 2025 03:02:32 +0100
+
+gcc-15 (15.2.0-7) unstable; urgency=medium
+
+  * Also exclude python3-check-jsonschema build dependency for x32.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 22 Oct 2025 11:45:23 +0200
+
+gcc-15 (15.2.0-6) unstable; urgency=medium
+
+  * Update to git 20251022 from the gcc-15 branch.
+    - Fix PR target/122223 (ARM), PR target/121599 (AArch64), PR go/104290,
+      PR target/122119 (x86), PR middle-end/122133, PR tree-optimization/122104,
+      PR tree-optimization/122213, PR target/121845 (RISCV), PR ada/107536,
+      PR c/122188, PR c++/120757, PR libstdc++/122322, PR libstdc++/122062.
+  * Limit python3-check-jsonschema dependency to architectures which
+    have rustc available. Closes: #1118541.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 22 Oct 2025 09:06:13 +0200
+
+gcc-15 (15.2.0-5) unstable; urgency=medium
+
+  * Update to git 20251009 from the gcc-15 branch.
+    - Fix PR target/121602 (AArch64), PR target/121464 (ARM),
+      PR target/121749 (AArch64), PR target/121906 (loongarch),
+      PR rtl-optimization/121757, PR c++/121801, PR c++/121795, PR c++/97740,
+      PR libstdc++/117276, PR target/121742 (RISCV), PR target/121780 (RISCV),
+      PR target/121781 (RISCV), PR target/110812 (RISCV),
+      PR target/121875 (loongarch), PR tree-optimization/121772,
+      PR middle-end/121922, PR c++/121977, PR middle-end/121828,
+      PR middle-end/121831, PR middle-end/121453, PR tree-optimization/122016,
+      PR tree-optimization/121870, PR tree-optimization/107997,
+      PR tree-optimization/121844, PR tree-optimization/121659,
+      PR tree-optimization/121527, PR tree-optimization/121370,
+      PR target/118280 (microblaze), PR ada/118343, PR ada/117517,
+      PR ada/121968, PR c++/122015, PR c++/122019, PR c++/121981,
+      PR c++/121524, PR c++/122019, PR c++/122015, PR fortran/121616,
+      PR fortran/121939, PR fortran/108581, PR fortran/89092,
+      PR libstdc++/121827, PR target/121652 (RISCV), PR target/122187 (AVR).
+  * Add build dependency on python3-check-jsonschema, needed for some tests.
+  * For Ubuntu 26.04 LTS s390x, bump the baseline to z15.
+  * Re-enable running the testsuite.
+  * Strip again the executables.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 09 Oct 2025 10:16:43 +0200
+
+gcc-15 (15.2.0-4) unstable; urgency=medium
+
+  * Update to git 20250911 from the gcc-15 branch.
+    - Fix PR target/121794 (AVR), PR c++/121724, PR libstdc++/110853,
+      PR libstdc++/121745, PR target/121794 (AVR), PR libstdc++/120698,
+      PR target/121510 (RISCV) LP: #2121522, PR target/81540 (AVR),
+      PR target/49857 (AVR), PR fortran/121263.
+    - Includes libgphobos build fixes for ppc64el and sparc64.
+  * Disable sframe generation for now, until sframe-v3 (binutils 2.46) is
+    released. Closes: #1114556.
+  * Build gnat again on m68k.
+  * Build libgphobos on sparc64.
+  * Fix libgphobos scanf decl for ppc64el.
+  * Update libgfortran, libga68 and libgphobos symbols files.
+  * Disable LTO builds for Debian/riscv64, builders are very slow.
+  * Update the gcc-search-prefixed-as-ld patch to find the correct as.
+    Still needs an update for collect2.cc. Addresses: #1113854.
+  * libstdc++-dev: Fix dependency on libc, when libstdc++ is not built.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 11 Sep 2025 06:56:06 +0200
+
+gcc-15 (15.2.0-3) unstable; urgency=medium
+
+  * Update to git 20250903 from the gcc-15 branch.
+    - Fix PR bootstrap/118009, PR bootstrap/119089, PR target/121548 (RISCV),
+      PR libstdc++/121374, PR libstdc++/121496, PR libstdc++/121097,
+      PR libstdc++/120390.
+  * Add two patches for newlib amdgcn:
+    - amdgcn, libm: Fix infinite loop.
+    - amdgcn, libm: Fix vector ilogb bugs (bug 33272).
+  * ga68, gcobol: Depend on libc-dev.
+  * Build full libgphobos on ppc64el for IEEE long double.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 04 Sep 2025 01:35:42 +0200
+
+gcc-15 (15.2.0-2) unstable; urgency=medium
+
+  * Update to git 20250828 from the gcc-15 branch.
+    - Fix PR rtl-optimization/120983, PR target/121634 (loongach),
+      PR target/121608 (AVR), PR target/121534 (RISCV),
+      PR target/121118 (AArch64), PR rtl-optimization/121253,
+      PR target/120986 (AArch64), PR target/120986 (AArch64),
+      PR target/121449 (AArch64), PR target/121542 (loongarch),
+      PR target/121414 (AArch64), PR target/121294 (AArch64),
+      PR rtl-optimization/120718, PR target/121007, PR target/119830 (RISCV),
+      PR target/121208 (x86), PR target/120476 (loongarch), PR c++/120499,
+      PR c++/121351, PR libgcc/117600, PR libfortran/121234,
+      PR libstdc++/121313, PR libstdc++/119861.
+  * Configure for the build variant on Ubuntu.
+  * Enable sframe generation with binutils 2.45 on amd64 and arm64 (pass
+    -Wa,--gsframe=no to disable). Enabled unless one of the options -m16,
+    -m32, -mx32 or -ffreestanding is used.
+  * riscv64: Configure for the RVA23U64 profile on Ubuntu 25.10 or later.
+  * libga68-dev: Install libga68.a
+  * Fix Algol-68 autopkg test.
+  * Fix PR target/119830 (riscv64), taken from the trunk.
+  * ga68: Link libga68 dynamically.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 28 Aug 2025 14:38:46 +0200
+
+gcc-15 (15.2.0-1) unstable; urgency=medium
+
+  * GCC 15.2.0 release.
+    - Fix PR target/96226 (x86).
+  * Update to git 20250810 from the gcc-15 branch.
+    - Fix PR middle-end/121389, PR tree-optimization/121413,
+      PR tree-optimization/121127, PR c++/121351, PR c++/119859, PR c++/120620,
+      PR c++/120845, PR libstdc++/121373, PR rtl-optimization/120983.
+  * Refresh patches.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 10 Aug 2025 11:52:24 +0200
+
+gcc-15 (15.1.0-11) experimental; urgency=medium
+
+  * Update to git 20250904 from the gcc-15 branch (15.2.0 release candidate).
+    - Fix PR middle-end/121095, PR target/120119 (AArch64),
+      PR tree-optimization/121202, PR tree-optimization/117423,
+      PR middle-end/119835, PR lto/120308, PR target/119737 (GCN),
+      PR target/121027 (AArch64). PR target/118891 (AArch64),
+      PR tree-optimization/118891, PR ada/121184, PR c++/120577,
+      PR c++/121055, PR c++/120412, PR fortran/121203, PR fortran/121145,
+      PR modula2/121164, PR target/119853, PR target/119854,
+      PR middle-end/119835, PR lto/120308, PR target/120530,
+      PR target/119692, PR target/119853, PR target/119854,
+      PR target/119737, PR target/118794, PR libstdc++/119962,
+      PR target/120351 (ARM), PR tree-optimization/121323,
+      PR tree-optimization/121320, PR middle-end/121322,
+      PR rtl-optimization/121340, PR target/121028 (AArch64),
+      PR tree-optimization/121256, PR target/121121 (RISCV),
+      PR tree-optimization/121264, PR ipa/114790, PR tree-optimization/121256,
+      PR tree-optimization/121130, PR tree-optimization/121190,
+      PR target/120427 (x86), PR target/121274 (x86), PR target/120645,
+      PR tree-optimization/119085, PR middle-end/121159, PR target/121277,
+      PR target/121064 (loongarch), PR target/120714 (RISCV), PR ada/120440,
+      PR c/120055, PR c/119950, PR c/120354, PR c/120353, PR cobol/119231,
+      PR cobol/120402, PR cobol/120621, PR cobol/120765, PR cobol/120765,
+      PR cobol/119337, PR cobol/120794, PR cobol/120772, PR cobol/120779,
+      PR cobol/120790, PR cobol/120791, PR cobol/120794, PR cobol/120621,
+      PR cobol/120328, PR cobol/119695, PR cobol/119975, PR cobol/119770,
+      PR cobol/119772, PR cobol/119790, PR cobol/119771, PR cobol/119810,
+      PR cobol/119335, PR cobol/119632, PR cobol/119337, PR cobol/119217,
+      PR cobol/119364, PR c++/108080, PR c++/121238, PR c++/120800,
+      PR c++/120224, PR c++/120756, PR c++/121133, PR c++/121219, PR c++/115908,
+      PR c++/118074, PR c++/95615, PR c++/120273, PR c++/116775, PR c++/120495,
+      PR c++/115605, PR c++/118903, PR c++/109283, PR c++/119916, PR c++/120453,
+      PR fortran/119106.
+  * Fix broken ada timespec record with -D_TIME_BITS=64 on 32-bit big-endian
+    targets (John David Anglin). Addresses: #1108322.
+    Only apply this patch for 32bit big-endian targets.
+  * LRA support on sh4, documentation (Adrian Glaubitz).
+  * Update Algol-68 to the gcc-15-a68 branch.
+  * Configure with --enable-checking=release.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 04 Aug 2025 11:42:09 +0200
+
+gcc-15 (15.1.0-10) experimental; urgency=medium
+
+  * Update to git 20250719 from the gcc-15 branch.
+    - Fix PR target/120356 (RISCV), PR target/120995 (RISCV),
+      PR ipa/121023, PR tree-optimization/120780, PR tree-optimization/120358,
+      PR tree-optimization/118669, PR tree-optimization/120817,
+      PR tree-optimization/120927, PR tree-optimization/120944,
+      PR middle-end/120369, PR rtl-optimization/120795,
+      PR rtl-optimization/120550, PR tree-optimization/120927,
+      PR middle-end/120608, PR tree-optimization/120729,
+      PR tree-optimization/120654, PR target/120624 (AArch64),
+      PR rtl-optimization/120347, PR middle-end/120608, PR middle-end/120631,
+      PR target/119971 (RISCV), PR tree-optimization/120677,
+      PR rtl-optimization/120423, PR rtl-optimization/116389, PR c/120837,
+      PR c++/120628, PR c++/120569, PR c++/120575, PR c++/116064,
+      PR c++/120940, PR c++/120684, PR c++/118856, PR c++/120471,
+      PR fortran/120843, PR fortran/120847, PR fortran/120843,
+      PR fortran/120711, PR fortran/120784, PR fortran/120784,
+      PR fortran/119948, PR fortran/51961, PR modula2/120253,
+      PR libstdc++/119754, PR libstdc++/120997, PR libstdc++/118681,
+      PR libstdc++/120934, PR libstdc++/120931, PR libstdc++/120648,
+      PR libstdc++/120650, PR middle-end/120935, PR tree-optimization/120924,
+      PR tree-optimization/121059, PR tree-optimization/121049,
+      PR tree-optimization/121035, PR tree-optimization/121131,
+      PR target/120807 (loongarch), PR middle-end/120709,
+      PR target/120999 (AArch64), PR rtl-optimization/120242,
+      PR rtl-optimization/120627, PR rtl-optimization/120736,
+      PR rtl-optimization/120813, PR target/118241 (RISCV),
+      PR target/118241 (RISCV), PR target/120908 (x86), PR target/120908 (x86),
+      PR ada/121056, PR fortran/121060, PR fortran/104428, PR fortran/120637,
+      PR modula2/121164, PR modula2/120912, PR modula2/117203,
+      PR modula2/120731, PR modula2/120673, PR modula2/119650,
+      PR modula2/120606, PR modula2/119650, PR modula2/120542,
+      PR modula2/120474, PR modula2/120497, PR modula2/120389.
+  * Enable LRA support on sh4 (Adrian Glaubitz). Closes: #1108158.
+  * Fix NaN signalling bit and propagation rules on sh4 (Adrian Glaubitz).
+    Closes: #1109115.
+  * Drop obsolete ia64-disable-selective-scheduling patch (Adrian Glaubitz).
+    Closes: #1108247.
+  * Enable algol on sh4 (Adrian Glaubitz). Closes: #1108261.
+  * RISC-V: Minimal support for ssnpm, smnpm and smmpm extensions (taken from
+    the trunk, Heinrich Schuchardt). LP: #2116120.
+  * RISC-V: Bump to the RVA23U64 extension profile for Ubuntu 25.10 and later
+    (Heinrich Schuchardt). LP: #2116086.
+  * Enable -fzero-init-padding-bits=all, -Wbidi-chars=any for Ubuntu 25.10
+    and later. LP: #2108968.
+  * Bump standards version.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 19 Jul 2025 16:56:42 +0200
+
+gcc-15 (15.1.0-8) experimental; urgency=medium
+
+  * Update to git 20250614 from the gcc-15 branch.
+    - Fix PR tree-optimization/120638, PR middle-end/120547, PR ipa/120295,
+      PR target/120042 (RISCV), PR rtl-optimization/120050, PR c++/120555,
+      PR c++/120502, PR fortran/120483, PR libstdc++/120625,
+      PR libstdc++/99832, PR libstdc++/120548.
+  * Remove the distro specific patch for PR libstdc++/99832.
+  * Build c++ for the amdgcn offload compiler.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 16 Jun 2025 19:21:02 +0200
+
+gcc-15 (15.1.0-7) experimental; urgency=medium
+
+  * Fix applying the gcc-m68k-no-fold-mem-offsets patches.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 09 Jun 2025 15:31:57 +0200
+
+gcc-15 (15.1.0-6) experimental; urgency=medium
+
+  * Update to git 20250609 from the gcc-15 branch.
+    - Fix PR tree-optimization/120357, PR tree-optimization/120341,
+      PR rtl-optimization/120182, PR tree-optimization/120003,
+      PR tree-optimization/119960, PR tree-optimization/116352,
+      PR target/86772 (microblaze), PR c/120180, PR c++/120123, PR c/120180,
+      PR c++/120413, PR c++/120363, PR c++/120414, PR fortran/99838,
+      PR fortran/102599, PR fortran/114022, PR fortran/101735,
+      PR fortran/101735, PR fortran/120193, PR fortran/120049,
+      PR fortran/120355, PR target/120442 (AVR), PR target/120441 (AVR),
+      PR libfortran/119856, PR middle-end/118694, PR middle-end/118694,
+      PR libstdc++/120432, PR libstdc++/120465, PR libstdc++/120367.
+  * Don't default to -ffold-mem-offsets on m68k (Adrian Glaubitz).
+    Closes: #1107416.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 09 Jun 2025 13:27:55 +0200
+
+gcc-15 (15.1.0-5) experimental; urgency=medium
+
+  * Update to git 20250523 from the gcc-15 branch.
+    - Fix PR modula2/120188, PR ipa/120146, PR tree-optimization/120143,
+      PR tree-optimization/120089, PR tree-optimization/120043,
+      PR c++/120161, PR c++/120125, PR c++/119864, PR c++/120012,
+      PR fortran/120139, PR fortran/120163, PR fortran/120191,
+      PR fortran/119928, PR modula2/120117, PR modula2/119915,
+      PR modula2/119914, PR libfortran/120196, PR modula2/115276,
+      PR libstdc++/120187, PR libstdc++/120198, PR libstdc++/119714,
+      PR libstdc++/112490, PR libstdc++/119427, PR libstdc++/118260,
+      PR tree-optimization/111873, PR c++/120013, PR c++/120350,
+      PR fortran/85750, PR fortran/102891, PR fortran/120049,
+      PR libstdc++/120293, PR libstdc++/120029, PR libstdc++/120190.
+  * Fix amdgcn-tools dependency generation for snapshot builds.
+  * d/copyright*: Update for new binary packages.
+  * Disable testsuite again on Debian/alpha.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 23 May 2025 19:08:37 +0200
+
+gcc-15 (15.1.0-4) experimental; urgency=medium
+
+  * Update to git 20250510 from the gcc-15 branch.
+    - Fix PR ipa/119852, PR tree-optimization/120048, PR ipa/120006,
+      PR tree-optimization/120074, PR ada/120104, PR c++/120012,
+      PR fortran/120179, PR fortran/119986, PR fortran/102900,
+      PR preprocessor/108900, PR preprocessor/116047, PR preprocessor/120061,
+      PR libfortran/120158, PR libfortran/120153, PR libfortran/120152,
+      PR libstdc++/120159, PR libstdc++/120114.
+
+  [ Matthias Klose ]
+  * Backport PR cobol/119364, taken from the trunk.
+  * Build cobol cross compiler again on i686.
+
+  [ Nicolas Boulenguez ]
+  * Replace tabulations with spaces in rules.defs. Closes: #1104665.
+  * Ada: shorten ada-gcc-name.diff, remove pr79724-revert.diff.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 10 May 2025 09:25:21 +0200
+
+gcc-15 (15.1.0-3) experimental; urgency=medium
+
+  * Update to git 20250503 from the gcc-15 branch.
+    - Fix PR c/120057.
+    - libsanitizer: Fix build with glibc 2.42.
+  * Disable profiled bootstrap on Debian/armhf. See PR target/119937.
+  * gnat: Add gnat-N-<triplet> conflicts. Closes: #1063664.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 03 May 2025 22:05:51 +0200
+
+gcc-15 (15.1.0-2) experimental; urgency=medium
+
+  * Update to git 20250502 from the gcc-15 branch.
+    - Fix PR target/119610 (AArch64), PR c++/119939, PR c++/119863,
+      PR tree-optimization/119712, PR ada/112958, PR c++/120023, PR c++/119938,
+      PR c++/119551, PR c++/119996, PR c++/119981, PR c++/119378.
+  * Update Algol-68 to the a86-gcc-15 branch.
+  * Update libasan, libga68 and libobjc symbols.
+  * Fix multilib installation for PR libstdc++/103382.
+  * Enable running the tests again.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 02 May 2025 09:30:32 +0200
+
+gcc-15 (15.1.0-1) experimental; urgency=medium
+
+  * GCC 15.1.0 release.
+  * Update to git 20250426 from the gcc-15 branch.
+  * Provide local unversioned symlinks gnatmake and gnatbind for the build.
+  * Update Algol 68 from the a68-15 branch.
+  * Don't install the gcobol-io man page for cross builds. Closes: #1103019.
+  * Update NEWS files.
+  * Don't build cobol cross compiler on 32bit archs, PR cobol/119364 needs an
+    update.
+  * Refresh patches.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 26 Apr 2025 03:22:52 +0200
+
+gcc-15 (15-20250423-1) experimental; urgency=medium
+
+  * Snapshot, taken from the gcc-15 branch (20250423).
+
+  [ Matthias Klose ]
+  * Install the libgcobol.spec file.
+  * Fix source-path in the installed libstdc++.modules.json. Closes: #1102350.
+  * On ppc64el configure --with-long-double-format=ieee for upcoming distros.
+  * Update libga68 symbols.
+  * Address PR libstdc++/103382, when not building the common libs, install
+    the library in the gcc_lib_dir to link against the libstdc++ from this
+    GCC version.
+  * Build cobol on riscv64.
+
+  [ Nicolas Boulenguez ]
+  * Ada patches: refresh ada-749574, update pr114065/#1092866 to v15,
+    complete ada-gnat-names.  Addresses: #1078144.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 23 Apr 2025 16:20:46 +0200
+
+gcc-15 (15-20250406-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20250406).
+  * Update the ag68 branch to 20250405.
+  * Add libgccjit-doc conflict. Closes: #1101750.
+  * libga68-doc: Remove not needed doc link. Closes: #1101749.
+  * Build cobol on ppc64el.
+  * Build cobol cross compilers.
+  * d/copyright: Add licenses for vendored crates.
+  * Apply proposed patch for PR cobol/119364, non LP64 builds.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 06 Apr 2025 10:48:32 +0200
+
+gcc-15 (15-20250329-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk (20250329).
+  * Update the ag68 branch to 20250322.
+  * Don't run the tests on the Hurd, timing out.
+  * Fix GCN SIMD libm bug, taken from newlib upstream.
+  * Refresh patches.
+  * Re-enable profiled and LTO build.
+
+ -- Matthias Klose <doko@ubuntu.com>  Sat, 29 Mar 2025 10:31:23 +0100
+
+gcc-15 (15-20250319-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250319.
+    - Fix building gcobol cross compilers.
+  * Fix libga68 build on the Hurd.
+  * Fix gccrs build, see PR rust/119353.
+  * Don't build gcobol on arc.
+
+ -- Matthias Klose <doko@debian.org>  Wed, 19 Mar 2025 12:38:10 +0100
+
+gcc-15 (15-20250315-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250315.
+  * Let the gcobol compiler depend on the g++ compiler.
+  * Update the Algol 68 patch.
+  * Bump libgo soname again.
+  * Reset the libgcobol soname after the upstream merge.
+  * Update libgphobos symbols file.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 15 Mar 2025 02:37:08 +0100
+
+gcc-15 (15-20250220-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250220.
+  * Add packages for Algol 68.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 20 Feb 2025 15:50:14 +0100
+
+gcc-15 (15-20250213-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250213.
+  * Disable the gnat build on m68k. See PR target/118485.
+  * Apply workaround for PR target/118248 (riscv64).
+
+ -- Matthias Klose <doko@debian.org>  Thu, 13 Feb 2025 11:16:17 +0100
+
+gcc-15 (15-20250208-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250208.
+  * Disable building the riscv64 gdc cross compiler on s390x. See PR118248.
+  * Build using amdgcn-tools-19 instead of -18.
+  * Build a libgccjit package, which is not conflicting with the installed
+    default compiler (libgccjit15).
+
+ -- Matthias Klose <doko@debian.org>  Sat, 08 Feb 2025 14:43:15 +0100
+
+gcc-15 (15-20250203-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250203.
+  * d/p/libphobos-no-REUSEPORT.diff: Drop, fixed upstream.
+
+ -- Matthias Klose <doko@debian.org>  Mon, 03 Feb 2025 10:45:47 +0100
+
+gcc-15 (15-20250130-2) experimental; urgency=medium
+
+  * Fix installation of sarif-reply.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 30 Jan 2025 21:38:18 +0100
+
+gcc-15 (15-20250130-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250130.
+  * Apply proposed patches for PR c++/116506 and PR c++/116914.
+  * Constrain the lib32<lib> conflicts to non-mips architectures.
+  * Fix nroff warnings for gcc-TOOL manpages (Bjarni Ingi Gislason).
+    Addresses: #1094299, #1094300, #1094302.
+  * Revert the libgo soname bump. No changes for libgo in GCC 15.
+  * Only pass --enable-multiarch once for staged builds (Helmut Grohne)
+    Closes: #1094387.
+  * Configure with --disable-libgcobol for stage1 and stage2 builds.
+
+ -- Matthias Klose <doko@debian.org>  Thu, 30 Jan 2025 12:34:33 +0100
+
+gcc-15 (15-20250114-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250114.
+  * Re-enable the 64bit time_t Ada patches, somehow uninformed update.
+  * d/p/libphobos-no-REUSEPORT.diff, revert upstream commit to fix ftbfs.
+
+ -- Matthias Klose <doko@debian.org>  Tue, 14 Jan 2025 10:43:44 +0100
+
+gcc-15 (15-20250112-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20250112.
+
+  [ Nicolas Boulenguez ]
+  * Ada: remove 'Provides: gnat-V-HASH' from gnat-V (keep it in gnat-V-TARGET).
+
+  [ Matthias Klose ]
+  * Update newlib to 4.5.0.20241231.
+  * Only provide the gnat-V-HASH for native compilers.
+  * Apply proposed patch for PR/rtl-optimization 118266.
+  * Disable the 64bit time_t Ada patches for now, fail to apply.
+  * Enable the testsuite on alpha again.
+  * Add lib32<lib> conflicts for libn32<lib> packages. Addresses: #1092571.
+  * Update libgphobos symbols files.
+  * Remove invalid gcobol packages from the control file.
+
+ -- Matthias Klose <doko@debian.org>  Sun, 12 Jan 2025 11:48:38 +0100
+
+gcc-15 (15-20241231-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20241231.
+  * Drop the package-metadata spec, now implemented in the linkers.
+  * Fix check for assembler section merging support on ARM, see binutils
+    PR ld/32491.
+  * Add conflicts for libstdc++ -doc and -dbg packages. Closes: #1091354.
+
+ -- Matthias Klose <doko@debian.org>  Sat, 21 Dec 2024 12:13:58 +0100
+
+gcc-15 (15-20241220-1) experimental; urgency=medium
+
+  * Snapshot, taken from the trunk 20241220.
+  * Fix amdgcn-tools links for the amdgcn offload install.
+  * Apply proposed patch for PR libgomp/117851.
+  * Build-depend on git, needed for the gotools tests.
+  * Don't run the libgo tests for multilibs, that cannot run.
+  * Don't run the gnat and gm2 tests for multilibs, which are not built.
+  * Run the tests sequentially on architectures with failing builds.
+  * Run the logwatch check on almost all architectures.
+  * Remove the ada-nobiarch-check patch, superseded.
+  * Refresh patches.
+  * Bump standards version.
+  * Rewrite the logwatch script to look at all log files.
+  * Fix libphobos testsuite with sbuild's unshare backend. Addresses: #1089007.
+  * PR sanitizer/117725: Pull libsanitizer patch from LLVM for s390x/-m31.
+  * Add proposed gcobol patches, build gcobol and libgcobol packages.
+  * Update debian copyright for gcobol.
+  * Add missing build dependency on gnat [hurd-amd64] (Samuel Thibault).
+    Addresses: #1089930.
+  * Use GCC 14 as build dependency except on m68k.
+  * Build with --enable-checking=yes,extra,rtl.
+  * Disable building gccrs on the Hurd.
+  * d/control: Add Rules-Requires-Root: binary-targets. Too late for trixie.
+  * Restrict gcobol autopkg test to arm64, amd64 and ppc64el.
+  * Revert Yun's config-ml.in upstream patch, trying to unbreak cross builds.
+  * Apply proposed patch for PR modula2/118045.
+  * Build cobol only on amd64, arm64 and ppc64el.
+  * Disable pgo/lto builds for now.
+  * Drop the package-metadata spec, now implemented in the linkers.
+
+ -- Matthias Klose <doko@debian.org>  Fri, 20 Dec 2024 19:28:09 +0100
+
 gcc-15 (15-20241128-1) experimental; urgency=medium
 
   * Snapshot, taken from the trunk 20241128.

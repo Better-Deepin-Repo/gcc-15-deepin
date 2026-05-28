@@ -6,11 +6,9 @@
  gcc/doc/invoke.texi |    7 +++++++
  1 files changed, 7 insertions(+), 0 deletions(-)
 
-Index: b/src/gcc/doc/invoke.texi
-===================================================================
 --- a/src/gcc/doc/invoke.texi
 +++ b/src/gcc/doc/invoke.texi
-@@ -24169,6 +24169,13 @@ able to correctly support denormalized n
+@@ -26304,6 +26304,13 @@ able to correctly support denormalized n
  values such as not-a-number and plus/minus infinity.  Other Alpha
  compilers call this option @option{-ieee_with_no_inexact}.
  

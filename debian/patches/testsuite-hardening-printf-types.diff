@@ -2,8 +2,6 @@
 # DP: Author: Kees Cook <kees@ubuntu.com>
 # DP: Ubuntu: https://bugs.launchpad.net/bugs/344502
 
-Index: b/src/gcc/testsuite/g++.dg/ext/align1.C
-===================================================================
 --- a/src/gcc/testsuite/g++.dg/ext/align1.C
 +++ b/src/gcc/testsuite/g++.dg/ext/align1.C
 @@ -16,6 +16,7 @@ float f1 __attribute__ ((aligned));
@@ -15,8 +13,6 @@ Index: b/src/gcc/testsuite/g++.dg/ext/align1.C
 +  printf ("%p %p\n", (void*)__alignof (a1), (void*)__alignof (f1));
    return (__alignof (a1) < __alignof (f1));
  }
-Index: b/src/gcc/testsuite/g++.old-deja/g++.law/operators28.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.law/operators28.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.law/operators28.C
 @@ -14,7 +14,8 @@ void* new_test::operator new(size_t sz,
@@ -29,8 +25,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.law/operators28.C
  
    p = new char[sz * count];
    ((new_test *)p)->type = type;
-Index: b/src/gcc/testsuite/gcc.dg/torture/matrix-2.c
-===================================================================
 --- a/src/gcc/testsuite/gcc.dg/torture/matrix-2.c
 +++ b/src/gcc/testsuite/gcc.dg/torture/matrix-2.c
 @@ -42,7 +42,7 @@ main (int argc, char **argv)
@@ -68,11 +62,9 @@ Index: b/src/gcc/testsuite/gcc.dg/torture/matrix-2.c
            /*for (k = 0; k < ARCHnodes1; k++)
  	    {
  	      vel[i][j][k] = d;
-Index: b/src/gcc/testsuite/gcc.dg/packed-vla.c
-===================================================================
 --- a/src/gcc/testsuite/gcc.dg/packed-vla.c
 +++ b/src/gcc/testsuite/gcc.dg/packed-vla.c
-@@ -18,8 +18,8 @@ int func(int levels)
+@@ -17,8 +17,8 @@ int func(int levels)
      int			b[4];
    } __attribute__ ((__packed__)) foo;
  
@@ -83,8 +75,6 @@ Index: b/src/gcc/testsuite/gcc.dg/packed-vla.c
  
    if (sizeof (foo) != sizeof (bar))
      abort ();
-Index: b/src/gcc/testsuite/g++.dg/opt/alias2.C
-===================================================================
 --- a/src/gcc/testsuite/g++.dg/opt/alias2.C
 +++ b/src/gcc/testsuite/g++.dg/opt/alias2.C
 @@ -30,14 +30,14 @@ public:
@@ -104,8 +94,6 @@ Index: b/src/gcc/testsuite/g++.dg/opt/alias2.C
  
    _M_start._M_node = &yy;
    _M_start._M_cur = yy;
-Index: b/src/gcc/testsuite/g++.old-deja/g++.abi/vbase1.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.abi/vbase1.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.abi/vbase1.C
 @@ -33,7 +33,7 @@ struct VBase
@@ -169,8 +157,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.abi/vbase1.C
      dum.MostDerived::Offset ();
      dum.B::Offset ();
      dum.VDerived::Offset ();
-Index: b/src/gcc/testsuite/g++.old-deja/g++.brendan/template8.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.brendan/template8.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.brendan/template8.C
 @@ -15,6 +15,6 @@ int main(){
@@ -181,8 +167,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.brendan/template8.C
 +	printf(" &heap.array[0] = %p, &heap.for_alignt = %p\n", (void*)&heap.array[0], (void*)&heap.for_alignt);
  
  }
-Index: b/src/gcc/testsuite/g++.old-deja/g++.eh/ptr1.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.eh/ptr1.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.eh/ptr1.C
 @@ -16,7 +16,7 @@ int main()
@@ -194,8 +178,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.eh/ptr1.C
      return !((__SIZE_TYPE__)e != 5 && e->x == 5);
    }
    return 2;
-Index: b/src/gcc/testsuite/g++.old-deja/g++.jason/access23.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.jason/access23.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.jason/access23.C
 @@ -42,19 +42,19 @@ public:
@@ -248,8 +230,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.jason/access23.C
 -  printf("%x\n",a.PRV.pZ);  	// { dg-error "" } 
 +  printf("%p\n",a.PRV.pZ);  	// { dg-error "" } 
  }
-Index: b/src/gcc/testsuite/g++.old-deja/g++.law/cvt8.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.law/cvt8.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.law/cvt8.C
 @@ -20,12 +20,12 @@ struct B {
@@ -267,8 +247,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.law/cvt8.C
  }
  
  int main() {
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/net35.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/net35.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/net35.C
 @@ -17,10 +17,10 @@ public:
@@ -286,8 +264,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/net35.C
    if (&c.x != &c.B1::x
        || &c.x != &c.B2::x
        || &c.x != &c.A::x)
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/offset1.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/offset1.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/offset1.C
 @@ -6,7 +6,7 @@ int fail = 0;
@@ -308,8 +284,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/offset1.C
      vp = (void*)(Foo*)this;
      setName();
    }
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p12306.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p12306.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p12306.C
 @@ -18,7 +18,7 @@ public:
@@ -340,8 +314,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p12306.C
    if (ptr1 != (RWSlistIterator*)&last_posted_event_position_)
      fail = 3;
    if (ptr2 != &((RWSlistIterator&)last_posted_event_position_).slist)
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3579.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p3579.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p3579.C
 @@ -7,26 +7,26 @@ int num_x;
@@ -377,8 +349,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3579.C
  };
  
  int main (int, char **) {
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708a.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p3708a.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708a.C
 @@ -38,7 +38,7 @@ public:
@@ -390,8 +360,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708a.C
      printf ("C is destructed.\n");
      B::xx (0);
      if (doit) A::xx (1);
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708b.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p3708b.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708b.C
 @@ -48,7 +48,7 @@ public:
@@ -403,8 +371,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708b.C
        exit(1);
      }
      printf ("D is destructed.\n");
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p3708.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708.C
 @@ -38,7 +38,7 @@ public:
@@ -416,8 +382,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p3708.C
      printf ("C is destructed.\n");
      B::xx (0);
      if (doit) A::xx (1);
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p646.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p646.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p646.C
 @@ -35,20 +35,20 @@ int foo::si = 0;
@@ -444,11 +408,9 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p646.C
  }
  
  int
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p710.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p710.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p710.C
-@@ -30,7 +30,7 @@ class B
+@@ -32,7 +32,7 @@ class B
     virtual ~B() {}
     void operator delete(void*,size_t s)
    {
@@ -457,8 +419,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p710.C
     }
     void operator delete(void*){}
  };
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p789a.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/p789a.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/p789a.C
 @@ -13,10 +13,10 @@ struct foo
@@ -483,8 +443,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/p789a.C
  	  }
        }
        // The count should be nine, if not, fail the test.
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/pmf2.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/pmf2.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/pmf2.C
 @@ -42,7 +42,7 @@ B_table b;
@@ -496,8 +454,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/pmf2.C
    B_table::B_ti_fn z = &B_table::func1;
    int j = 1;
    jar.call_fn_fn1(j,(void *)&z);
-Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/temp.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.mike/temp.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.mike/temp.C
 @@ -7,11 +7,11 @@ class T {
@@ -523,8 +479,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.mike/temp.C
  } s, b;
  
  int foo() { return getenv("TEST") == 0; }
-Index: b/src/gcc/testsuite/g++.old-deja/g++.other/temporary1.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.other/temporary1.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.other/temporary1.C
 @@ -5,16 +5,16 @@ int c, d;
@@ -548,8 +502,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.other/temporary1.C
  };
  
  void fakeRef(Bar *)
-Index: b/src/gcc/testsuite/g++.old-deja/g++.other/virtual8.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.other/virtual8.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.other/virtual8.C
 @@ -4,7 +4,7 @@ extern "C" int printf (const char*, ...)
@@ -561,8 +513,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.other/virtual8.C
    }
  };
  
-Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp23.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp23.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp23.C
 @@ -13,7 +13,7 @@ struct S
@@ -574,8 +524,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp23.C
  
    int c[16];
  };
-Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp24.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp24.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp24.C
 @@ -13,7 +13,7 @@ struct S
@@ -587,8 +535,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp24.C
  
    int c[16];
  };
-Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp25.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp25.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp25.C
 @@ -6,7 +6,7 @@ template <class X>
@@ -600,8 +546,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp25.C
  
    int i[4];
  };
-Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp26.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp26.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp26.C
 @@ -16,7 +16,7 @@ template <class X>
@@ -613,8 +557,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/memtemp26.C
  }
  
  
-Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/t39.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.pt/t39.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.pt/t39.C
 @@ -10,9 +10,9 @@ struct frob {
@@ -630,8 +572,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.pt/t39.C
  }
  
    static int x[10];
-Index: b/src/gcc/testsuite/g++.old-deja/g++.robertl/eb17.C
-===================================================================
 --- a/src/gcc/testsuite/g++.old-deja/g++.robertl/eb17.C
 +++ b/src/gcc/testsuite/g++.old-deja/g++.robertl/eb17.C
 @@ -44,15 +44,15 @@ int main()
@@ -653,8 +593,6 @@ Index: b/src/gcc/testsuite/g++.old-deja/g++.robertl/eb17.C
      a->print();                      // (*1*)
  
      return 0;
-Index: b/src/gcc/testsuite/gcc.dg/pch/inline-4.c
-===================================================================
 --- a/src/gcc/testsuite/gcc.dg/pch/inline-4.c
 +++ b/src/gcc/testsuite/gcc.dg/pch/inline-4.c
 @@ -1,6 +1,6 @@

@@ -57,6 +57,10 @@ DEB_BUILD_ARCH		?= $(call vafilt,$(DPKG_VARS),DEB_BUILD_ARCH)
 DEB_BUILD_GNU_TYPE	?= $(call vafilt,$(DPKG_VARS),DEB_BUILD_GNU_TYPE)
 DEB_BUILD_MULTIARCH	?= $(call vafilt,$(DPKG_VARS),DEB_BUILD_MULTIARCH)
 DEB_HOST_ARCH		?= $(call vafilt,$(DPKG_VARS),DEB_HOST_ARCH)
+DEB_HOST_ARCH_ABI	?= $(call vafilt,$(DPKG_VARS),DEB_HOST_ARCH_ABI)
+DEB_HOST_ARCH_BITS	?= $(call vafilt,$(DPKG_VARS),DEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_ENDIAN	?= $(call vafilt,$(DPKG_VARS),DEB_HOST_ARCH_ENDIAN)
+DEB_HOST_ARCH_LIBC	?= $(call vafilt,$(DPKG_VARS),DEB_HOST_ARCH_LIBC)
 DEB_HOST_GNU_CPU	?= $(call vafilt,$(DPKG_VARS),DEB_HOST_GNU_CPU)
 DEB_HOST_GNU_SYSTEM	?= $(call vafilt,$(DPKG_VARS),DEB_HOST_GNU_SYSTEM)
 DEB_HOST_GNU_TYPE	?= $(call vafilt,$(DPKG_VARS),DEB_HOST_GNU_TYPE)
@@ -104,6 +108,16 @@ ifneq (,$(filter parallel=%,$(subst $(COMMA), ,$(DEB_BUILD_OPTIONS))))
   USE_CPUS := $(subst parallel=,,$(filter parallel=%,$(subst $(COMMA), ,$(DEB_BUILD_OPTIONS))))
   NJOBS := -j $(USE_CPUS)
   NJOBS_TESTS := -j $(USE_CPUS)
+  # this is for debugging hanging tests on the buildds
+#  ifeq ($(derivative),Ubuntu)
+#    ifneq (,$(filter $(DEB_HOST_ARCH), arm64))
+#      NJOBS_TESTS := -j 1
+#    endif
+#  else
+#    ifneq (,$(filter $(DEB_HOST_ARCH), amd64 armhf armel arm64 i386 riscv64 s390x))
+#      NJOBS_TESTS := -j 1
+#    endif
+#  endif
 endif
 
 CPUS_LTOLINK := $(if $(filter 1, $(USE_CPUS)),1,$(shell expr $(USE_CPUS) / 2))
@@ -198,6 +212,7 @@ ifeq (,$(ELF_PACKAGE_METADATA))
 	"name":"$(PKGSOURCE)", \
 	"version":"$(DEB_VERSION)", \
 	"architecture":"$(DEB_HOST_ARCH)" \
+	$(if $(DEB_HOST_ARCH_VARIANT),$(COMMA)"architectureVariant":"$(DEB_HOST_ARCH_VARIANT)") \
 	$(if $(DEB_BUILD_DEBUG_INFO_URL),$(COMMA)"debugInfoUrl":"$(DEB_BUILD_DEBUG_INFO_URL)") \
     })
   export ELF_PACKAGE_METADATA
@@ -348,6 +363,10 @@ ifeq ($(trunk_build),yes)
   ifneq (,$(filter $(DEB_HOST_ARCH), alpha ia64 mips64el hurd-amd64))
     with_lto_build :=
   endif
+
+  # disable for testing purposes
+  with_bootstrap :=
+  with_lto_build :=
 endif
 
 ifneq ($(trunk_build),yes)
@@ -357,6 +376,10 @@ ifneq ($(trunk_build),yes)
         ifneq (,$(filter $(DEB_HOST_ARCH), amd64 i386 armhf arm64 powerpc ppc64 ppc64el s390x sparc64))
           with_bootstrap := profiled
         endif
+        # PR target/119937
+        #ifeq ($(distribution)-$(DEB_HOST_ARCH),Debian-armhf)
+        #  with_bootstrap :=
+        #endif
       endif
     endif
   endif
@@ -376,16 +399,21 @@ ifneq ($(trunk_build),yes)
   ifneq (,$(filter $(DEB_HOST_ARCH), alpha hppa ia64 m68k mips mipsel mips64el sh4 sparc64 hurd-amd64 hurd-i386))
     with_lto_build :=
   endif
+  # Slow builders in Debian
+  ifeq ($(distribution)-$(DEB_HOST_ARCH),Debian-riscv64)
+    with_lto_build :=
+  endif
 
   # FIXME: newer binutils needed?
   ifneq (,$(filter $(distrelease),stretch precise trusty xenial bionic focal))
     with_bootstrap :=
     with_lto_build :=
   endif
-endif
 
-with_bootstrap := disabled for GCC 15
-with_lto_build := disabled for GCC 15
+  # disable for testing purposes
+  #with_bootstrap :=
+  #with_lto_build :=
+endif
 
 ifneq ($(findstring nostrap, $(DEB_BUILD_OPTIONS)),)
   with_bootstrap := off
@@ -547,21 +575,38 @@ else ifneq (,$(filter $(DEB_TARGET_ARCH), arm armel))
   float_abi := soft
 endif
 
+sframe_archs = amd64 arm64
+no_sframe_distreleases = jessy stretch buster bullseye bookworm trixie \
+	forky \
+	precise trusty xenial bionic focal jammy kinetic lunar mantic \
+	noble oracular plucky questing resolute
+ifneq (,$(filter $(DEB_TARGET_ARCH), $(sframe_archs)))
+  ifeq (,$(filter $(distrelease),$(no_sframe_distreleases)))
+    with_sframe = yes
+  endif
+endif
+
+# turn off sframe everywhere, don't enabled before SFrame V3
+with_sframe =
+
+ppc64el_ibm128_distreleases = jessie stretch buster bullseye bookworm trixie \
+	precise xenial bionic focal jammy noble oracular plucky
+
 # -------------------------------------------------------------------
 # basic config
 
 # allows to write backtraces for ICEs
 #unstripped_exe = yes
-#ifneq (,$(filter $(DEB_TARGET_ARCH), amd64 armel armhf arm64 mipsel mips64el ppc64el s390x))
+#ifneq (,$(filter $(DEB_TARGET_ARCH), amd64 armhf arm64 i386 ppc64el riscv64 s390x))
 #  unstripped_exe = yes
 #endif
 
 # common things ---------------
 # build common packages, where package names don't differ in different
 # gcc versions (fixincludes, ...)
-with_common_pkgs := yes
+#with_common_pkgs := yes
 # ... and some libraries, which do not change (libgcc1, libssp0).
-with_common_libs := yes
+#with_common_libs := yes
 # XXX: should with_common_libs be "yes" only if this is the default compiler
 # version on the targeted arch?
 
@@ -787,11 +832,16 @@ ifneq (,$(findstring build-cross, $(build_type)))
 endif
 
 ifeq ($(with_jit),yes)
-    ifeq ($(with_common_libs),yes)
+    #ifeq ($(with_common_libs),yes)
       with_libgccjit := yes
-    endif
+    #endif
     ifeq ($(with_common_libs),yes)
       with_libdiag := yes
+    endif
+    ifneq (,$(filter $(distrelease), no-release-yet-with-15-as-default))
+      with_versioned_libgccjit := no
+    else
+      with_versioned_libgccjit := yes
     endif
 endif
 
@@ -834,6 +884,16 @@ else ifneq (,$(filter $(distrelease),focal groovy))
 else
   gcn_tools_llvm_version = tools
 endif
+ifeq ($(gcn_tools_llvm_version),tools)
+  ifneq (,$(filter $(distrelease), bookworm trixie xenial bionic focal))
+    AMDGCN_TOOLS_DEP = amdgcn-tools-19 [$(gcn_archs)],
+  else
+    AMDGCN_TOOLS_DEP = amdgcn-tools-21 [$(gcn_archs)],
+  endif
+else
+  AMDGCN_TOOLS_DEP = llvm-$(gcn_tools_llvm_version)$(if $(pkg_llvm_ver), (>= $(pkg_llvm_ver))) [$(gcn_archs)], \
+	lld-$(gcn_tools_llvm_version)$(if $(pkg_llvm_ver), (>= $(pkg_llvm_ver))) [$(gcn_archs)],
+endif
 
 ifneq (,$(filter $(DEB_TARGET_ARCH),$(gcn_archs)))
   offload_targets += $(gcn_target_name)
@@ -842,6 +902,7 @@ endif
 ifneq (,$(filter $(distrelease), precise bionic focal))
   offload_targets := $(filter-out $(gcn_target_name), $(offload_targets))
   with_offload_gcn :=
+  AMDGCN_TOOLS_DEP =
 endif
 ifneq (,$(findstring build-cross, $(build_type)))
   offload_targets := $(filter-out $(gcn_target_name), $(offload_targets))
@@ -890,8 +951,6 @@ endif
 ifeq (,$(filter $(DEB_STAGE),stage1 stage2))
 # Ada --------------------
 ada_no_cpus	:= arc ia64 sh3 sh3eb sh4eb
-#ada_no_cpus	+= armel # See Debian #1061370
-ada_no_cpus	+= sparc # See Debian #1072328
 ada_no_systems	:= 
 ada_no_cross	:= no
 ada_no_snap	:= no
@@ -913,9 +972,6 @@ ifeq ($(with_dev),yes)
 endif
 ifneq (,$(filter $(DEB_TARGET_ARCH_CPU),$(ada_no_cpus)))
   with_ada := disabled for cpu $(DEB_TARGET_ARCH_CPU)
-endif
-ifneq (,$(filter $(DEB_TARGET_ARCH),hurd-amd64))
-  with_ada := disabled for arch $(DEB_TARGET_ARCH)
 endif
 ifneq (,$(findstring $(DEB_TARGET_GNU_SYSTEM),$(ada_no_systems)))
   with_ada := disabled for system $(DEB_TARGET_GNU_SYSTEM)
@@ -1047,7 +1103,7 @@ endif
 # D ---------------------------
 d_no_cross := yes
 d_no_snap :=
-d_no_cpus := alpha arc ia64 m68k sh4 s390 sparc64
+d_no_cpus := alpha arc ia64 m68k sh4 s390
 d_no_systems := gnu
 
 ifneq ($(separate_lang),yes)
@@ -1077,14 +1133,21 @@ ifeq ($(with_base_only),yes)
 endif
 
 ifeq ($(with_d),yes)
-  druntime_only_archs = powerpc ppc64 ppc64el
-  phobos_archs = amd64 arm64 armel armhf i386 x32
+  phobos_archs =
+  druntime_only_archs = powerpc ppc64
+  ifneq (,$(filter $(distrelease),$(ppc64el_ibm128_distreleases)))
+    druntime_only_archs += ppc64el
+  else
+    phobos_archs += ppc64el
+  endif
+  phobos_archs += amd64 arm64 armel armhf i386 x32
   phobos_archs += hppa
   phobos_archs += mips mips64 mipsel mips64el
   phobos_archs += mipsn32 mipsn32el
   phobos_archs += mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-  phobos_archs += riscv64 s390x loong64
+  phobos_archs += riscv64 s390x loong64 sparc64
   phobos_archs += $(druntime_only_archs)
+  phobos_archs := $(sort $(phobos_archs))
   ifneq (,$(filter $(DEB_TARGET_ARCH), $(phobos_archs)))
     with_phobos := yes
   endif
@@ -1243,9 +1306,9 @@ ifeq ($(with_m2),yes)
   ifeq ($(with_dev),yes)
     with_m2dev := yes
   endif
-  ifeq ($(with_common_libs),yes)
+  #ifeq ($(with_common_libs),yes)
     with_libgm2 := yes
-  endif
+  #endif
   enabled_languages += m2
 endif
 
@@ -1254,7 +1317,7 @@ endif
 rs_no_cross := yes
 
 rs_no_cpus = alpha hppa ia64 m68k sh4 x32
-rs_no_systems :=
+rs_no_systems := gnu
 
 ifneq ($(with_base_only),yes)
   ifneq ($(separate_lang),yes)
@@ -1263,8 +1326,7 @@ ifneq ($(with_base_only),yes)
 endif
 ifneq (,$(filter $(DEB_TARGET_ARCH_CPU),$(rs_no_cpus)))
     with_rs := disabled for arch $(DEB_TARGET_ARCH_CPU)
-endif
-ifneq (,$(filter $(DEB_TARGET_ARCH),$(rs_no_cpus)))
+else ifneq (,$(filter $(DEB_TARGET_ARCH),$(rs_no_cpus)))
     with_rs := disabled for arch $(DEB_TARGET_ARCH)
 endif
 ifneq (,$(filter $(DEB_TARGET_GNU_SYSTEM),$(rs_no_systems)))
@@ -1290,6 +1352,95 @@ ifeq ($(with_rs),yes)
     with_libgrs := yes
   endif
   enabled_languages += rust
+endif
+
+# COBOL -------------------
+cobol_no_cross := yes
+cobol_no_cross := no
+
+ifneq ($(with_base_only),yes)
+  ifneq ($(separate_lang),yes)
+    with_cobol := yes
+  endif
+endif
+cobol_no_cpus = alpha arc arm hppa i386 loong64 m68k \
+       mips mipsel mips64 mips64el \
+       powerpc ppc64 s390x sh4 sparc sparc64 x32
+cobol_no_systems = gnu
+ifneq (,$(filter $(DEB_TARGET_ARCH_CPU),$(cobol_no_cpus)))
+  with_cobol := disabled for cpu $(DEB_TARGET_ARCH_CPU)
+else ifneq (,$(filter $(DEB_TARGET_ARCH),$(cobol_no_cpus)))
+    with_cobol := disabled for arch $(DEB_TARGET_ARCH)
+endif
+ifneq (,$(findstring $(DEB_TARGET_GNU_SYSTEM),$(cobol_no_systems)))
+  with_cobol := disabled for system $(DEB_TARGET_GNU_SYSTEM)
+endif
+#ifneq ($(DEB_HOST_ARCH_BITS),$(DEB_TARGET_ARCH_BITS))
+#  with_cobol := disabled for non matching arch bits
+#endif
+ifeq ($(cobol_no_cross)-$(DEB_CROSS),yes-yes)
+  with_cobol := disabled for cross compiler package
+endif
+ifeq ($(DEB_STAGE)-$(filter libgcobol, $(with_rtlibs)),rtlibs-)
+  with_cobol := disabled for rtlibs stage
+endif
+ifneq (,$(filter $(distrelease),precise))
+  with_cobol := disabled for $(distrelease) backport
+endif
+#with_cobol := disabled for GCC 15
+
+with_cobol := $(call envfilt, cobol, , , $(with_cobol))
+
+# Build all packages needed for COBOL development
+ifeq ($(with_cobol),yes)
+  ifeq ($(with_dev),yes)
+    with_coboldev := yes
+  endif
+  #ifeq ($(with_common_libs),yes)
+    with_libgcobol := yes
+  #endif
+  enabled_languages += cobol
+endif
+
+# Algol 68 -------------------
+algol_no_cross := yes
+algol_no_cross := no
+
+ifneq ($(with_base_only),yes)
+  ifneq ($(separate_lang),yes)
+    with_algol := yes
+  endif
+endif
+algol_no_cpus =
+algol_no_systems =
+ifneq (,$(filter $(DEB_TARGET_ARCH_CPU),$(algol_no_cpus)))
+  with_algol := disabled for cpu $(DEB_TARGET_ARCH_CPU)
+endif
+ifneq (,$(findstring $(DEB_TARGET_GNU_SYSTEM),$(algol_no_systems)))
+  with_algol := disabled for system $(DEB_TARGET_GNU_SYSTEM)
+endif
+ifeq ($(algol_no_cross)-$(DEB_CROSS),yes-yes)
+  with_algol := disabled for cross compiler package
+endif
+ifeq ($(DEB_STAGE)-$(filter libga68, $(with_rtlibs)),rtlibs-)
+  with_algol := disabled for rtlibs stage
+endif
+ifneq (,$(filter $(distrelease),precise))
+  with_algol := disabled for $(distrelease) backport
+endif
+#with_algol := disabled for GCC 15
+
+with_algol := $(call envfilt, algol68, , , $(with_algol))
+
+# Build all packages needed for Algol 68 development
+ifeq ($(with_algol),yes)
+  ifeq ($(with_dev),yes)
+    with_algoldev := yes
+  endif
+  #ifeq ($(with_common_libs),yes)
+    with_libga68 := yes
+  #endif
+  enabled_languages += algol68
 endif
 
 # -------------------------------------------------------------------
@@ -1380,7 +1531,7 @@ endif
 # lsan / sanitizer --------------------
 with_lsan :=
 with_lsan := $(call envfilt, lsan, , , $(with_lsan))
-lsan_archs = arm64 amd64 loong64 ppc64 ppc64el riscv64
+lsan_archs = arm64 amd64 loong64 ppc64 ppc64el riscv64 s390x
 ifneq (,$(filter $(DEB_TARGET_ARCH),$(lsan_archs)))
   with_lsan := yes
 endif
@@ -1388,7 +1539,7 @@ endif
 # tsan / sanitizer --------------------
 with_tsan :=
 with_tsan := $(call envfilt, tsan, , , $(with_tsan))
-tsan_archs = arm64 amd64 loong64 ppc64 ppc64el riscv64
+tsan_archs = arm64 amd64 loong64 ppc64 ppc64el riscv64 s390x
 ifneq (,$(filter $(DEB_TARGET_ARCH),$(tsan_archs)))
   with_tsan := yes
 endif
@@ -1653,18 +1804,18 @@ endif
 #check_no_cpus := m68k
 ifeq ($(derivative),Ubuntu)
   # test suite times out on the buildds
-  check_no_cpus += arm64
+  #check_no_cpus += arm64
 else ifeq ($(derivative),Debian)
   # test suite times out on the buildds
-  check_no_cpus += alpha arm64 riscv64
+  check_no_cpus += alpha
 endif
-check_no_systems := # gnu
+check_no_systems := gnu
 ifneq (,$(filter $(DEB_TARGET_ARCH_CPU),$(check_no_cpus)))
   with_check := disabled for cpu $(DEB_TARGET_ARCH_CPU)
 endif
-#ifneq (,$(findstring $(DEB_TARGET_GNU_SYSTEM),$(check_no_systems)))
-#  with_check := disabled for system $(DEB_TARGET_GNU_SYSTEM)
-#endif
+ifneq (,$(filter $(DEB_TARGET_GNU_SYSTEM),$(check_no_systems)))
+  with_check := disabled for system $(DEB_TARGET_GNU_SYSTEM)
+endif
 ifneq (,$(filter $(DEB_TARGET_ARCH),x32))
   with_check := disabled for architecture $(DEB_TARGET_ARCH)
 endif
@@ -1859,6 +2010,10 @@ ifeq ($(derivative),Ubuntu)
   ifeq (,$(filter $(distrelease),trusty xenial bionic focal jammy mantic noble))
     biarch32archs := $(subst s390x/,,$(biarch32archs))
   endif
+else ifeq ($(derivative),Debian)
+  ifeq (,$(filter $(distrelease),stretch buster bullseye bookworm trixie))
+    biarch32archs := $(subst s390x/,,$(biarch32archs))
+  endif
 endif
 
 biarch64archs := /i386/powerpc/sparc/s390/mips/mipsel/mipsn32/mipsn32el/
@@ -1868,6 +2023,8 @@ ifeq (yes,$(MIPS_R6_ENABLED))
   biarch64archs += /mipsr6/mipsr6el/mipsn32r6/mipsn32r6el/x32/
   biarchn32archs += /mipsr6/mipsr6el/mips64r6/mips64r6el/
 endif
+
+biarch32_conflicts := $(filter-out mips64%, $(strip $(subst /, ,$(biarch32archs))))
 
 ifeq ($(derivative),Ubuntu)
   ifeq (,$(filter $(distrelease), precise))

@@ -4,7 +4,7 @@
 
 # Exit silently during builds without Ada.
 
-# If .ali (Ada Library Information) files are found in gnat RTS directory,
+# If the gnat RTS directory contains .ali (Ada Library Information) files,
 # output a dpkg-gencontrol command line argument setting the
 # libgnat:Provides substitution variable
 # to the XOR of the checksums in all such files,

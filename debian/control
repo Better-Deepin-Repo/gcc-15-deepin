@@ -3,28 +3,29 @@ Section: devel
 Priority: optional
 Maintainer: Debian GCC Maintainers <debian-gcc@lists.debian.org>
 Uploaders: Matthias Klose <doko@debian.org>
-Standards-Version: 4.6.2
-Build-Depends: debhelper (>= 11), dpkg-dev (>= 1.17.14), g++-multilib [amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 s390x sparc sparc64 x32] <!cross>,
-  libc6.1-dev (>= 2.23-1~) [alpha ia64] | libc0.3-dev (>= 2.23-1~) [hurd-amd64 hurd-i386] | libc6-dev (>= 2.23-1~), libc6-dev-amd64 [i386 x32], libc6-dev-sparc64 [sparc], libc6-dev-sparc [sparc64], libc6-dev-s390 [s390x], libc6-dev-s390x [s390], libc6-dev-i386 [amd64 x32], libc6-dev-powerpc [ppc64], libc6-dev-ppc64 [powerpc], lib32gcc-s1 [amd64 ppc64 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el s390x sparc64 x32], libn32gcc-s1 [mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el], lib64gcc-s1 [i386 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el powerpc sparc s390 x32], libc6-dev-mips64 [mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el], libc6-dev-mipsn32 [mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el], libc6-dev-mips32 [mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el], libc6-dev-x32 [amd64 i386], libx32gcc-s1 [amd64 i386], libc6.1-dbg [alpha ia64] | libc0.3-dbg [hurd-amd64 hurd-i386] | libc6-dbg,
+Standards-Version: 4.7.4
+Build-Depends: debhelper (>= 11), dpkg-dev (>= 1.17.14), g++-multilib [amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 sparc sparc64 x32] <!cross>,
+  libc6.1-dev (>= 2.23-1~) [alpha ia64] | libc0.3-dev (>= 2.23-1~) [hurd-amd64 hurd-i386] | libc6-dev (>= 2.23-1~), libc6-dev-amd64 [i386 x32], libc6-dev-sparc64 [sparc], libc6-dev-sparc [sparc64], libc6-dev-s390x [s390], libc6-dev-i386 [amd64 x32], libc6-dev-powerpc [ppc64], libc6-dev-ppc64 [powerpc], lib32gcc-s1 [amd64 ppc64 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el sparc64 x32], libn32gcc-s1 [mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el], lib64gcc-s1 [i386 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el powerpc sparc s390 x32], libc6-dev-mips64 [mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el], libc6-dev-mipsn32 [mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el], libc6-dev-mips32 [mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el], libc6-dev-x32 [amd64 i386], libx32gcc-s1 [amd64 i386], libc6.1-dbg [alpha ia64] | libc0.3-dbg [hurd-amd64 hurd-i386] | libc6-dbg,
   linux-libc-dev [m68k],
-  m4, libtool, autoconf2.69,
+  m4, libtool, autoconf2.69, gcc-16-base,
   dwz, libunwind8-dev [ia64], libatomic-ops-dev [ia64],
   gawk, lzma, xz-utils, patchutils,
   libzstd-dev, zlib1g-dev, systemtap-sdt-dev [linux-any],
   binutils:native (>= 2.39), binutils-hppa64-linux-gnu:native (>= 2.39) [hppa amd64 i386 x32],
   gperf, bison, flex,
-  gettext, nvptx-tools [amd64 arm64 ppc64el], amdgcn-tools-18 (>= 18.2) [amd64],
+  gettext, nvptx-tools [amd64 arm64 ppc64el], amdgcn-tools-21 [amd64],
   texinfo, locales-all, sharutils,
-  procps, gnat-13:native [!arc !ia64 !sh3 !sh3eb !sh4eb !sparc !loong64 !hurd-amd64], g++-13:native [!loong64], gnat-13:native [loong64], g++-13:native [loong64], netbase, gdc-13:native [!alpha !arc !ia64 !m68k !sh4 !s390 !sparc64 !hurd-amd64 !hurd-i386 !loong64], gdc-14:native [loong64], python3:any, cargo [!alpha !hppa !ia64 !m68k !sh4 !x32],
+  procps, gnat-15:native [!arc !ia64 !sh3 !sh3eb !sh4eb], g++-15:native, netbase, gdc-15:native [!alpha !arc !ia64 !m68k !sh4 !s390 !hurd-amd64 !hurd-i386], python3:any, cargo [!alpha !hppa !ia64 !m68k !sh4 !x32 !hurd-amd64 !hurd-i386],
   libisl-dev (>= 0.20), libmpc-dev (>= 1.0), libmpfr-dev (>= 3.0.0-9~), libgmp-dev (>= 2:5.0.1~), lib32z1-dev [amd64], lib64z1-dev [i386], unzip <!nocheck>,
-  dejagnu  [!alpha !arm64 !riscv64] <!nocheck>, coreutils, chrpath, lsb-release, quilt, time,
+  dejagnu  [!alpha !hurd-amd64 !hurd-i386] <!nocheck>, git  [!alpha !hurd-amd64 !hurd-i386] <!nocheck>, python3-pytest [!alpha !hppa !m68k !sh4 !x32] <!nocheck>, python3-check-jsonschema [!alpha !hppa !m68k !sh4 !x32] <!nocheck>, chrpath, lsb-release, quilt, time,
   pkgconf, libgc-dev,
-  g++-15-for-host <cross>, gobjc-15-for-host [!avr] <cross>, gfortran-15-for-host <cross>, gdc-15-for-host [!alpha !arc !ia64 !m68k !sh4 !s390 !sparc64 !hurd-amd64 !hurd-i386] <cross>, gccgo-15-for-host [!arc !avr !hppa !loong64 !m68k !sh4] <cross>, gnat-15-for-host [!arc !ia64 !sh3 !sh3eb !sh4eb !sparc] <cross>, gm2-15-for-host [!powerpc !ppc64 !sh4] <cross>,
+  g++-15-for-host <cross>, gobjc-15-for-host [!avr] <cross>, gfortran-15-for-host <cross>, gdc-15-for-host [!alpha !arc !ia64 !m68k !sh4 !s390 !hurd-amd64 !hurd-i386] <cross>, gccgo-15-for-host [!arc !avr !hppa !loong64 !m68k !sh4] <cross>, gnat-15-for-host [!arc !ia64 !sh3 !sh3eb !sh4eb] <cross>, gm2-15-for-host [!powerpc !ppc64 !sh4] <cross>, gcobol-15-for-host [!alpha !arc !hppa !loong64 !m68k !mips !mipsel !mips64 !mips64el !powerpc !ppc64 !s390x !sh4 !sparc !sparc64 !x32 !i386 !hurd-i386 !arm !armel !armhf !hurd-amd64 !hurd-i386] <cross>, ga68-15-for-host <cross>,
 Build-Depends-Indep: doxygen <!nodoc>, graphviz <!nodoc>, ghostscript <!nodoc>, texlive-latex-base <!nodoc>, xsltproc <!nodoc>, libxml2-utils <!nodoc>, docbook-xsl-ns <!nodoc>,
 Homepage: http://gcc.gnu.org/
-Vcs-Browser: https://salsa.debian.org/toolchain-team/gcc
-Vcs-Git: https://salsa.debian.org/toolchain-team/gcc.git
+Vcs-Browser: https://salsa.debian.org/toolchain-team/gcc/tree/gcc-15-debian
+Vcs-Git: https://salsa.debian.org/toolchain-team/gcc.git -b gcc-15-debian
 XS-Testsuite: autopkgtest
+Rules-Requires-Root: binary-targets
 
 Package: gcc-15-base
 Architecture: any
@@ -36,57 +37,6 @@ Breaks: ${base:Breaks}
 Description: GCC, the GNU Compiler Collection (base package)
  This package contains files common to all languages and libraries
  contained in the GNU Compiler Collection (GCC).
-
-Package: libgcc-s1
-X-DH-Build-For-Type: target
-Architecture: any
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Provides: libgcc1 (= ${gcc:EpochVersion}),
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-XB-Important: yes
-Protected: yes
-Breaks: ${libgcc:Breaks}
-Replaces: libgcc1 (<< 1:10)
-Description: GCC support library
- Shared version of the support library, a library of internal subroutines
- that GCC uses to overcome shortcomings of particular machines, or
- special needs for some languages.
-
-Package: libgcc-s2
-X-DH-Build-For-Type: target
-Architecture: m68k
-Section: libs
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-XB-Important: yes
-Protected: yes
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Provides: libgcc2 (= ${gcc:EpochVersion}),
-Breaks: ${libgcc:Breaks}
-Replaces: libgcc2 (<< 1:10)
-Description: GCC support library
- Shared version of the support library, a library of internal subroutines
- that GCC uses to overcome shortcomings of particular machines, or
- special needs for some languages.
-
-Package: libgcc-s4
-X-DH-Build-For-Type: target
-Architecture: hppa
-Multi-Arch: same
-XB-Important: yes
-Protected: yes
-Pre-Depends: ${misc:Pre-Depends}
-Provides: libgcc4 (= ${gcc:EpochVersion})
-Breaks: ${libgcc:Breaks}
-Replaces: libgcc4 (<< 1:10)
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GCC support library
- Shared version of the support library, a library of internal subroutines
- that GCC uses to overcome shortcomings of particular machines, or
- special needs for some languages.
 
 Package: libgcc-15-dev
 X-DH-Build-For-Type: target
@@ -104,18 +54,6 @@ Description: GCC support library (development files)
  This package contains the headers and static library files necessary for
  building C programs which use libgcc, libgomp, libquadmath, libssp or libitm.
 
-Package: lib64gcc-s1
-X-DH-Build-For-Type: target
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${misc:Depends}
-Breaks: lib64gcc1 (<< 1:10)
-Replaces: lib64gcc1 (<< 1:10)
-Description: GCC support library (64bit)
- Shared version of the support library, a library of internal subroutines
- that GCC uses to overcome shortcomings of particular machines, or
- special needs for some languages.
-
 Package: lib64gcc-15-dev
 X-DH-Build-For-Type: target
 Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
@@ -131,22 +69,9 @@ Description: GCC support library (64bit development files)
  This package contains the headers and static library files necessary for
  building C programs which use libgcc, libgomp, libquadmath, libssp or libitm.
 
-Package: lib32gcc-s1
-X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Breaks: lib32gcc1 (<< 1:10)
-Replaces: lib32gcc1 (<< 1:10)
-Description: GCC support library (32 bit Version)
- Shared version of the support library, a library of internal subroutines
- that GCC uses to overcome shortcomings of particular machines, or
- special needs for some languages.
-
 Package: lib32gcc-15-dev
 X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Section: libdevel
 Recommends: ${dep:libcdev}
 Depends: gcc-15-base (= ${gcc:Version}), ${dep:libgccbiarch}, ${dep:libsspbiarch},
@@ -158,18 +83,6 @@ Depends: gcc-15-base (= ${gcc:Version}), ${dep:libgccbiarch}, ${dep:libsspbiarch
 Description: GCC support library (32 bit development files)
  This package contains the headers and static library files necessary for
  building C programs which use libgcc, libgomp, libquadmath, libssp or libitm.
-
-Package: libn32gcc-s1
-X-DH-Build-For-Type: target
-Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${misc:Depends}
-Breaks: libn32gcc1 (<< 1:10)
-Replaces: libn32gcc1 (<< 1:10)
-Description: GCC support library (n32)
- Shared version of the support library, a library of internal subroutines
- that GCC uses to overcome shortcomings of particular machines, or
- special needs for some languages.
 
 Package: libn32gcc-15-dev
 X-DH-Build-For-Type: target
@@ -185,18 +98,6 @@ Depends: gcc-15-base (= ${gcc:Version}), ${dep:libgccbiarch}, ${dep:libsspbiarch
 Description: GCC support library (n32 development files)
  This package contains the headers and static library files necessary for
  building C programs which use libgcc, libgomp, libquadmath, libssp or libitm.
-
-Package: libx32gcc-s1
-X-DH-Build-For-Type: target
-Architecture: amd64 i386
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${misc:Depends}
-Breaks: libx32gcc1 (<< 1:10)
-Replaces: libx32gcc1 (<< 1:10)
-Description: GCC support library (x32)
- Shared version of the support library, a library of internal subroutines
- that GCC uses to overcome shortcomings of particular machines, or
- special needs for some languages.
 
 Package: libx32gcc-15-dev
 X-DH-Build-For-Type: target
@@ -671,7 +572,7 @@ Description: GNU C compiler
  This is the GNU C compiler, a fairly portable optimizing compiler for C.
 
 Package: gcc-15-multilib
-Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 s390x sparc sparc64 x32
+Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 sparc sparc64 x32
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15 (= ${gcc:Version}), ${dep:libcbiarchdev}, ${dep:libgccbiarchdev}, ${shlibs:Depends}, ${misc:Depends}
 Description: GNU C compiler (multilib support)
  This is the GNU C compiler, a fairly portable optimizing compiler for C.
@@ -714,9 +615,9 @@ Description: GNU C preprocessor for alpha-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for alpha-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ alpha-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-x86-64-linux-gnu
 Architecture: amd64
@@ -729,9 +630,9 @@ Description: GNU C preprocessor for x86_64-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for x86_64-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ x86_64-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-arm-linux-gnueabi
 Architecture: armel
@@ -744,9 +645,9 @@ Description: GNU C preprocessor for arm-linux-gnueabi
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for arm-linux-gnueabi architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ arm-linux-gnueabi architecture but not the compiler.
 
 Package: cpp-15-arm-linux-gnueabihf
 Architecture: armhf
@@ -759,9 +660,9 @@ Description: GNU C preprocessor for arm-linux-gnueabihf
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for arm-linux-gnueabihf architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ arm-linux-gnueabihf architecture but not the compiler.
 
 Package: cpp-15-aarch64-linux-gnu
 Architecture: arm64
@@ -774,9 +675,9 @@ Description: GNU C preprocessor for aarch64-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for aarch64-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ aarch64-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-i686-linux-gnu
 Architecture: i386
@@ -789,9 +690,9 @@ Description: GNU C preprocessor for i686-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for i686-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ i686-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-loongarch64-linux-gnu
 Architecture: loong64
@@ -804,9 +705,9 @@ Description: GNU C preprocessor for loongarch64-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for loongarch64-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ loongarch64-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-mipsel-linux-gnu
 Architecture: mipsel
@@ -819,9 +720,9 @@ Description: GNU C preprocessor for mipsel-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mipsel-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mipsel-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-mips64-linux-gnuabi64
 Architecture: mips64
@@ -834,9 +735,9 @@ Description: GNU C preprocessor for mips64-linux-gnuabi64
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mips64-linux-gnuabi64 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mips64-linux-gnuabi64 architecture but not the compiler.
 
 Package: cpp-15-mips64el-linux-gnuabi64
 Architecture: mips64el
@@ -849,9 +750,9 @@ Description: GNU C preprocessor for mips64el-linux-gnuabi64
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mips64el-linux-gnuabi64 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mips64el-linux-gnuabi64 architecture but not the compiler.
 
 Package: cpp-15-mips64-linux-gnuabin32
 Architecture: mipsn32
@@ -864,9 +765,9 @@ Description: GNU C preprocessor for mips64-linux-gnuabin32
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mips64-linux-gnuabin32 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mips64-linux-gnuabin32 architecture but not the compiler.
 
 Package: cpp-15-powerpc-linux-gnu
 Architecture: powerpc
@@ -879,9 +780,9 @@ Description: GNU C preprocessor for powerpc-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for powerpc-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ powerpc-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-powerpc64-linux-gnu
 Architecture: ppc64
@@ -894,9 +795,9 @@ Description: GNU C preprocessor for powerpc64-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for powerpc64-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ powerpc64-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-powerpc64le-linux-gnu
 Architecture: ppc64el
@@ -909,9 +810,9 @@ Description: GNU C preprocessor for powerpc64le-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for powerpc64le-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ powerpc64le-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-m68k-linux-gnu
 Architecture: m68k
@@ -924,9 +825,9 @@ Description: GNU C preprocessor for m68k-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for m68k-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ m68k-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-riscv64-linux-gnu
 Architecture: riscv64
@@ -939,9 +840,9 @@ Description: GNU C preprocessor for riscv64-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for riscv64-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ riscv64-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-sh4-linux-gnu
 Architecture: sh4
@@ -954,9 +855,9 @@ Description: GNU C preprocessor for sh4-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for sh4-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ sh4-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-sparc-linux-gnu
 Architecture: sparc
@@ -969,9 +870,9 @@ Description: GNU C preprocessor for sparc-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for sparc-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ sparc-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-sparc64-linux-gnu
 Architecture: sparc64
@@ -984,9 +885,9 @@ Description: GNU C preprocessor for sparc64-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for sparc64-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ sparc64-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-s390x-linux-gnu
 Architecture: s390x
@@ -999,9 +900,9 @@ Description: GNU C preprocessor for s390x-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for s390x-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ s390x-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-x86-64-linux-gnux32
 Architecture: x32
@@ -1014,9 +915,9 @@ Description: GNU C preprocessor for x86_64-linux-gnux32
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for x86_64-linux-gnux32 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ x86_64-linux-gnux32 architecture but not the compiler.
 
 Package: cpp-15-mips64el-linux-gnuabin32
 Architecture: mipsn32el
@@ -1029,9 +930,9 @@ Description: GNU C preprocessor for mips64el-linux-gnuabin32
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mips64el-linux-gnuabin32 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mips64el-linux-gnuabin32 architecture but not the compiler.
 
 Package: cpp-15-mipsisa32r6-linux-gnu
 Architecture: mipsr6
@@ -1044,9 +945,9 @@ Description: GNU C preprocessor for mipsisa32r6-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mipsisa32r6-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mipsisa32r6-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-mipsisa32r6el-linux-gnu
 Architecture: mipsr6el
@@ -1059,9 +960,9 @@ Description: GNU C preprocessor for mipsisa32r6el-linux-gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mipsisa32r6el-linux-gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mipsisa32r6el-linux-gnu architecture but not the compiler.
 
 Package: cpp-15-mipsisa64r6-linux-gnuabi64
 Architecture: mips64r6
@@ -1074,9 +975,9 @@ Description: GNU C preprocessor for mipsisa64r6-linux-gnuabi64
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mipsisa64r6-linux-gnuabi64 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mipsisa64r6-linux-gnuabi64 architecture but not the compiler.
 
 Package: cpp-15-mipsisa64r6el-linux-gnuabi64
 Architecture: mips64r6el
@@ -1089,9 +990,9 @@ Description: GNU C preprocessor for mipsisa64r6el-linux-gnuabi64
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mipsisa64r6el-linux-gnuabi64 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mipsisa64r6el-linux-gnuabi64 architecture but not the compiler.
 
 Package: cpp-15-mipsisa64r6-linux-gnuabin32
 Architecture: mipsn32r6
@@ -1104,9 +1005,9 @@ Description: GNU C preprocessor for mipsisa64r6-linux-gnuabin32
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mipsisa64r6-linux-gnuabin32 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mipsisa64r6-linux-gnuabin32 architecture but not the compiler.
 
 Package: cpp-15-mipsisa64r6el-linux-gnuabin32
 Architecture: mipsn32r6el
@@ -1119,9 +1020,9 @@ Description: GNU C preprocessor for mipsisa64r6el-linux-gnuabin32
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for mipsisa64r6el-linux-gnuabin32 architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ mipsisa64r6el-linux-gnuabin32 architecture but not the compiler.
 
 Package: cpp-15-for-host
 Architecture: any
@@ -1186,10 +1087,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-alpha-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-alpha-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for alpha-linux-gnu architecture
+Description: GNU C++ compiler for the alpha-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for alpha-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ alpha-linux-gnu architecture.
 
 Package: g++-15-x86-64-linux-gnu
 Architecture: amd64
@@ -1197,10 +1099,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-x86-64-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-x86-64-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for x86_64-linux-gnu architecture
+Description: GNU C++ compiler for the x86_64-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for x86_64-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ x86_64-linux-gnu architecture.
 
 Package: g++-15-arm-linux-gnueabi
 Architecture: armel
@@ -1208,10 +1111,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-arm-linux-gnueabi (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-arm-linux-gnueabi
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for arm-linux-gnueabi architecture
+Description: GNU C++ compiler for the arm-linux-gnueabi architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for arm-linux-gnueabi architecture.
+ This package contains C++ cross-compiler for the
+ arm-linux-gnueabi architecture.
 
 Package: g++-15-arm-linux-gnueabihf
 Architecture: armhf
@@ -1219,10 +1123,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-arm-linux-gnueabihf (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-arm-linux-gnueabihf
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for arm-linux-gnueabihf architecture
+Description: GNU C++ compiler for the arm-linux-gnueabihf architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for arm-linux-gnueabihf architecture.
+ This package contains C++ cross-compiler for the
+ arm-linux-gnueabihf architecture.
 
 Package: g++-15-aarch64-linux-gnu
 Architecture: arm64
@@ -1230,10 +1135,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-aarch64-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-aarch64-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for aarch64-linux-gnu architecture
+Description: GNU C++ compiler for the aarch64-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for aarch64-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ aarch64-linux-gnu architecture.
 
 Package: g++-15-i686-linux-gnu
 Architecture: i386
@@ -1241,10 +1147,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-i686-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-i686-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for i686-linux-gnu architecture
+Description: GNU C++ compiler for the i686-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for i686-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ i686-linux-gnu architecture.
 
 Package: g++-15-loongarch64-linux-gnu
 Architecture: loong64
@@ -1252,10 +1159,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-loongarch64-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-loongarch64-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for loongarch64-linux-gnu architecture
+Description: GNU C++ compiler for the loongarch64-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for loongarch64-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ loongarch64-linux-gnu architecture.
 
 Package: g++-15-mipsel-linux-gnu
 Architecture: mipsel
@@ -1263,10 +1171,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsel-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mipsel-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mipsel-linux-gnu architecture
+Description: GNU C++ compiler for the mipsel-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mipsel-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ mipsel-linux-gnu architecture.
 
 Package: g++-15-mips64-linux-gnuabi64
 Architecture: mips64
@@ -1274,10 +1183,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64-linux-gnuabi64 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mips64-linux-gnuabi64
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mips64-linux-gnuabi64 architecture
+Description: GNU C++ compiler for the mips64-linux-gnuabi64 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mips64-linux-gnuabi64 architecture.
+ This package contains C++ cross-compiler for the
+ mips64-linux-gnuabi64 architecture.
 
 Package: g++-15-mips64el-linux-gnuabi64
 Architecture: mips64el
@@ -1285,10 +1195,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64el-linux-gnuabi64 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mips64el-linux-gnuabi64
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mips64el-linux-gnuabi64 architecture
+Description: GNU C++ compiler for the mips64el-linux-gnuabi64 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mips64el-linux-gnuabi64 architecture.
+ This package contains C++ cross-compiler for the
+ mips64el-linux-gnuabi64 architecture.
 
 Package: g++-15-mips64-linux-gnuabin32
 Architecture: mipsn32
@@ -1296,10 +1207,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64-linux-gnuabin32 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mips64-linux-gnuabin32
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mips64-linux-gnuabin32 architecture
+Description: GNU C++ compiler for the mips64-linux-gnuabin32 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mips64-linux-gnuabin32 architecture.
+ This package contains C++ cross-compiler for the
+ mips64-linux-gnuabin32 architecture.
 
 Package: g++-15-powerpc-linux-gnu
 Architecture: powerpc
@@ -1307,10 +1219,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-powerpc-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-powerpc-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for powerpc-linux-gnu architecture
+Description: GNU C++ compiler for the powerpc-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for powerpc-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ powerpc-linux-gnu architecture.
 
 Package: g++-15-powerpc64-linux-gnu
 Architecture: ppc64
@@ -1318,10 +1231,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-powerpc64-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-powerpc64-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for powerpc64-linux-gnu architecture
+Description: GNU C++ compiler for the powerpc64-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for powerpc64-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ powerpc64-linux-gnu architecture.
 
 Package: g++-15-powerpc64le-linux-gnu
 Architecture: ppc64el
@@ -1329,10 +1243,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-powerpc64le-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-powerpc64le-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for powerpc64le-linux-gnu architecture
+Description: GNU C++ compiler for the powerpc64le-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for powerpc64le-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ powerpc64le-linux-gnu architecture.
 
 Package: g++-15-m68k-linux-gnu
 Architecture: m68k
@@ -1340,10 +1255,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-m68k-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-m68k-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for m68k-linux-gnu architecture
+Description: GNU C++ compiler for the m68k-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for m68k-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ m68k-linux-gnu architecture.
 
 Package: g++-15-riscv64-linux-gnu
 Architecture: riscv64
@@ -1351,10 +1267,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-riscv64-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-riscv64-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for riscv64-linux-gnu architecture
+Description: GNU C++ compiler for the riscv64-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for riscv64-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ riscv64-linux-gnu architecture.
 
 Package: g++-15-sh4-linux-gnu
 Architecture: sh4
@@ -1362,10 +1279,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-sh4-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-sh4-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for sh4-linux-gnu architecture
+Description: GNU C++ compiler for the sh4-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for sh4-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ sh4-linux-gnu architecture.
 
 Package: g++-15-sparc-linux-gnu
 Architecture: sparc
@@ -1373,10 +1291,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-sparc-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-sparc-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for sparc-linux-gnu architecture
+Description: GNU C++ compiler for the sparc-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for sparc-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ sparc-linux-gnu architecture.
 
 Package: g++-15-sparc64-linux-gnu
 Architecture: sparc64
@@ -1384,10 +1303,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-sparc64-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-sparc64-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for sparc64-linux-gnu architecture
+Description: GNU C++ compiler for the sparc64-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for sparc64-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ sparc64-linux-gnu architecture.
 
 Package: g++-15-s390x-linux-gnu
 Architecture: s390x
@@ -1395,10 +1315,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-s390x-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-s390x-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for s390x-linux-gnu architecture
+Description: GNU C++ compiler for the s390x-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for s390x-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ s390x-linux-gnu architecture.
 
 Package: g++-15-x86-64-linux-gnux32
 Architecture: x32
@@ -1406,10 +1327,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-x86-64-linux-gnux32 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-x86-64-linux-gnux32
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for x86_64-linux-gnux32 architecture
+Description: GNU C++ compiler for the x86_64-linux-gnux32 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for x86_64-linux-gnux32 architecture.
+ This package contains C++ cross-compiler for the
+ x86_64-linux-gnux32 architecture.
 
 Package: g++-15-mips64el-linux-gnuabin32
 Architecture: mipsn32el
@@ -1417,10 +1339,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64el-linux-gnuabin32 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mips64el-linux-gnuabin32
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mips64el-linux-gnuabin32 architecture
+Description: GNU C++ compiler for the mips64el-linux-gnuabin32 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mips64el-linux-gnuabin32 architecture.
+ This package contains C++ cross-compiler for the
+ mips64el-linux-gnuabin32 architecture.
 
 Package: g++-15-mipsisa32r6-linux-gnu
 Architecture: mipsr6
@@ -1428,10 +1351,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa32r6-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mipsisa32r6-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mipsisa32r6-linux-gnu architecture
+Description: GNU C++ compiler for the mipsisa32r6-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mipsisa32r6-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ mipsisa32r6-linux-gnu architecture.
 
 Package: g++-15-mipsisa32r6el-linux-gnu
 Architecture: mipsr6el
@@ -1439,10 +1363,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa32r6el-linux-gnu (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mipsisa32r6el-linux-gnu
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mipsisa32r6el-linux-gnu architecture
+Description: GNU C++ compiler for the mipsisa32r6el-linux-gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mipsisa32r6el-linux-gnu architecture.
+ This package contains C++ cross-compiler for the
+ mipsisa32r6el-linux-gnu architecture.
 
 Package: g++-15-mipsisa64r6-linux-gnuabi64
 Architecture: mips64r6
@@ -1450,10 +1375,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6-linux-gnuabi64 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mipsisa64r6-linux-gnuabi64
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mipsisa64r6-linux-gnuabi64 architecture
+Description: GNU C++ compiler for the mipsisa64r6-linux-gnuabi64 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mipsisa64r6-linux-gnuabi64 architecture.
+ This package contains C++ cross-compiler for the
+ mipsisa64r6-linux-gnuabi64 architecture.
 
 Package: g++-15-mipsisa64r6el-linux-gnuabi64
 Architecture: mips64r6el
@@ -1461,10 +1387,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6el-linux-gnuabi64 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mipsisa64r6el-linux-gnuabi64
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mipsisa64r6el-linux-gnuabi64 architecture
+Description: GNU C++ compiler for the mipsisa64r6el-linux-gnuabi64 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mipsisa64r6el-linux-gnuabi64 architecture.
+ This package contains C++ cross-compiler for the
+ mipsisa64r6el-linux-gnuabi64 architecture.
 
 Package: g++-15-mipsisa64r6-linux-gnuabin32
 Architecture: mipsn32r6
@@ -1472,10 +1399,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6-linux-gnuabin32 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mipsisa64r6-linux-gnuabin32
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mipsisa64r6-linux-gnuabin32 architecture
+Description: GNU C++ compiler for the mipsisa64r6-linux-gnuabin32 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mipsisa64r6-linux-gnuabin32 architecture.
+ This package contains C++ cross-compiler for the
+ mipsisa64r6-linux-gnuabin32 architecture.
 
 Package: g++-15-mipsisa64r6el-linux-gnuabin32
 Architecture: mipsn32r6el
@@ -1483,10 +1411,11 @@ Multi-Arch: foreign
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6el-linux-gnuabin32 (= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Provides: c++-compiler-mipsisa64r6el-linux-gnuabin32
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
-Description: GNU C++ compiler for mipsisa64r6el-linux-gnuabin32 architecture
+Description: GNU C++ compiler for the mipsisa64r6el-linux-gnuabin32 architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for mipsisa64r6el-linux-gnuabin32 architecture.
+ This package contains C++ cross-compiler for the
+ mipsisa64r6el-linux-gnuabin32 architecture.
 
 Package: g++-15-for-host
 Architecture: any
@@ -1511,7 +1440,8 @@ Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15 (>= ${gcc:Version}), ${misc
 Description: GNU C++ compiler for the build architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for arch_gnu architecture.
+ This package contains C++ cross-compiler for the
+ arch_gnu architecture.
  .
  This is a dependency package.
 
@@ -1524,7 +1454,7 @@ Description: GNU C++ compiler
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
 
 Package: g++-15-multilib
-Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 s390x sparc sparc64 x32
+Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 sparc sparc64 x32
 Depends: gcc-15-base (= ${gcc:Version}), g++-15 (= ${gcc:Version}), gcc-15-multilib (= ${gcc:Version}), ${dep:libcxxbiarchdev}, ${shlibs:Depends}, ${misc:Depends}
 Suggests: ${dep:libcxxbiarchdbg}
 Description: GNU C++ compiler (multilib support)
@@ -1533,378 +1463,7 @@ Description: GNU C++ compiler (multilib support)
  This is a dependency package, depending on development packages
  for the non-default multilib architecture(s).
 
-Package: libgomp1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Breaks: ${multiarch:breaks}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GCC OpenMP (GOMP) support library
- GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
- in the GNU Compiler Collection.
-
-Package: lib32gomp1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: GCC OpenMP (GOMP) support library (32bit)
- GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
- in the GNU Compiler Collection.
-
-Package: lib64gomp1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: GCC OpenMP (GOMP) support library (64bit)
- GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
- in the GNU Compiler Collection.
-
-Package: libn32gomp1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: GCC OpenMP (GOMP) support library (n32)
- GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
- in the GNU Compiler Collection.
-
-Package: libx32gomp1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: GCC OpenMP (GOMP) support library (x32)
- GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
- in the GNU Compiler Collection.
-
-Package: libitm1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GNU Transactional Memory Library
- GNU Transactional Memory Library (libitm) provides transaction support for
- accesses to the memory of a process, enabling easy-to-use synchronization of
- accesses to shared memory by several threads.
-
-Package: lib32itm1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: GNU Transactional Memory Library (32bit)
- GNU Transactional Memory Library (libitm) provides transaction support for
- accesses to the memory of a process, enabling easy-to-use synchronization of
- accesses to shared memory by several threads.
-
-Package: lib64itm1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: GNU Transactional Memory Library (64bit)
- GNU Transactional Memory Library (libitm) provides transaction support for
- accesses to the memory of a process, enabling easy-to-use synchronization of
- accesses to shared memory by several threads.
-
-#Package: libn32itm`'ITM_SO`'LS
-#Section: ifdef(`TARGET',`devel',`libs')
-#Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
-#Priority: optional
-#Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-#BUILT_USING`'dnl
-#Description: GNU Transactional Memory Library (n32)
-# GNU Transactional Memory Library (libitm) provides transaction support for
-# accesses to the memory of a process, enabling easy-to-use synchronization of
-# accesses to shared memory by several threads.
-
-#Package: libn32itm`'ITM_SO-dbg`'LS
-#Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
-#Section: debug
-#Priority: optional
-#Depends: BASELDEP, libdep(itm`'ITM_SO,n32,=), ${misc:Depends}
-#BUILT_USING`'dnl
-#Description: GNU Transactional Memory Library (n32 debug symbols)
-# GNU Transactional Memory Library (libitm) provides transaction support for
-# accesses to the memory of a process, enabling easy-to-use synchronization of
-# accesses to shared memory by several threads.
-
-Package: libx32itm1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: GNU Transactional Memory Library (x32)
- This manual documents the usage and internals of libitm. It provides
- transaction support for accesses to the memory of a process, enabling
- easy-to-use synchronization of accesses to shared memory by several threads.
-
-Package: libatomic1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: support library providing __atomic built-in functions
- library providing __atomic built-in functions. When an atomic call cannot
- be turned into lock-free instructions, GCC will make calls into this library.
-
-Package: lib32atomic1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: support library providing __atomic built-in functions (32bit)
- library providing __atomic built-in functions. When an atomic call cannot
- be turned into lock-free instructions, GCC will make calls into this library.
-
-Package: lib64atomic1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: support library providing __atomic built-in functions (64bit)
- library providing __atomic built-in functions. When an atomic call cannot
- be turned into lock-free instructions, GCC will make calls into this library.
-
-Package: libn32atomic1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: support library providing __atomic built-in functions (n32)
- library providing __atomic built-in functions. When an atomic call cannot
- be turned into lock-free instructions, GCC will make calls into this library.
-
-Package: libx32atomic1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: support library providing __atomic built-in functions (x32)
- library providing __atomic built-in functions. When an atomic call cannot
- be turned into lock-free instructions, GCC will make calls into this library.
-
-Package: libasan8
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: AddressSanitizer -- a fast memory error detector
- AddressSanitizer (ASan) is a fast memory error detector.  It finds
- use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
-
-Package: lib32asan8
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: AddressSanitizer -- a fast memory error detector (32bit)
- AddressSanitizer (ASan) is a fast memory error detector.  It finds
- use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
-
-Package: lib64asan8
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: AddressSanitizer -- a fast memory error detector (64bit)
- AddressSanitizer (ASan) is a fast memory error detector.  It finds
- use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
-
-#Package: libn32asan`'ASAN_SO`'LS
-#Section: ifdef(`TARGET',`devel',`libs')
-#Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
-#Priority: optional
-#Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-#BUILT_USING`'dnl
-#Description: AddressSanitizer -- a fast memory error detector (n32)
-# AddressSanitizer (ASan) is a fast memory error detector.  It finds
-# use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
-
-#Package: libn32asan`'ASAN_SO-dbg`'LS
-#Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
-#Section: debug
-#Priority: optional
-#Depends: BASELDEP, libdep(asan`'ASAN_SO,n32,=), ${misc:Depends}
-#BUILT_USING`'dnl
-#Description: AddressSanitizer -- a fast memory error detector (n32 debug symbols)
-# AddressSanitizer (ASan) is a fast memory error detector.  It finds
-# use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
-
-Package: libx32asan8
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: AddressSanitizer -- a fast memory error detector (x32)
- AddressSanitizer (ASan) is a fast memory error detector.  It finds
- use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
-
-Package: libhwasan0
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: AddressSanitizer -- a fast memory error detector
- AddressSanitizer (HWASan) is a fast memory error detector.  It finds
- use-after-free and {heap,stack,global}-buffer overflow bugs in C/C++ programs.
-
-Package: liblsan0
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: LeakSanitizer -- a memory leak detector (runtime)
- LeakSanitizer (Lsan) is a memory leak detector which is integrated
- into AddressSanitizer.
-
-Package: libtsan2
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: ThreadSanitizer -- a Valgrind-based detector of data races (runtime)
- ThreadSanitizer (Tsan) is a data race detector for C/C++ programs.
- The Linux and Mac versions are based on Valgrind.
-
-Package: libubsan1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: UBSan -- undefined behaviour sanitizer (runtime)
- UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
- Various computations will be instrumented to detect undefined behavior
- at runtime. Available for C and C++.
-
-Package: lib32ubsan1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: UBSan -- undefined behaviour sanitizer (32bit)
- UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
- Various computations will be instrumented to detect undefined behavior
- at runtime. Available for C and C++.
-
-Package: lib64ubsan1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: UBSan -- undefined behaviour sanitizer (64bit)
- UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
- Various computations will be instrumented to detect undefined behavior
- at runtime. Available for C and C++.
-
-#Package: libn32ubsan`'UBSAN_SO`'LS
-#Section: ifdef(`TARGET',`devel',`libs')
-#Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
-#Priority: optional
-#Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-#BUILT_USING`'dnl
-#Description: UBSan -- undefined behaviour sanitizer (n32)
-# UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
-# Various computations will be instrumented to detect undefined behavior
-# at runtime. Available for C and C++.
-
-Package: libx32ubsan1
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: UBSan -- undefined behaviour sanitizer (x32)
- UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
- Various computations will be instrumented to detect undefined behavior
- at runtime. Available for C and C++.
-
-Package: libquadmath0
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GCC Quad-Precision Math Library
- A library, which provides quad-precision mathematical functions on targets
- supporting the __float128 datatype. The library is used to provide on such
- targets the REAL(16) type in the GNU Fortran compiler.
-
-Package: lib32quadmath0
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: GCC Quad-Precision Math Library (32bit)
- A library, which provides quad-precision mathematical functions on targets
- supporting the __float128 datatype. The library is used to provide on such
- targets the REAL(16) type in the GNU Fortran compiler.
-
-Package: lib64quadmath0
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: GCC Quad-Precision Math Library  (64bit)
- A library, which provides quad-precision mathematical functions on targets
- supporting the __float128 datatype. The library is used to provide on such
- targets the REAL(16) type in the GNU Fortran compiler.
-
-#Package: libn32quadmath`'QMATH_SO`'LS
-#Section: ifdef(`TARGET',`devel',`libs')
-#Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
-#Priority: optional
-#Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-#BUILT_USING`'dnl
-#Description: GCC Quad-Precision Math Library (n32)
-# A library, which provides quad-precision mathematical functions on targets
-# supporting the __float128 datatype. The library is used to provide on such
-# targets the REAL(16) type in the GNU Fortran compiler.
-
-Package: libx32quadmath0
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: GCC Quad-Precision Math Library (x32)
- A library, which provides quad-precision mathematical functions on targets
- supporting the __float128 datatype. The library is used to provide on such
- targets the REAL(16) type in the GNU Fortran compiler.
-
-Package: libcc1-0
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GCC cc1 plugin for GDB
- libcc1 is a plugin for GDB.
-
-Package: libgccjit0
+Package: libgccjit15
 Section: libs
 Architecture: any
 Multi-Arch: same
@@ -1922,7 +1481,7 @@ Architecture: all
 Depends: gcc-15-base (>= ${gcc:SoftVersion}), ${misc:Depends}
 Conflicts: libgccjit-5-doc, libgccjit-6-doc, libgccjit-7-doc, libgccjit-8-doc,
   libgccjit-9-doc, libgccjit-10-doc, libgccjit-11-doc, libgccjit-12-doc,
-   libgccjit-13-doc,
+  libgccjit-13-doc, libgccjit-14-doc,
 Description: GCC just-in-time compilation (documentation)
  libgccjit provides an embeddable shared library with an API for adding
  compilation to existing programs using GCC.
@@ -1932,27 +1491,12 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), libgccjit0 (>= ${gcc:Version}),
+Depends: gcc-15-base (= ${gcc:Version}), libgccjit15 (>= ${gcc:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Suggests: libgccjit-15-dbg
 Description: GCC just-in-time compilation (development files)
  libgccjit provides an embeddable shared library with an API for adding
  compilation to existing programs using GCC.
-
-Package: libgdiagnostics0
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}),
-  ${shlibs:Depends}, ${misc:Depends}
-Description: GCC diagnostic-handling code wrapped into a library (shared library)
- GCCs diagnostic-handling code covers things like
-  - quoting pertinent source code (with a cache)
-  - underlining points and ranges in the source code, possibly with labels
-  - emitting fix-it hints
-  - generating patches from fix-it hints
-  - SARIF output
 
 #Package: libgdiagnostics`'PV-doc
 #Section: doc
@@ -1989,9 +1533,9 @@ Architecture: any
 Depends: gcc-15-base (= ${gcc:Version}), libgdiagnostics0 (>= ${gcc:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 Description: GCC diagnostic tools
-  Currently only provides the sarif-replay command-line tool, which takes
-  SARIF files as input, and uses libdiagnostics to replay any diagnostics
-  within them as if they were GCC diagnostics.
+ Currently only provides the sarif-replay command-line tool, which takes
+ SARIF files as input, and uses libdiagnostics to replay any diagnostics
+ within them as if they were GCC diagnostics.
 
 Package: gobjc++-15-alpha-linux-gnu
 Architecture: alpha
@@ -2000,8 +1544,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-alpha-linux-gnu (= ${gcc:Versi
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-alpha-linux-gnu
 Description: GNU Objective-C++ compiler for the alpha-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the alpha-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ alpha-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-x86-64-linux-gnu
@@ -2011,8 +1556,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-x86-64-linux-gnu (= ${gcc:Vers
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-x86-64-linux-gnu
 Description: GNU Objective-C++ compiler for the x86_64-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the x86_64-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ x86_64-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-arm-linux-gnueabi
@@ -2022,8 +1568,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-arm-linux-gnueabi (= ${gcc:Ver
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-arm-linux-gnueabi
 Description: GNU Objective-C++ compiler for the arm-linux-gnueabi architecture
- This is the GNU Objective-C++ compiler for the arm-linux-gnueabi architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ arm-linux-gnueabi architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-arm-linux-gnueabihf
@@ -2033,8 +1580,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-arm-linux-gnueabihf (= ${gcc:V
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-arm-linux-gnueabihf
 Description: GNU Objective-C++ compiler for the arm-linux-gnueabihf architecture
- This is the GNU Objective-C++ compiler for the arm-linux-gnueabihf architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ arm-linux-gnueabihf architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-aarch64-linux-gnu
@@ -2044,8 +1592,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-aarch64-linux-gnu (= ${gcc:Ver
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-aarch64-linux-gnu
 Description: GNU Objective-C++ compiler for the aarch64-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the aarch64-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ aarch64-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-i686-linux-gnu
@@ -2055,8 +1604,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-i686-linux-gnu (= ${gcc:Versio
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-i686-linux-gnu
 Description: GNU Objective-C++ compiler for the i686-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the i686-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ i686-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-loongarch64-linux-gnu
@@ -2066,8 +1616,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-loongarch64-linux-gnu (= ${gcc
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-loongarch64-linux-gnu
 Description: GNU Objective-C++ compiler for the loongarch64-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the loongarch64-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ loongarch64-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mipsel-linux-gnu
@@ -2077,8 +1628,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mipsel-linux-gnu (= ${gcc:Vers
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mipsel-linux-gnu
 Description: GNU Objective-C++ compiler for the mipsel-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the mipsel-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mipsel-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mips64-linux-gnuabi64
@@ -2088,8 +1640,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mips64-linux-gnuabi64 (= ${gcc
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mips64-linux-gnuabi64
 Description: GNU Objective-C++ compiler for the mips64-linux-gnuabi64 architecture
- This is the GNU Objective-C++ compiler for the mips64-linux-gnuabi64 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mips64-linux-gnuabi64 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mips64el-linux-gnuabi64
@@ -2099,8 +1652,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mips64el-linux-gnuabi64 (= ${g
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mips64el-linux-gnuabi64
 Description: GNU Objective-C++ compiler for the mips64el-linux-gnuabi64 architecture
- This is the GNU Objective-C++ compiler for the mips64el-linux-gnuabi64 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mips64el-linux-gnuabi64 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mips64-linux-gnuabin32
@@ -2110,8 +1664,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mips64-linux-gnuabin32 (= ${gc
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mips64-linux-gnuabin32
 Description: GNU Objective-C++ compiler for the mips64-linux-gnuabin32 architecture
- This is the GNU Objective-C++ compiler for the mips64-linux-gnuabin32 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mips64-linux-gnuabin32 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-powerpc-linux-gnu
@@ -2121,8 +1676,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-powerpc-linux-gnu (= ${gcc:Ver
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-powerpc-linux-gnu
 Description: GNU Objective-C++ compiler for the powerpc-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the powerpc-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ powerpc-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-powerpc64-linux-gnu
@@ -2132,8 +1688,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-powerpc64-linux-gnu (= ${gcc:V
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-powerpc64-linux-gnu
 Description: GNU Objective-C++ compiler for the powerpc64-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the powerpc64-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ powerpc64-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-powerpc64le-linux-gnu
@@ -2143,8 +1700,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-powerpc64le-linux-gnu (= ${gcc
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-powerpc64le-linux-gnu
 Description: GNU Objective-C++ compiler for the powerpc64le-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the powerpc64le-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ powerpc64le-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-m68k-linux-gnu
@@ -2154,8 +1712,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-m68k-linux-gnu (= ${gcc:Versio
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-m68k-linux-gnu
 Description: GNU Objective-C++ compiler for the m68k-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the m68k-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ m68k-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-riscv64-linux-gnu
@@ -2165,8 +1724,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-riscv64-linux-gnu (= ${gcc:Ver
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-riscv64-linux-gnu
 Description: GNU Objective-C++ compiler for the riscv64-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the riscv64-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ riscv64-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-sh4-linux-gnu
@@ -2176,8 +1736,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-sh4-linux-gnu (= ${gcc:Version
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-sh4-linux-gnu
 Description: GNU Objective-C++ compiler for the sh4-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the sh4-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ sh4-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-sparc-linux-gnu
@@ -2187,8 +1748,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-sparc-linux-gnu (= ${gcc:Versi
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-sparc-linux-gnu
 Description: GNU Objective-C++ compiler for the sparc-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the sparc-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ sparc-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-sparc64-linux-gnu
@@ -2198,8 +1760,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-sparc64-linux-gnu (= ${gcc:Ver
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-sparc64-linux-gnu
 Description: GNU Objective-C++ compiler for the sparc64-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the sparc64-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ sparc64-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-s390x-linux-gnu
@@ -2209,8 +1772,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-s390x-linux-gnu (= ${gcc:Versi
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-s390x-linux-gnu
 Description: GNU Objective-C++ compiler for the s390x-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the s390x-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ s390x-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-x86-64-linux-gnux32
@@ -2220,8 +1784,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-x86-64-linux-gnux32 (= ${gcc:V
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-x86-64-linux-gnux32
 Description: GNU Objective-C++ compiler for the x86_64-linux-gnux32 architecture
- This is the GNU Objective-C++ compiler for the x86_64-linux-gnux32 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ x86_64-linux-gnux32 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mips64el-linux-gnuabin32
@@ -2231,8 +1796,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mips64el-linux-gnuabin32 (= ${
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mips64el-linux-gnuabin32
 Description: GNU Objective-C++ compiler for the mips64el-linux-gnuabin32 architecture
- This is the GNU Objective-C++ compiler for the mips64el-linux-gnuabin32 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mips64el-linux-gnuabin32 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mipsisa32r6-linux-gnu
@@ -2242,8 +1808,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mipsisa32r6-linux-gnu (= ${gcc
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mipsisa32r6-linux-gnu
 Description: GNU Objective-C++ compiler for the mipsisa32r6-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the mipsisa32r6-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mipsisa32r6-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mipsisa32r6el-linux-gnu
@@ -2253,8 +1820,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mipsisa32r6el-linux-gnu (= ${g
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mipsisa32r6el-linux-gnu
 Description: GNU Objective-C++ compiler for the mipsisa32r6el-linux-gnu architecture
- This is the GNU Objective-C++ compiler for the mipsisa32r6el-linux-gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mipsisa32r6el-linux-gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mipsisa64r6-linux-gnuabi64
@@ -2264,8 +1832,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mipsisa64r6-linux-gnuabi64 (= 
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mipsisa64r6-linux-gnuabi64
 Description: GNU Objective-C++ compiler for the mipsisa64r6-linux-gnuabi64 architecture
- This is the GNU Objective-C++ compiler for the mipsisa64r6-linux-gnuabi64 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mipsisa64r6-linux-gnuabi64 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mipsisa64r6el-linux-gnuabi64
@@ -2275,8 +1844,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mipsisa64r6el-linux-gnuabi64 (
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mipsisa64r6el-linux-gnuabi64
 Description: GNU Objective-C++ compiler for the mipsisa64r6el-linux-gnuabi64 architecture
- This is the GNU Objective-C++ compiler for the mipsisa64r6el-linux-gnuabi64 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mipsisa64r6el-linux-gnuabi64 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mipsisa64r6-linux-gnuabin32
@@ -2286,8 +1856,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mipsisa64r6-linux-gnuabin32 (=
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mipsisa64r6-linux-gnuabin32
 Description: GNU Objective-C++ compiler for the mipsisa64r6-linux-gnuabin32 architecture
- This is the GNU Objective-C++ compiler for the mipsisa64r6-linux-gnuabin32 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mipsisa64r6-linux-gnuabin32 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-mipsisa64r6el-linux-gnuabin32
@@ -2297,8 +1868,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gobjc-15-mipsisa64r6el-linux-gnuabin32 
 Suggests: ${gobjcxx:multilib}, gcc-15-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler-mipsisa64r6el-linux-gnuabin32
 Description: GNU Objective-C++ compiler for the mipsisa64r6el-linux-gnuabin32 architecture
- This is the GNU Objective-C++ compiler for the mipsisa64r6el-linux-gnuabin32 architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ mipsisa64r6el-linux-gnuabin32 architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 
 Package: gobjc++-15-for-host
@@ -2342,7 +1914,7 @@ Description: GNU Objective-C++ compiler
  gcc backend to generate optimized code.
 
 Package: gobjc++-15-multilib
-Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 s390x sparc sparc64 x32
+Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 sparc sparc64 x32
 Depends: gcc-15-base (= ${gcc:Version}), gobjc++-15 (= ${gcc:Version}), g++-15-multilib (= ${gcc:Version}), gobjc-15-multilib (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Objective-C++ compiler (multilib support)
  This is the GNU Objective-C++ compiler, which compiles Objective-C++ on
@@ -2358,9 +1930,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-alpha-linux-gnu (= ${gcc:Version
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-alpha-linux-gnu
 Description: GNU Objective-C compiler for the alpha-linux-gnu architecture
- This is the GNU Objective-C compiler for the alpha-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the alpha-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-x86-64-linux-gnu
 Architecture: amd64
@@ -2369,9 +1941,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-x86-64-linux-gnu (= ${gcc:Versio
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-x86-64-linux-gnu
 Description: GNU Objective-C compiler for the x86_64-linux-gnu architecture
- This is the GNU Objective-C compiler for the x86_64-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the x86_64-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-arm-linux-gnueabi
 Architecture: armel
@@ -2380,9 +1952,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-arm-linux-gnueabi (= ${gcc:Versi
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-arm-linux-gnueabi
 Description: GNU Objective-C compiler for the arm-linux-gnueabi architecture
- This is the GNU Objective-C compiler for the arm-linux-gnueabi architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the arm-linux-gnueabi
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-arm-linux-gnueabihf
 Architecture: armhf
@@ -2391,9 +1963,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-arm-linux-gnueabihf (= ${gcc:Ver
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-arm-linux-gnueabihf
 Description: GNU Objective-C compiler for the arm-linux-gnueabihf architecture
- This is the GNU Objective-C compiler for the arm-linux-gnueabihf architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the arm-linux-gnueabihf
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-aarch64-linux-gnu
 Architecture: arm64
@@ -2402,9 +1974,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-aarch64-linux-gnu (= ${gcc:Versi
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-aarch64-linux-gnu
 Description: GNU Objective-C compiler for the aarch64-linux-gnu architecture
- This is the GNU Objective-C compiler for the aarch64-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the aarch64-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-i686-linux-gnu
 Architecture: i386
@@ -2413,9 +1985,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-i686-linux-gnu (= ${gcc:Version}
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-i686-linux-gnu
 Description: GNU Objective-C compiler for the i686-linux-gnu architecture
- This is the GNU Objective-C compiler for the i686-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the i686-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-loongarch64-linux-gnu
 Architecture: loong64
@@ -2424,9 +1996,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-loongarch64-linux-gnu (= ${gcc:V
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-loongarch64-linux-gnu
 Description: GNU Objective-C compiler for the loongarch64-linux-gnu architecture
- This is the GNU Objective-C compiler for the loongarch64-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the loongarch64-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mipsel-linux-gnu
 Architecture: mipsel
@@ -2435,9 +2007,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsel-linux-gnu (= ${gcc:Versio
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mipsel-linux-gnu
 Description: GNU Objective-C compiler for the mipsel-linux-gnu architecture
- This is the GNU Objective-C compiler for the mipsel-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mipsel-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mips64-linux-gnuabi64
 Architecture: mips64
@@ -2446,9 +2018,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64-linux-gnuabi64 (= ${gcc:V
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mips64-linux-gnuabi64
 Description: GNU Objective-C compiler for the mips64-linux-gnuabi64 architecture
- This is the GNU Objective-C compiler for the mips64-linux-gnuabi64 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mips64-linux-gnuabi64
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mips64el-linux-gnuabi64
 Architecture: mips64el
@@ -2457,9 +2029,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64el-linux-gnuabi64 (= ${gcc
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mips64el-linux-gnuabi64
 Description: GNU Objective-C compiler for the mips64el-linux-gnuabi64 architecture
- This is the GNU Objective-C compiler for the mips64el-linux-gnuabi64 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mips64el-linux-gnuabi64
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mips64-linux-gnuabin32
 Architecture: mipsn32
@@ -2468,9 +2040,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64-linux-gnuabin32 (= ${gcc:
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mips64-linux-gnuabin32
 Description: GNU Objective-C compiler for the mips64-linux-gnuabin32 architecture
- This is the GNU Objective-C compiler for the mips64-linux-gnuabin32 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mips64-linux-gnuabin32
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-powerpc-linux-gnu
 Architecture: powerpc
@@ -2479,9 +2051,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-powerpc-linux-gnu (= ${gcc:Versi
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-powerpc-linux-gnu
 Description: GNU Objective-C compiler for the powerpc-linux-gnu architecture
- This is the GNU Objective-C compiler for the powerpc-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the powerpc-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-powerpc64-linux-gnu
 Architecture: ppc64
@@ -2490,9 +2062,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-powerpc64-linux-gnu (= ${gcc:Ver
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-powerpc64-linux-gnu
 Description: GNU Objective-C compiler for the powerpc64-linux-gnu architecture
- This is the GNU Objective-C compiler for the powerpc64-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the powerpc64-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-powerpc64le-linux-gnu
 Architecture: ppc64el
@@ -2501,9 +2073,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-powerpc64le-linux-gnu (= ${gcc:V
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-powerpc64le-linux-gnu
 Description: GNU Objective-C compiler for the powerpc64le-linux-gnu architecture
- This is the GNU Objective-C compiler for the powerpc64le-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the powerpc64le-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-m68k-linux-gnu
 Architecture: m68k
@@ -2512,9 +2084,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-m68k-linux-gnu (= ${gcc:Version}
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-m68k-linux-gnu
 Description: GNU Objective-C compiler for the m68k-linux-gnu architecture
- This is the GNU Objective-C compiler for the m68k-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the m68k-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-riscv64-linux-gnu
 Architecture: riscv64
@@ -2523,9 +2095,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-riscv64-linux-gnu (= ${gcc:Versi
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-riscv64-linux-gnu
 Description: GNU Objective-C compiler for the riscv64-linux-gnu architecture
- This is the GNU Objective-C compiler for the riscv64-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the riscv64-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-sh4-linux-gnu
 Architecture: sh4
@@ -2534,9 +2106,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-sh4-linux-gnu (= ${gcc:Version})
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-sh4-linux-gnu
 Description: GNU Objective-C compiler for the sh4-linux-gnu architecture
- This is the GNU Objective-C compiler for the sh4-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the sh4-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-sparc-linux-gnu
 Architecture: sparc
@@ -2545,9 +2117,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-sparc-linux-gnu (= ${gcc:Version
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-sparc-linux-gnu
 Description: GNU Objective-C compiler for the sparc-linux-gnu architecture
- This is the GNU Objective-C compiler for the sparc-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the sparc-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-sparc64-linux-gnu
 Architecture: sparc64
@@ -2556,9 +2128,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-sparc64-linux-gnu (= ${gcc:Versi
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-sparc64-linux-gnu
 Description: GNU Objective-C compiler for the sparc64-linux-gnu architecture
- This is the GNU Objective-C compiler for the sparc64-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the sparc64-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-s390x-linux-gnu
 Architecture: s390x
@@ -2567,9 +2139,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-s390x-linux-gnu (= ${gcc:Version
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-s390x-linux-gnu
 Description: GNU Objective-C compiler for the s390x-linux-gnu architecture
- This is the GNU Objective-C compiler for the s390x-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the s390x-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-x86-64-linux-gnux32
 Architecture: x32
@@ -2578,9 +2150,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-x86-64-linux-gnux32 (= ${gcc:Ver
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-x86-64-linux-gnux32
 Description: GNU Objective-C compiler for the x86_64-linux-gnux32 architecture
- This is the GNU Objective-C compiler for the x86_64-linux-gnux32 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the x86_64-linux-gnux32
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mips64el-linux-gnuabin32
 Architecture: mipsn32el
@@ -2589,9 +2161,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mips64el-linux-gnuabin32 (= ${gc
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mips64el-linux-gnuabin32
 Description: GNU Objective-C compiler for the mips64el-linux-gnuabin32 architecture
- This is the GNU Objective-C compiler for the mips64el-linux-gnuabin32 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mips64el-linux-gnuabin32
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mipsisa32r6-linux-gnu
 Architecture: mipsr6
@@ -2600,9 +2172,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa32r6-linux-gnu (= ${gcc:V
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mipsisa32r6-linux-gnu
 Description: GNU Objective-C compiler for the mipsisa32r6-linux-gnu architecture
- This is the GNU Objective-C compiler for the mipsisa32r6-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mipsisa32r6-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mipsisa32r6el-linux-gnu
 Architecture: mipsr6el
@@ -2611,9 +2183,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa32r6el-linux-gnu (= ${gcc
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mipsisa32r6el-linux-gnu
 Description: GNU Objective-C compiler for the mipsisa32r6el-linux-gnu architecture
- This is the GNU Objective-C compiler for the mipsisa32r6el-linux-gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mipsisa32r6el-linux-gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mipsisa64r6-linux-gnuabi64
 Architecture: mips64r6
@@ -2622,9 +2194,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6-linux-gnuabi64 (= ${
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mipsisa64r6-linux-gnuabi64
 Description: GNU Objective-C compiler for the mipsisa64r6-linux-gnuabi64 architecture
- This is the GNU Objective-C compiler for the mipsisa64r6-linux-gnuabi64 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mipsisa64r6-linux-gnuabi64
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mipsisa64r6el-linux-gnuabi64
 Architecture: mips64r6el
@@ -2633,9 +2205,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6el-linux-gnuabi64 (= 
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mipsisa64r6el-linux-gnuabi64
 Description: GNU Objective-C compiler for the mipsisa64r6el-linux-gnuabi64 architecture
- This is the GNU Objective-C compiler for the mipsisa64r6el-linux-gnuabi64 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mipsisa64r6el-linux-gnuabi64
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mipsisa64r6-linux-gnuabin32
 Architecture: mipsn32r6
@@ -2644,9 +2216,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6-linux-gnuabin32 (= $
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mipsisa64r6-linux-gnuabin32
 Description: GNU Objective-C compiler for the mipsisa64r6-linux-gnuabin32 architecture
- This is the GNU Objective-C compiler for the mipsisa64r6-linux-gnuabin32 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mipsisa64r6-linux-gnuabin32
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-mipsisa64r6el-linux-gnuabin32
 Architecture: mipsn32r6el
@@ -2655,9 +2227,9 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15-mipsisa64r6el-linux-gnuabin32 (=
 Suggests: gcc-15-doc (>= ${gcc:SoftVersion}),
 Provides: objc-compiler-mipsisa64r6el-linux-gnuabin32
 Description: GNU Objective-C compiler for the mipsisa64r6el-linux-gnuabin32 architecture
- This is the GNU Objective-C compiler for the mipsisa64r6el-linux-gnuabin32 architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the mipsisa64r6el-linux-gnuabin32
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gobjc-15-for-host
 Architecture: any
@@ -2697,7 +2269,7 @@ Description: GNU Objective-C compiler
  gcc backend to generate optimized code.
 
 Package: gobjc-15-multilib
-Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 s390x sparc sparc64 x32
+Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 sparc sparc64 x32
 Depends: gcc-15-base (= ${gcc:Version}), gobjc-15 (= ${gcc:Version}), gcc-15-multilib (= ${gcc:Version}), ${dep:libobjcbiarchdev}, ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Objective-C compiler (multilib support)
  This is the GNU Objective-C compiler, which compiles Objective-C on platforms
@@ -2727,7 +2299,7 @@ Description: Runtime library for GNU Objective-C applications (64bit development
 
 Package: lib32objc-15-dev
 X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), lib32gcc-15-dev (= ${gcc:Version}), lib32objc4 (>= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: Runtime library for GNU Objective-C applications (32bit development files)
@@ -2751,49 +2323,6 @@ Depends: gcc-15-base (= ${gcc:Version}), libx32gcc-15-dev (= ${gcc:Version}), li
 Description: Runtime library for GNU Objective-C applications (x32 development files)
  This package contains the headers and static library files needed to build
  GNU ObjC applications.
-
-Package: libobjc4
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Objective-C applications
- Library needed for GNU ObjC applications linked against the shared library.
-
-Package: lib64objc4
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Objective-C applications (64bit)
- Library needed for GNU ObjC applications linked against the shared library.
-
-Package: lib32objc4
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: Runtime library for GNU Objective-C applications (32bit)
- Library needed for GNU ObjC applications linked against the shared library.
-
-Package: libn32objc4
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Objective-C applications (n32)
- Library needed for GNU ObjC applications linked against the shared library.
-
-Package: libx32objc4
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Objective-C applications (x32)
- Library needed for GNU ObjC applications linked against the shared library.
 
 Package: gfortran-15-alpha-linux-gnu
 Architecture: alpha
@@ -3142,7 +2671,7 @@ Description: GNU Fortran compiler
  gcc backend to generate optimized code.
 
 Package: gfortran-15-multilib
-Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 s390x sparc sparc64 x32
+Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 sparc sparc64 x32
 Depends: gcc-15-base (= ${gcc:Version}), gfortran-15 (= ${gcc:Version}), gcc-15-multilib (= ${gcc:Version}), ${dep:libgfortranbiarchdev}, ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Fortran compiler (multilib support)
  This is the GNU Fortran compiler, which compiles Fortran on platforms
@@ -3172,7 +2701,7 @@ Description: Runtime library for GNU Fortran applications (64bit development fil
 
 Package: lib32gfortran-15-dev
 X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), lib32gcc-15-dev (= ${gcc:Version}), lib32gfortran5 (>= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: Runtime library for GNU Fortran applications (32bit development files)
@@ -3196,55 +2725,6 @@ Depends: gcc-15-base (= ${gcc:Version}), libx32gcc-15-dev (= ${gcc:Version}), li
 Description: Runtime library for GNU Fortran applications (x32 development files)
  This package contains the headers and static library files needed to build
  GNU Fortran applications.
-
-Package: libgfortran5
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Breaks: ${multiarch:breaks}
-Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Fortran applications
- Library needed for GNU Fortran applications linked against the
- shared library.
-
-Package: lib64gfortran5
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Fortran applications (64bit)
- Library needed for GNU Fortran applications linked against the
- shared library.
-
-Package: lib32gfortran5
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: Runtime library for GNU Fortran applications (32bit)
- Library needed for GNU Fortran applications linked against the
- shared library.
-
-Package: libn32gfortran5
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Fortran applications (n32)
- Library needed for GNU Fortran applications linked against the
- shared library.
-
-Package: libx32gfortran5
-X-DH-Build-For-Type: target
-Section: libs
-Architecture: amd64 i386
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
-Description: Runtime library for GNU Fortran applications (x32)
- Library needed for GNU Fortran applications linked against the
- shared library.
 
 Package: gccgo-15-alpha-linux-gnu
 Architecture: alpha
@@ -3610,7 +3090,7 @@ Description: GNU Go compiler
  by the gcc compiler. It uses the gcc backend to generate optimized code.
 
 Package: gccgo-15-multilib
-Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 s390x sparc sparc64 x32
+Architecture: amd64 i386 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 s390 sparc sparc64 x32
 Depends: gcc-15-base (= ${gcc:Version}), gccgo-15 (= ${gcc:Version}), gcc-15-multilib (= ${gcc:Version}), ${dep:libgobiarchdev}, ${shlibs:Depends}, ${misc:Depends}
 Suggests: ${dep:libgobiarchdbg}
 Description: GNU Go compiler (multilib support)
@@ -3641,7 +3121,7 @@ Description: Runtime library for GNU Go applications (64bit development files)
 
 Package: lib32go-15-dev
 X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), lib32gcc-15-dev (= ${gcc:Version}), lib32go24 (>= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: Runtime library for GNU Go applications (32bit development files)
@@ -3689,7 +3169,7 @@ Description: Runtime library for GNU Go applications (64bit)
 Package: lib32go24
 X-DH-Build-For-Type: target
 Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
 Conflicts: ${confl:lib32}
 Description: Runtime library for GNU Go applications (32bit)
@@ -3701,6 +3181,7 @@ X-DH-Build-For-Type: target
 Section: libs
 Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
 Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+Conflicts: lib32go24 [amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mipsn32r6 mipsn32r6el]
 Description: Runtime library for GNU Go applications (n32)
  Library needed for GNU Go applications linked against the
  shared library.
@@ -3713,74 +3194,6 @@ Depends: gcc-15-base (= ${gcc:Version}), ${dep:libcbiarch}, ${shlibs:Depends}, $
 Description: Runtime library for GNU Go applications (x32)
  Library needed for GNU Go applications linked against the
  shared library.
-
-Package: libstdc++6
-X-DH-Build-For-Type: target
-Architecture: any
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), ${dep:libc}, ${shlibs:Depends}, ${misc:Depends}
-Provides:
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Breaks: ${multiarch:breaks}
-Conflicts: scim (<< 1.4.2-1)
-Replaces: libstdc++6-15-dbg (<< 4.9.0-3)
-Description: GNU Standard C++ Library v3
- This package contains an additional runtime library for C++ programs
- built with the GNU compiler.
- .
- libstdc++-v3 is a complete rewrite from the previous libstdc++-v2, which
- was included up to g++-2.95. The first version of libstdc++-v3 appeared
- in g++-3.0.
-
-Package: lib32stdc++6
-X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), lib32gcc-s1 (>= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Conflicts: ${confl:lib32}
-Description: GNU Standard C++ Library v3 (32 bit Version)
- This package contains an additional runtime library for C++ programs
- built with the GNU compiler.
-
-Package: lib64stdc++6
-X-DH-Build-For-Type: target
-Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), lib64gcc-s1 (>= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GNU Standard C++ Library v3 (64bit)
- This package contains an additional runtime library for C++ programs
- built with the GNU compiler.
- .
- libstdc++-v3 is a complete rewrite from the previous libstdc++-v2, which
- was included up to g++-2.95. The first version of libstdc++-v3 appeared
- in g++-3.0.
-
-Package: libn32stdc++6
-X-DH-Build-For-Type: target
-Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), libn32gcc-s1 (>= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GNU Standard C++ Library v3 (n32)
- This package contains an additional runtime library for C++ programs
- built with the GNU compiler.
- .
- libstdc++-v3 is a complete rewrite from the previous libstdc++-v2, which
- was included up to g++-2.95. The first version of libstdc++-v3 appeared
- in g++-3.0.
-
-Package: libx32stdc++6
-X-DH-Build-For-Type: target
-Architecture: amd64 i386
-Section: libs
-Depends: gcc-15-base (= ${gcc:Version}), libx32gcc-s1 (>= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
-Description: GNU Standard C++ Library v3 (x32)
- This package contains an additional runtime library for C++ programs
- built with the GNU compiler.
- .
- libstdc++-v3 is a complete rewrite from the previous libstdc++-v2, which
- was included up to g++-2.95. The first version of libstdc++-v3 appeared
- in g++-3.0.
 
 Package: libstdc++-15-dev
 X-DH-Build-For-Type: target
@@ -3805,7 +3218,7 @@ Architecture: any
 Multi-Arch: same
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), libstdc++6 (>= ${gcc:Version}),
- libstdc++-15-dev (= ${gcc:Version}), ${misc:Depends}
+ libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Standard C++ Library v3 (shared library subset kit)
  This is used to develop subsets of the libstdc++ shared libraries for
  use on custom installation floppies and in embedded systems.
@@ -3828,17 +3241,17 @@ Conflicts: libstdc++5-dbg, libstdc++5-3.3-dbg, libstdc++6-dbg,
  libstdc++6-4.9-dbg, libstdc++6-5-dbg, libstdc++6-6-dbg,
  libstdc++6-7-dbg, libstdc++6-8-dbg, libstdc++6-9-dbg,
  libstdc++6-10-dbg, libstdc++6-11-dbg, libstdc++6-12-dbg,
- libstdc++6-13-dbg,
+ libstdc++6-13-dbg, libstdc++6-14-dbg,
 Description: GNU Standard C++ Library v3 (debug build)
  This package contains a debug build of the shared libstdc++ library.  The debug
  symbols for the default build can be found in the libstdc++6-dbgsym package.
 
 Package: lib32stdc++-15-dev
 X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), lib32gcc-15-dev (= ${gcc:Version}),
- lib32stdc++6 (>= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${misc:Depends}
+ lib32stdc++6 (>= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Standard C++ Library v3 (development files)
  This package contains the headers and static library files necessary for
  building C++ programs which use libstdc++.
@@ -3849,7 +3262,7 @@ Description: GNU Standard C++ Library v3 (development files)
 
 Package: lib32stdc++6-15-dbg
 X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Section: debug
 Depends: gcc-15-base (= ${gcc:Version}), lib32stdc++6 (>= ${gcc:Version}),
  libstdc++-15-dev (= ${gcc:Version}), ,
@@ -3861,6 +3274,7 @@ Conflicts: lib32stdc++6-dbg, lib32stdc++6-4.0-dbg,
  lib32stdc++6-5-dbg, lib32stdc++6-6-dbg, lib32stdc++6-7-dbg,
  lib32stdc++6-8-dbg, lib32stdc++6-9-dbg, lib32stdc++6-10-dbg,
  lib32stdc++6-11-dbg, lib32stdc++6-12-dbg, lib32stdc++6-13-dbg,
+ lib32stdc++6-14-dbg,
 Description: GNU Standard C++ Library v3 (debug build)
  This package contains a debug build of the shared libstdc++ library.  The debug
  symbols for the default build can be found in the libstdc++6-dbgsym package.
@@ -3870,7 +3284,7 @@ X-DH-Build-For-Type: target
 Architecture: i386 powerpc sparc s390 mips mipsel mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el x32
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), lib64gcc-15-dev (= ${gcc:Version}),
- lib64stdc++6 (>= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${misc:Depends}
+ lib64stdc++6 (>= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Standard C++ Library v3 (development files)
  This package contains the headers and static library files necessary for
  building C++ programs which use libstdc++.
@@ -3893,6 +3307,7 @@ Conflicts: lib64stdc++6-dbg, lib64stdc++6-4.0-dbg,
  lib64stdc++6-5-dbg, lib64stdc++6-6-dbg, lib64stdc++6-7-dbg,
  lib64stdc++6-8-dbg, lib64stdc++6-9-dbg, lib64stdc++6-10-dbg,
  lib64stdc++6-11-dbg, lib64stdc++6-12-dbg, lib64stdc++6-13-dbg,
+ lib64stdc++6-14-dbg,
 Description: GNU Standard C++ Library v3 (debug build)
  This package contains a debug build of the shared libstdc++ library.  The debug
  symbols for the default build can be found in the libstdc++6-dbgsym package.
@@ -3902,7 +3317,7 @@ X-DH-Build-For-Type: target
 Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), libn32gcc-15-dev (= ${gcc:Version}),
- libn32stdc++6 (>= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${misc:Depends}
+ libn32stdc++6 (>= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Standard C++ Library v3 (development files)
  This package contains the headers and static library files necessary for
  building C++ programs which use libstdc++.
@@ -3925,6 +3340,7 @@ Conflicts: libn32stdc++6-dbg, libn32stdc++6-4.0-dbg,
  libn32stdc++6-5-dbg, libn32stdc++6-6-dbg, libn32stdc++6-7-dbg,
  libn32stdc++6-8-dbg, libn32stdc++6-9-dbg, libn32stdc++6-10-dbg,
  libn32stdc++6-11-dbg, libn32stdc++6-12-dbg, libn32stdc++6-13-dbg,
+ libn32stdc++6-14-dbg,
 Description: GNU Standard C++ Library v3 (debug build)
  This package contains a debug build of the shared libstdc++ library.  The debug
  symbols for the default build can be found in the libstdc++6-dbgsym package.
@@ -3934,7 +3350,7 @@ X-DH-Build-For-Type: target
 Architecture: amd64 i386
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), libx32gcc-15-dev (= ${gcc:Version}), libx32stdc++6 (>= ${gcc:Version}),
- libstdc++-15-dev (= ${gcc:Version}), ${misc:Depends}
+ libx32stdc++6 (>= ${gcc:Version}), libstdc++-15-dev (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Description: GNU Standard C++ Library v3 (development files)
  This package contains the headers and static library files necessary for
  building C++ programs which use libstdc++.
@@ -3955,6 +3371,7 @@ Conflicts: libx32stdc++6-dbg, libx32stdc++6-4.6-dbg,
  libx32stdc++6-5-dbg, libx32stdc++6-6-dbg, libx32stdc++6-7-dbg,
  libx32stdc++6-8-dbg, libx32stdc++6-9-dbg, libx32stdc++6-10-dbg,
  libx32stdc++6-11-dbg, libx32stdc++6-12-dbg, libx32stdc++6-13-dbg,
+ libx32stdc++6-14-dbg,
 Description: GNU Standard C++ Library v3 (debug build)
  This package contains a debug build of the shared libstdc++ library.  The debug
  symbols for the default build can be found in the libstdc++6-dbgsym package.
@@ -3969,7 +3386,7 @@ Conflicts: libstdc++5-doc, libstdc++5-3.3-doc, libstdc++6-doc,
  libstdc++6-4.4-doc, libstdc++6-4.5-doc, libstdc++6-4.6-doc, libstdc++6-4.7-doc,
  libstdc++-4.8-doc, libstdc++-4.9-doc, libstdc++-5-doc, libstdc++-6-doc,
  libstdc++-7-doc, libstdc++-8-doc, libstdc++-9-doc, libstdc++-10-doc,
- libstdc++-11-doc, libstdc++-12-doc, libstdc++-13-doc,
+ libstdc++-11-doc, libstdc++-12-doc, libstdc++-13-doc, libstdc++-14-doc,
 Description: GNU Standard C++ Library v3 (documentation files)
  This package contains documentation files for the GNU stdc++ library.
  .
@@ -3986,7 +3403,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-alpha-linux-gnu, gnat-8-alpha-linux-gnu,
+ gnat-9-alpha-linux-gnu, gnat-10-alpha-linux-gnu,
+ gnat-11-alpha-linux-gnu, gnat-12-alpha-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the alpha-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4003,7 +3423,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-x86-64-linux-gnu, gnat-8-x86-64-linux-gnu,
+ gnat-9-x86-64-linux-gnu, gnat-10-x86-64-linux-gnu,
+ gnat-11-x86-64-linux-gnu, gnat-12-x86-64-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the x86_64-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4020,7 +3443,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-arm-linux-gnueabi, gnat-8-arm-linux-gnueabi,
+ gnat-9-arm-linux-gnueabi, gnat-10-arm-linux-gnueabi,
+ gnat-11-arm-linux-gnueabi, gnat-12-arm-linux-gnueabi,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the arm-linux-gnueabi architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4037,7 +3463,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-arm-linux-gnueabihf, gnat-8-arm-linux-gnueabihf,
+ gnat-9-arm-linux-gnueabihf, gnat-10-arm-linux-gnueabihf,
+ gnat-11-arm-linux-gnueabihf, gnat-12-arm-linux-gnueabihf,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the arm-linux-gnueabihf architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4054,7 +3483,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-aarch64-linux-gnu, gnat-8-aarch64-linux-gnu,
+ gnat-9-aarch64-linux-gnu, gnat-10-aarch64-linux-gnu,
+ gnat-11-aarch64-linux-gnu, gnat-12-aarch64-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the aarch64-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4071,7 +3503,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-i686-linux-gnu, gnat-8-i686-linux-gnu,
+ gnat-9-i686-linux-gnu, gnat-10-i686-linux-gnu,
+ gnat-11-i686-linux-gnu, gnat-12-i686-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the i686-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4088,7 +3523,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-loongarch64-linux-gnu, gnat-8-loongarch64-linux-gnu,
+ gnat-9-loongarch64-linux-gnu, gnat-10-loongarch64-linux-gnu,
+ gnat-11-loongarch64-linux-gnu, gnat-12-loongarch64-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the loongarch64-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4105,7 +3543,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mipsel-linux-gnu, gnat-8-mipsel-linux-gnu,
+ gnat-9-mipsel-linux-gnu, gnat-10-mipsel-linux-gnu,
+ gnat-11-mipsel-linux-gnu, gnat-12-mipsel-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mipsel-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4122,7 +3563,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mips64-linux-gnuabi64, gnat-8-mips64-linux-gnuabi64,
+ gnat-9-mips64-linux-gnuabi64, gnat-10-mips64-linux-gnuabi64,
+ gnat-11-mips64-linux-gnuabi64, gnat-12-mips64-linux-gnuabi64,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mips64-linux-gnuabi64 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4139,7 +3583,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mips64el-linux-gnuabi64, gnat-8-mips64el-linux-gnuabi64,
+ gnat-9-mips64el-linux-gnuabi64, gnat-10-mips64el-linux-gnuabi64,
+ gnat-11-mips64el-linux-gnuabi64, gnat-12-mips64el-linux-gnuabi64,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mips64el-linux-gnuabi64 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4156,7 +3603,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mips64-linux-gnuabin32, gnat-8-mips64-linux-gnuabin32,
+ gnat-9-mips64-linux-gnuabin32, gnat-10-mips64-linux-gnuabin32,
+ gnat-11-mips64-linux-gnuabin32, gnat-12-mips64-linux-gnuabin32,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mips64-linux-gnuabin32 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4173,7 +3623,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-powerpc-linux-gnu, gnat-8-powerpc-linux-gnu,
+ gnat-9-powerpc-linux-gnu, gnat-10-powerpc-linux-gnu,
+ gnat-11-powerpc-linux-gnu, gnat-12-powerpc-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the powerpc-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4190,7 +3643,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-powerpc64-linux-gnu, gnat-8-powerpc64-linux-gnu,
+ gnat-9-powerpc64-linux-gnu, gnat-10-powerpc64-linux-gnu,
+ gnat-11-powerpc64-linux-gnu, gnat-12-powerpc64-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the powerpc64-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4207,7 +3663,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-powerpc64le-linux-gnu, gnat-8-powerpc64le-linux-gnu,
+ gnat-9-powerpc64le-linux-gnu, gnat-10-powerpc64le-linux-gnu,
+ gnat-11-powerpc64le-linux-gnu, gnat-12-powerpc64le-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the powerpc64le-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4224,7 +3683,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-m68k-linux-gnu, gnat-8-m68k-linux-gnu,
+ gnat-9-m68k-linux-gnu, gnat-10-m68k-linux-gnu,
+ gnat-11-m68k-linux-gnu, gnat-12-m68k-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the m68k-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4241,7 +3703,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-riscv64-linux-gnu, gnat-8-riscv64-linux-gnu,
+ gnat-9-riscv64-linux-gnu, gnat-10-riscv64-linux-gnu,
+ gnat-11-riscv64-linux-gnu, gnat-12-riscv64-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the riscv64-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4258,9 +3723,32 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-sh4-linux-gnu, gnat-8-sh4-linux-gnu,
+ gnat-9-sh4-linux-gnu, gnat-10-sh4-linux-gnu,
+ gnat-11-sh4-linux-gnu, gnat-12-sh4-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the sh4-linux-gnu architecture
+ GNAT is a compiler for the Ada programming language. It produces optimized
+ code on platforms supported by the GNU Compiler Collection (GCC).
+ .
+ This package provides the compiler, tools and runtime library that handles
+ exceptions using the default zero-cost mechanism.
+
+Package: gnat-15-sparc-linux-gnu
+Architecture: sparc
+Multi-Arch: foreign
+Pre-Depends: ${misc:Pre-Depends}
+Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVersion}), ${dep:libgnat}, ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Suggests: gnat-15-doc, ada-reference-manual-2012
+Provides: gnat-15-${libgnat:alihash}
+Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-sparc-linux-gnu, gnat-8-sparc-linux-gnu,
+ gnat-9-sparc-linux-gnu, gnat-10-sparc-linux-gnu,
+ gnat-11-sparc-linux-gnu, gnat-12-sparc-linux-gnu,
+# Previous versions conflict for (at least) /usr/bin/gnatmake.
+Description: GNU Ada compiler for the sparc-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
  code on platforms supported by the GNU Compiler Collection (GCC).
  .
@@ -4275,7 +3763,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-sparc64-linux-gnu, gnat-8-sparc64-linux-gnu,
+ gnat-9-sparc64-linux-gnu, gnat-10-sparc64-linux-gnu,
+ gnat-11-sparc64-linux-gnu, gnat-12-sparc64-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the sparc64-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4292,7 +3783,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-s390x-linux-gnu, gnat-8-s390x-linux-gnu,
+ gnat-9-s390x-linux-gnu, gnat-10-s390x-linux-gnu,
+ gnat-11-s390x-linux-gnu, gnat-12-s390x-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the s390x-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4309,7 +3803,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-x86-64-linux-gnux32, gnat-8-x86-64-linux-gnux32,
+ gnat-9-x86-64-linux-gnux32, gnat-10-x86-64-linux-gnux32,
+ gnat-11-x86-64-linux-gnux32, gnat-12-x86-64-linux-gnux32,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the x86_64-linux-gnux32 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4326,7 +3823,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mips64el-linux-gnuabin32, gnat-8-mips64el-linux-gnuabin32,
+ gnat-9-mips64el-linux-gnuabin32, gnat-10-mips64el-linux-gnuabin32,
+ gnat-11-mips64el-linux-gnuabin32, gnat-12-mips64el-linux-gnuabin32,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mips64el-linux-gnuabin32 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4343,7 +3843,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mipsisa32r6-linux-gnu, gnat-8-mipsisa32r6-linux-gnu,
+ gnat-9-mipsisa32r6-linux-gnu, gnat-10-mipsisa32r6-linux-gnu,
+ gnat-11-mipsisa32r6-linux-gnu, gnat-12-mipsisa32r6-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mipsisa32r6-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4360,7 +3863,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mipsisa32r6el-linux-gnu, gnat-8-mipsisa32r6el-linux-gnu,
+ gnat-9-mipsisa32r6el-linux-gnu, gnat-10-mipsisa32r6el-linux-gnu,
+ gnat-11-mipsisa32r6el-linux-gnu, gnat-12-mipsisa32r6el-linux-gnu,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mipsisa32r6el-linux-gnu architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4377,7 +3883,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mipsisa64r6-linux-gnuabi64, gnat-8-mipsisa64r6-linux-gnuabi64,
+ gnat-9-mipsisa64r6-linux-gnuabi64, gnat-10-mipsisa64r6-linux-gnuabi64,
+ gnat-11-mipsisa64r6-linux-gnuabi64, gnat-12-mipsisa64r6-linux-gnuabi64,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mipsisa64r6-linux-gnuabi64 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4394,7 +3903,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mipsisa64r6el-linux-gnuabi64, gnat-8-mipsisa64r6el-linux-gnuabi64,
+ gnat-9-mipsisa64r6el-linux-gnuabi64, gnat-10-mipsisa64r6el-linux-gnuabi64,
+ gnat-11-mipsisa64r6el-linux-gnuabi64, gnat-12-mipsisa64r6el-linux-gnuabi64,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mipsisa64r6el-linux-gnuabi64 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4411,7 +3923,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mipsisa64r6-linux-gnuabin32, gnat-8-mipsisa64r6-linux-gnuabin32,
+ gnat-9-mipsisa64r6-linux-gnuabin32, gnat-10-mipsisa64r6-linux-gnuabin32,
+ gnat-11-mipsisa64r6-linux-gnuabin32, gnat-12-mipsisa64r6-linux-gnuabin32,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mipsisa64r6-linux-gnuabin32 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4428,7 +3943,10 @@ Depends: gcc-15-base (= ${gcc:Version}), gcc-15${target:suffix} (>= ${gcc:SoftVe
 Suggests: gnat-15-doc, ada-reference-manual-2012
 Provides: gnat-15-${libgnat:alihash}
 Conflicts: gnat-4.9, gnat-5, gnat-6, gnat-7, gnat-8, gnat-9,
- gnat-10, gnat-11, gnat-12, gnat-13,
+ gnat-10, gnat-11, gnat-12, gnat-13, gnat-14,
+ gnat-7-mipsisa64r6el-linux-gnuabin32, gnat-8-mipsisa64r6el-linux-gnuabin32,
+ gnat-9-mipsisa64r6el-linux-gnuabin32, gnat-10-mipsisa64r6el-linux-gnuabin32,
+ gnat-11-mipsisa64r6el-linux-gnuabin32, gnat-12-mipsisa64r6el-linux-gnuabin32,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 Description: GNU Ada compiler for the mipsisa64r6el-linux-gnuabin32 architecture
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4474,7 +3992,6 @@ Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
 Depends: gnat-15${target:suffix} (= ${gcc:Version}), gcc-15-base (= ${gcc:Version}), gcc-15 (>= ${gcc:SoftVersion}), ${misc:Depends}
 Suggests: gnat-15-doc, ada-reference-manual-2012, gnat-15-sjlj
-Provides: gnat-15-${libgnat:alihash}
 Description: GNU Ada compiler
  GNAT is a compiler for the Ada programming language. It produces optimized
  code on platforms supported by the GNU Compiler Collection (GCC).
@@ -4663,6 +4180,17 @@ Description: GNU D compiler (version 2) for the sparc-linux-gnu architecture
  .
  This compiler supports D language version 2.
 
+Package: gdc-15-sparc64-linux-gnu
+Architecture: sparc64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-sparc64-linux-gnu (>= ${gcc:Version}), ${dep:gdccross}, ${dep:phobosdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU D compiler (version 2) for the sparc64-linux-gnu architecture
+ This is the GNU D compiler for the sparc64-linux-gnu architecture,
+ which compiles D on platforms supported by gcc.
+ It uses the gcc backend to generate optimised code.
+ .
+ This compiler supports D language version 2.
+
 Package: gdc-15-s390x-linux-gnu
 Architecture: s390x
 Multi-Arch: foreign
@@ -4817,7 +4345,7 @@ Description: GNU D compiler (version 2, multilib support)
 
 Package: libgphobos-15-dev
 X-DH-Build-For-Type: target
-Architecture: amd64 arm64 armel armhf i386 x32 hppa mips mips64 mipsel mips64el mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el riscv64 s390x loong64 powerpc ppc64 ppc64el
+Architecture: amd64 arm64 armel armhf hppa i386 loong64 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 ppc64el riscv64 s390x sparc64 x32
 Multi-Arch: same
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), libgphobos6 (>= ${gdc:Version}),
@@ -4841,7 +4369,7 @@ Description: Phobos D standard library (64bit development files)
 
 Package: lib32gphobos-15-dev
 X-DH-Build-For-Type: target
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Section: libdevel
 Depends: gcc-15-base (= ${gcc:Version}), lib32gphobos6 (>= ${gdc:Version}),
   lib32gcc-15-dev (= ${gcc:Version}), lib32z1-dev [!mipsn32 !mipsn32el !mips64 !mips64el !mipsn32r6 !mipsn32r6el !mips64r6 !mips64r6el],
@@ -4877,7 +4405,7 @@ Description: Phobos D standard library (x32 development files)
 Package: libgphobos6
 X-DH-Build-For-Type: target
 Section: libs
-Architecture: amd64 arm64 armel armhf i386 x32 hppa mips mips64 mipsel mips64el mipsn32 mipsn32el mipsr6 mipsr6el mipsn32r6 mipsn32r6el mips64r6 mips64r6el riscv64 s390x loong64 powerpc ppc64 ppc64el
+Architecture: amd64 arm64 armel armhf hppa i386 loong64 mips mips64 mips64el mips64r6 mips64r6el mipsel mipsn32 mipsn32el mipsn32r6 mipsn32r6el mipsr6 mipsr6el powerpc ppc64 ppc64el riscv64 s390x sparc64 x32
 Multi-Arch: same
 Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Replaces: libgphobos68
@@ -4901,7 +4429,7 @@ Description: Phobos D standard library (runtime library)
 Package: lib32gphobos6
 X-DH-Build-For-Type: target
 Section: libs
-Architecture: amd64 ppc64 s390x sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
+Architecture: amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mips64 mips64el mipsn32r6 mipsn32r6el mips64r6 mips64r6el
 Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
 Replaces: lib32gphobos68
 Description: Phobos D standard library (runtime library)
@@ -4914,6 +4442,7 @@ X-DH-Build-For-Type: target
 Section: libs
 Architecture: mips mipsel mips64 mips64el mipsr6 mipsr6el mips64r6 mips64r6el
 Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
+Conflicts: lib32phobos6 [amd64 ppc64 sparc64 x32 mipsn32 mipsn32el mipsn32r6 mipsn32r6el]
 Description: Phobos D standard library (runtime library)
  This is the Phobos standard library that comes with the D2 compiler.
  .
@@ -5633,6 +5162,564 @@ Description: GNU Rust compiler
  !!!!! Please note, the compiler is in a very early stage
  and not usable yet for compiling real Rust programs !!!!!
 
+Package: gcobol-15-x86-64-linux-gnu
+Architecture: amd64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-x86-64-linux-gnu (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the x86_64-linux-gnu architecture
+ This is the GNU COBOL compiler for the x86_64-linux-gnu architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-aarch64-linux-gnu
+Architecture: arm64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-aarch64-linux-gnu (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the aarch64-linux-gnu architecture
+ This is the GNU COBOL compiler for the aarch64-linux-gnu architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mips64-linux-gnuabin32
+Architecture: mipsn32
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mips64-linux-gnuabin32 (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mips64-linux-gnuabin32 architecture
+ This is the GNU COBOL compiler for the mips64-linux-gnuabin32 architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-powerpc64le-linux-gnu
+Architecture: ppc64el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-powerpc64le-linux-gnu (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the powerpc64le-linux-gnu architecture
+ This is the GNU COBOL compiler for the powerpc64le-linux-gnu architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-riscv64-linux-gnu
+Architecture: riscv64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-riscv64-linux-gnu (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the riscv64-linux-gnu architecture
+ This is the GNU COBOL compiler for the riscv64-linux-gnu architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mips64el-linux-gnuabin32
+Architecture: mipsn32el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mips64el-linux-gnuabin32 (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mips64el-linux-gnuabin32 architecture
+ This is the GNU COBOL compiler for the mips64el-linux-gnuabin32 architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mipsisa32r6-linux-gnu
+Architecture: mipsr6
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mipsisa32r6-linux-gnu (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mipsisa32r6-linux-gnu architecture
+ This is the GNU COBOL compiler for the mipsisa32r6-linux-gnu architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mipsisa32r6el-linux-gnu
+Architecture: mipsr6el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mipsisa32r6el-linux-gnu (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mipsisa32r6el-linux-gnu architecture
+ This is the GNU COBOL compiler for the mipsisa32r6el-linux-gnu architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mipsisa64r6-linux-gnuabi64
+Architecture: mips64r6
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mipsisa64r6-linux-gnuabi64 (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mipsisa64r6-linux-gnuabi64 architecture
+ This is the GNU COBOL compiler for the mipsisa64r6-linux-gnuabi64 architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mipsisa64r6el-linux-gnuabi64
+Architecture: mips64r6el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mipsisa64r6el-linux-gnuabi64 (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mipsisa64r6el-linux-gnuabi64 architecture
+ This is the GNU COBOL compiler for the mipsisa64r6el-linux-gnuabi64 architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mipsisa64r6-linux-gnuabin32
+Architecture: mipsn32r6
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mipsisa64r6-linux-gnuabin32 (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mipsisa64r6-linux-gnuabin32 architecture
+ This is the GNU COBOL compiler for the mipsisa64r6-linux-gnuabin32 architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-mipsisa64r6el-linux-gnuabin32
+Architecture: mipsn32r6el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), g++-15-mipsisa64r6el-linux-gnuabin32 (>= ${gcc:Version}), ${dep:gcobolcross},
+  libgcobol-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL compiler for the mipsisa64r6el-linux-gnuabin32 architecture
+ This is the GNU COBOL compiler for the mipsisa64r6el-linux-gnuabin32 architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: gcobol-15-for-host
+Architecture: any
+X-DH-Build-For-Type: target
+Multi-Arch: same
+Depends: gcc-15-base (= ${gcc:Version}), gcobol-15${target:suffix} (>= ${gcc:SoftVersion}),
+  g++-15-for-host (= ${gcc:Version}), ${misc:Depends}
+Description: GNU COBOL compiler for the host architecture
+ This is the GNU COBOL compiler for the host architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ When using this package, tools must be invoked with an architecture prefix.
+ .
+ This is a dependency package.
+
+Package: gcobol-15-for-build
+Architecture: all
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcobol-15 (>= ${gcc:Version}),
+  cpp-15-for-build (= ${gcc:Version}), g++-15-for-build (= ${gcc:Version}),
+  ${misc:Depends}
+Description: GNU COBOL compiler for the build architecture
+ This is the GNU COBOL compiler for the build architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ This is a dependency package.
+
+Package: gcobol-15
+Architecture: any
+Depends: gcobol-15${target:suffix} (= ${gcc:Version}), gcc-15-base (>= ${gcc:SoftVersion}), g++-15 (>= ${gcc:SoftVersion}), ${dep:gcobolcross}, ${misc:Depends}
+Provides: gcobol, cobol-compiler
+Description: GNU COBOL compiler
+ This is the GNU COBOL compiler, which compiles COBOL on platforms
+ supported by gcc.  It uses the gcc backend to generate optimised code.
+
+Package: libgcobol-15-dev
+X-DH-Build-For-Type: target
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: gcc-15-base (= ${gcc:Version}), libgcobol1 (>= ${gcobol:Version}),
+  ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL standard library
+ This is the COBOL standard library that comes with the gcobol compiler.
+
+Package: libgcobol1
+X-DH-Build-For-Type: target
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: GNU COBOL standard library (runtime library)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+Package: ga68-15-alpha-linux-gnu
+Architecture: alpha
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-alpha-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the alpha-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the alpha-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-x86-64-linux-gnu
+Architecture: amd64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-x86-64-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the x86_64-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the x86_64-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-arm-linux-gnueabi
+Architecture: armel
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-arm-linux-gnueabi (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the arm-linux-gnueabi architecture
+ This is the GNU Algol 68 compiler for the arm-linux-gnueabi architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-arm-linux-gnueabihf
+Architecture: armhf
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-arm-linux-gnueabihf (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the arm-linux-gnueabihf architecture
+ This is the GNU Algol 68 compiler for the arm-linux-gnueabihf architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-aarch64-linux-gnu
+Architecture: arm64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-aarch64-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the aarch64-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the aarch64-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-i686-linux-gnu
+Architecture: i386
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-i686-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the i686-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the i686-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-loongarch64-linux-gnu
+Architecture: loong64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-loongarch64-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the loongarch64-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the loongarch64-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mipsel-linux-gnu
+Architecture: mipsel
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mipsel-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mipsel-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the mipsel-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mips64-linux-gnuabi64
+Architecture: mips64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mips64-linux-gnuabi64 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mips64-linux-gnuabi64 architecture
+ This is the GNU Algol 68 compiler for the mips64-linux-gnuabi64 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mips64el-linux-gnuabi64
+Architecture: mips64el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mips64el-linux-gnuabi64 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mips64el-linux-gnuabi64 architecture
+ This is the GNU Algol 68 compiler for the mips64el-linux-gnuabi64 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mips64-linux-gnuabin32
+Architecture: mipsn32
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mips64-linux-gnuabin32 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mips64-linux-gnuabin32 architecture
+ This is the GNU Algol 68 compiler for the mips64-linux-gnuabin32 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-powerpc-linux-gnu
+Architecture: powerpc
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-powerpc-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the powerpc-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the powerpc-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-powerpc64-linux-gnu
+Architecture: ppc64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-powerpc64-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the powerpc64-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the powerpc64-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-powerpc64le-linux-gnu
+Architecture: ppc64el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-powerpc64le-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the powerpc64le-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the powerpc64le-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-m68k-linux-gnu
+Architecture: m68k
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-m68k-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the m68k-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the m68k-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-riscv64-linux-gnu
+Architecture: riscv64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-riscv64-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the riscv64-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the riscv64-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-sh4-linux-gnu
+Architecture: sh4
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-sh4-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the sh4-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the sh4-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-sparc-linux-gnu
+Architecture: sparc
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-sparc-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the sparc-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the sparc-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-sparc64-linux-gnu
+Architecture: sparc64
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-sparc64-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the sparc64-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the sparc64-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-s390x-linux-gnu
+Architecture: s390x
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-s390x-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the s390x-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the s390x-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-x86-64-linux-gnux32
+Architecture: x32
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-x86-64-linux-gnux32 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the x86_64-linux-gnux32 architecture
+ This is the GNU Algol 68 compiler for the x86_64-linux-gnux32 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mips64el-linux-gnuabin32
+Architecture: mipsn32el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mips64el-linux-gnuabin32 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mips64el-linux-gnuabin32 architecture
+ This is the GNU Algol 68 compiler for the mips64el-linux-gnuabin32 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mipsisa32r6-linux-gnu
+Architecture: mipsr6
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mipsisa32r6-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mipsisa32r6-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the mipsisa32r6-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mipsisa32r6el-linux-gnu
+Architecture: mipsr6el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mipsisa32r6el-linux-gnu (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mipsisa32r6el-linux-gnu architecture
+ This is the GNU Algol 68 compiler for the mipsisa32r6el-linux-gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mipsisa64r6-linux-gnuabi64
+Architecture: mips64r6
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mipsisa64r6-linux-gnuabi64 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mipsisa64r6-linux-gnuabi64 architecture
+ This is the GNU Algol 68 compiler for the mipsisa64r6-linux-gnuabi64 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mipsisa64r6el-linux-gnuabi64
+Architecture: mips64r6el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mipsisa64r6el-linux-gnuabi64 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mipsisa64r6el-linux-gnuabi64 architecture
+ This is the GNU Algol 68 compiler for the mipsisa64r6el-linux-gnuabi64 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mipsisa64r6-linux-gnuabin32
+Architecture: mipsn32r6
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mipsisa64r6-linux-gnuabin32 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mipsisa64r6-linux-gnuabin32 architecture
+ This is the GNU Algol 68 compiler for the mipsisa64r6-linux-gnuabin32 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-mipsisa64r6el-linux-gnuabin32
+Architecture: mipsn32r6el
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), gcc-15-mipsisa64r6el-linux-gnuabin32 (>= ${gcc:Version}), ${dep:ga68cross},
+  libga68-15-dev (= ${gcc:Version}),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 compiler for the mipsisa64r6el-linux-gnuabin32 architecture
+ This is the GNU Algol 68 compiler for the mipsisa64r6el-linux-gnuabin32 architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+
+Package: ga68-15-for-host
+Architecture: any
+X-DH-Build-For-Type: target
+Multi-Arch: same
+Depends: gcc-15-base (= ${gcc:Version}), ga68-15${target:suffix} (>= ${gcc:SoftVersion}),
+  gcc-15-for-host (= ${gcc:Version}), ${misc:Depends}
+Description: GNU Algol 68 compiler for the host architecture
+ This is the GNU Algol 68 compiler for the host architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ When using this package, tools must be invoked with an architecture prefix.
+ .
+ This is a dependency package.
+
+Package: ga68-15-for-build
+Architecture: all
+Multi-Arch: foreign
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), ga68-15 (>= ${gcc:Version}),
+  cpp-15-for-build (= ${gcc:Version}), gcc-15-for-build (= ${gcc:Version}),
+  ${misc:Depends}
+Description: GNU Algol 68 compiler for the build architecture
+ This is the GNU Algol 68 compiler for the build architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ This is a dependency package.
+
+Package: ga68-15
+Architecture: any
+Depends: ga68-15${target:suffix} (= ${gcc:Version}), gcc-15-base (>= ${gcc:SoftVersion}), gcc-15 (>= ${gcc:SoftVersion}), ${dep:ga68cross}, ${misc:Depends}
+Provides: ga68, algol68-compiler
+Description: GNU Algol 68 compiler
+ This is the GNU Algol 68 compiler, which compiles Algol 68 on platforms
+ supported by gcc.  It uses the gcc backend to generate optimised code.
+
+Package: libga68-15-dev
+X-DH-Build-For-Type: target
+Architecture: any
+Multi-Arch: same
+Section: libdevel
+Depends: gcc-15-base (= ${gcc:Version}), libga68-1 (>= ${ga68:Version}),
+  ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 standard library
+ This is the Algol 68 standard library that comes with the ga68 compiler.
+
+Package: libga68-1
+X-DH-Build-For-Type: target
+Section: libs
+Architecture: any
+Multi-Arch: same
+Depends: gcc-15-base (= ${gcc:Version}), ${shlibs:Depends}, ${misc:Depends}
+Description: GNU Algol 68 standard library (runtime library)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+Package: ga68-15-doc
+Architecture: all
+Section: doc
+Depends: gcc-15-base (>= ${gcc:SoftVersion}), ${misc:Depends}
+Suggests: ga68-15
+Description: Documentation for the GNU Algol 68 compiler (ga68)
+ Documentation for the GNU Algol 68 compiler in HTML and info format.
+
 #Package: gcc`'PV-soft-float
 #Architecture: arm armel armhf
 #Depends: BASEDEP, depifenabled(`cdev',`gcc`'PV (= ${gcc:Version}),') ${shlibs:Depends}, ${misc:Depends}
@@ -5667,7 +5754,7 @@ Package: gcc-15-offload-amdgcn
 Architecture: amd64
 Depends: gcc-15-base (= ${gcc:Version}), gcc-15 (= ${gcc:Version}), ${dep:libcdev},
   libgomp-plugin-amdgcn1 (>= ${gcc:Version}),
-  amdgcn-tools-18 (>= 18.2) [amd64], ${shlibs:Depends}, ${misc:Depends}
+  amdgcn-tools-21 [amd64], ${shlibs:Depends}, ${misc:Depends}
 Description: GCC offloading compiler to GCN
  The package provides offloading support for AMD GCN.  OpenMP and OpenACC
  programs linked with -fopenmp will by default add GCN code into the binaries,

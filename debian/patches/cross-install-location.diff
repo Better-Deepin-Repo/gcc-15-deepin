@@ -14,16 +14,16 @@
  # Where our data files go
 --- a/src/libgfortran/Makefile.in
 +++ b/src/libgfortran/Makefile.in
-@@ -750,7 +750,7 @@ gcc_version := $(shell @get_gcc_base_ver
- @LIBGFOR_USE_SYMVER_GNU_TRUE@@LIBGFOR_USE_SYMVER_TRUE@version_dep = gfortran.ver
- @LIBGFOR_USE_SYMVER_SUN_TRUE@@LIBGFOR_USE_SYMVER_TRUE@version_dep = gfortran.ver-sun gfortran.ver
+@@ -967,7 +967,7 @@ gcc_version := $(shell @get_gcc_base_ver
+ extra_darwin_ldflags_libgfortran = @extra_ldflags_libgfortran@ \
+ 	$(am__append_1)
  gfor_c_HEADERS = ISO_Fortran_binding.h
 -gfor_cdir = $(libdir)/gcc/$(target_alias)/$(gcc_version)/include
 +gfor_cdir = $(libdir)/gcc-cross/$(target_alias)/$(gcc_version)/include
  LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) \
  	    $(lt_host_flags)
  
-@@ -765,12 +765,12 @@ libgfortran_la_LDFLAGS = -version-info `
+@@ -982,12 +982,12 @@ libgfortran_la_LDFLAGS = -version-info `
  
  libgfortran_la_DEPENDENCIES = $(version_dep) libgfortran.spec $(LIBQUADLIB_DEP)
  cafexeclib_LTLIBRARIES = libcaf_single.la
@@ -40,7 +40,7 @@
  	      -I$(srcdir)/$(MULTISRCTOP)../gcc/config $(LIBQUADINCLUDE) \
 --- a/src/libgfortran/Makefile.am
 +++ b/src/libgfortran/Makefile.am
-@@ -39,7 +39,7 @@ version_dep =
+@@ -43,7 +43,7 @@ extra_darwin_ldflags_libgfortran += -Wl,
  endif
  
  gfor_c_HEADERS = ISO_Fortran_binding.h
@@ -49,7 +49,7 @@
  
  LTLDFLAGS = $(shell $(SHELL) $(top_srcdir)/../libtool-ldflags $(LDFLAGS)) \
  	    $(lt_host_flags)
-@@ -55,14 +55,14 @@ libgfortran_la_LDFLAGS = -version-info `
+@@ -59,14 +59,14 @@ libgfortran_la_LDFLAGS = -version-info `
  libgfortran_la_DEPENDENCIES = $(version_dep) libgfortran.spec $(LIBQUADLIB_DEP)
  
  cafexeclib_LTLIBRARIES = libcaf_single.la
@@ -68,7 +68,7 @@
  
 --- a/src/lto-plugin/Makefile.in
 +++ b/src/lto-plugin/Makefile.in
-@@ -342,7 +342,7 @@ with_libiberty = @with_libiberty@
+@@ -343,7 +343,7 @@ with_libiberty = @with_libiberty@
  ACLOCAL_AMFLAGS = -I .. -I ../config
  AUTOMAKE_OPTIONS = no-dependencies
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
@@ -90,7 +90,7 @@
  AM_CFLAGS = @ac_lto_plugin_warn_cflags@ $(CET_HOST_FLAGS) -DBASE_VERSION='"$(gcc_version)"'
 --- a/src/libitm/Makefile.in
 +++ b/src/libitm/Makefile.in
-@@ -459,7 +459,7 @@ SUBDIRS = testsuite
+@@ -458,7 +458,7 @@ SUBDIRS = testsuite
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
  abi_version = -fabi-version=4
  search_path = $(addprefix $(top_srcdir)/config/, $(config_path)) $(top_srcdir)
@@ -112,7 +112,7 @@
  
 --- a/src/gcc/gcc.cc
 +++ b/src/gcc/gcc.cc
-@@ -4828,7 +4828,7 @@ process_command (unsigned int decoded_op
+@@ -4970,7 +4970,7 @@ process_command (unsigned int decoded_op
  	 GCC_EXEC_PREFIX is typically a directory name with a trailing
  	 / (which is ignored by make_relative_prefix), so append a
  	 program name.  */
@@ -121,7 +121,7 @@
        gcc_libexec_prefix = get_relative_prefix (tmp_prefix,
  						standard_exec_prefix,
  						standard_libexec_prefix);
-@@ -4854,15 +4854,15 @@ process_command (unsigned int decoded_op
+@@ -4996,15 +4996,15 @@ process_command (unsigned int decoded_op
      {
        int len = strlen (gcc_exec_prefix);
  
@@ -143,7 +143,7 @@
        set_std_prefix (gcc_exec_prefix, len);
 --- a/src/gcc/Makefile.in
 +++ b/src/gcc/Makefile.in
-@@ -635,9 +635,9 @@ libexecdir = @libexecdir@
+@@ -679,9 +679,9 @@ libexecdir = @libexecdir@
  # --------
  
  # Directory in which the compiler finds libraries etc.
@@ -155,7 +155,7 @@
  # Directory in which all plugin resources are installed
  plugin_resourcesdir = $(libsubdir)/plugin
   # Directory in which plugin headers are installed
-@@ -2318,8 +2318,8 @@ default-d.o: config/default-d.cc
+@@ -2588,8 +2588,8 @@ default-rust.o: config/default-rust.cc
  
  DRIVER_DEFINES = \
    -DSTANDARD_STARTFILE_PREFIX=\"$(unlibsubdir)/\" \
@@ -166,7 +166,7 @@
    -DDEFAULT_TARGET_VERSION=\"$(version)\" \
    -DDEFAULT_REAL_TARGET_MACHINE=\"$(real_target_noncanonical)\" \
    -DDEFAULT_TARGET_MACHINE=\"$(target_noncanonical)\" \
-@@ -3039,7 +3039,7 @@ PREPROCESSOR_DEFINES = \
+@@ -3372,7 +3372,7 @@ PREPROCESSOR_DEFINES = \
    -DTOOL_INCLUDE_DIR=\"$(gcc_tooldir)/include\" \
    -DNATIVE_SYSTEM_HEADER_DIR=\"$(NATIVE_SYSTEM_HEADER_DIR)\" \
    -DPREFIX=\"$(prefix)/\" \
@@ -188,7 +188,7 @@
  	ssp.c gets-chk.c memcpy-chk.c memmove-chk.c mempcpy-chk.c \
 --- a/src/libssp/Makefile.am
 +++ b/src/libssp/Makefile.am
-@@ -39,7 +39,7 @@ AM_CFLAGS += $(XCFLAGS)
+@@ -37,7 +37,7 @@ AM_CFLAGS += $(XCFLAGS)
  toolexeclib_LTLIBRARIES = libssp.la libssp_nonshared.la
  
  target_noncanonical = @target_noncanonical@
@@ -199,7 +199,7 @@
  libssp_la_SOURCES = \
 --- a/src/libquadmath/Makefile.in
 +++ b/src/libquadmath/Makefile.in
-@@ -468,7 +468,7 @@ AUTOMAKE_OPTIONS = foreign info-in-build
+@@ -472,7 +472,7 @@ AUTOMAKE_OPTIONS = foreign info-in-build
  
  @BUILD_LIBQUADMATH_TRUE@libquadmath_la_DEPENDENCIES = $(version_dep) $(libquadmath_la_LIBADD)
  @BUILD_LIBQUADMATH_TRUE@nodist_libsubinclude_HEADERS = quadmath.h quadmath_weak.h
@@ -210,7 +210,7 @@
  @BUILD_LIBQUADMATH_TRUE@  math/acosq.c math/frexpq.c \
 --- a/src/libquadmath/Makefile.am
 +++ b/src/libquadmath/Makefile.am
-@@ -41,7 +41,7 @@ libquadmath_la_LDFLAGS = -version-info `
+@@ -45,7 +45,7 @@ libquadmath_la_LDFLAGS = -version-info `
  libquadmath_la_DEPENDENCIES = $(version_dep) $(libquadmath_la_LIBADD)
  
  nodist_libsubinclude_HEADERS = quadmath.h quadmath_weak.h
@@ -243,7 +243,7 @@
  # exeext should not be used because it's the *host* exeext.  We're building
 --- a/src/libgomp/Makefile.in
 +++ b/src/libgomp/Makefile.in
-@@ -516,8 +516,8 @@ gcc_version := $(shell @get_gcc_base_ver
+@@ -517,8 +517,8 @@ gcc_version := $(shell @get_gcc_base_ver
  search_path = $(addprefix $(top_srcdir)/config/, $(config_path)) $(top_srcdir) \
  	      $(top_srcdir)/../include
  
@@ -269,7 +269,7 @@
  
 --- a/src/libgcc/Makefile.in
 +++ b/src/libgcc/Makefile.in
-@@ -200,7 +200,7 @@ STRIP = @STRIP@
+@@ -201,7 +201,7 @@ STRIP = @STRIP@
  STRIP_FOR_TARGET = $(STRIP)
  
  # Directory in which the compiler finds libraries etc.
@@ -290,7 +290,7 @@
  toollibffi_HEADERS = ffi.h ffitarget.h
 --- a/src/libffi/include/Makefile.in
 +++ b/src/libffi/include/Makefile.in
-@@ -326,7 +326,7 @@ EXTRA_DIST = ffi.h.in
+@@ -327,7 +327,7 @@ EXTRA_DIST = ffi.h.in
  
  # Where generated headers like ffitarget.h get installed.
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
@@ -333,7 +333,7 @@
  
 --- a/src/libsanitizer/Makefile.in
 +++ b/src/libsanitizer/Makefile.in
-@@ -361,7 +361,7 @@ top_build_prefix = @top_build_prefix@
+@@ -362,7 +362,7 @@ top_build_prefix = @top_build_prefix@
  top_builddir = @top_builddir@
  top_srcdir = @top_srcdir@
  ACLOCAL_AMFLAGS = -I .. -I ../config
@@ -344,8 +344,8 @@
  @SANITIZER_SUPPORTED_TRUE@	$(am__append_3) lsan asan ubsan \
 --- a/src/libphobos/configure.ac
 +++ b/src/libphobos/configure.ac
-@@ -256,6 +256,8 @@ AC_SUBST(SPEC_PHOBOS_DEPS)
- libtool_VERSION=4:0:0
+@@ -261,6 +261,8 @@ AC_SUBST(SPEC_PHOBOS_DEPS)
+ libtool_VERSION=6:0:0
  AC_SUBST(libtool_VERSION)
  
 +# trigger rebuild of the configure file
@@ -365,7 +365,7 @@
  
 --- a/src/gcc/ada/gcc-interface/Makefile.in
 +++ b/src/gcc/ada/gcc-interface/Makefile.in
-@@ -921,7 +921,7 @@ toolexeclibdir = $(ADA_RTL_OBJ_DIR)
+@@ -933,7 +933,7 @@ toolexeclibdir = $(ADA_RTL_OBJ_DIR)
  
  ADA_INCLUDE_DIR = $(libsubdir)/adainclude
  ADA_RTL_OBJ_DIR = $(libsubdir)/adalib
@@ -398,7 +398,7 @@
  
 --- a/src/libgm2/libm2cor/Makefile.in
 +++ b/src/libgm2/libm2cor/Makefile.in
-@@ -391,7 +391,7 @@ MAKEOVERRIDES =
+@@ -400,7 +400,7 @@ MAKEOVERRIDES =
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
  
  # Directory in which the compiler finds libraries etc.
@@ -420,7 +420,7 @@
  slibdir = $(libdir)/gcc/$(target_alias)/$(gcc_version)$(MULTISUBDIR)
 --- a/src/libgm2/libm2iso/Makefile.in
 +++ b/src/libgm2/libm2iso/Makefile.in
-@@ -416,7 +416,7 @@ MAKEOVERRIDES =
+@@ -426,7 +426,7 @@ MAKEOVERRIDES =
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
  
  # Directory in which the compiler finds libraries etc.
@@ -442,7 +442,7 @@
  
 --- a/src/libgm2/libm2log/Makefile.in
 +++ b/src/libgm2/libm2log/Makefile.in
-@@ -380,7 +380,7 @@ MAKEOVERRIDES =
+@@ -389,7 +389,7 @@ MAKEOVERRIDES =
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
  
  # Directory in which the compiler finds libraries etc.
@@ -464,7 +464,7 @@
  
 --- a/src/libgm2/libm2min/Makefile.in
 +++ b/src/libgm2/libm2min/Makefile.in
-@@ -370,7 +370,7 @@ MAKEOVERRIDES =
+@@ -379,7 +379,7 @@ MAKEOVERRIDES =
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
  
  # Directory in which the compiler finds libraries etc.
@@ -486,7 +486,7 @@
  
 --- a/src/libgm2/libm2pim/Makefile.in
 +++ b/src/libgm2/libm2pim/Makefile.in
-@@ -405,7 +405,7 @@ MAKEOVERRIDES =
+@@ -414,7 +414,7 @@ MAKEOVERRIDES =
  gcc_version := $(shell @get_gcc_base_ver@ $(top_srcdir)/../gcc/BASE-VER)
  
  # Directory in which the compiler finds libraries etc.

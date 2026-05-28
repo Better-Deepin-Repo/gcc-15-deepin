@@ -5,8 +5,6 @@
  src/gcc/testsuite/c-c++-common/tsan/fd_pipe_race.c      |    1 +
  2 files changed, 2 insertions(+), 1 deletion(-)
 
-Index: b/src/gcc/testsuite/c-c++-common/tsan/fd_pipe_race.c
-===================================================================
 --- a/src/gcc/testsuite/c-c++-common/tsan/fd_pipe_race.c
 +++ b/src/gcc/testsuite/c-c++-common/tsan/fd_pipe_race.c
 @@ -1,5 +1,5 @@

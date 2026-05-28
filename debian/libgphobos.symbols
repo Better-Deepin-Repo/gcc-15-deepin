@@ -1,2 +1,2 @@
-libgdruntime.so.5 #PACKAGE# #MINVER#
-libgphobos.so.5 #PACKAGE# #MINVER#
+libgdruntime.so.6 #PACKAGE# #MINVER#
+libgphobos.so.6 #PACKAGE# #MINVER#

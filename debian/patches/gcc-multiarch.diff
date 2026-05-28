@@ -127,7 +127,7 @@
 +endif
 --- a/src/gcc/config.gcc
 +++ b/src/gcc/config.gcc
-@@ -2606,7 +2606,8 @@ mips*-*-linux*)				# Linux MIPS, either
+@@ -2683,7 +2683,8 @@ mips*-*-linux*)				# Linux MIPS, either
  	extra_options="${extra_options} linux-android.opt"
  	case ${target} in
  		mipsisa32r6*)
@@ -137,7 +137,7 @@
  			;;
  		mipsisa32r2*)
  			default_mips_arch=mips32r2
-@@ -2628,7 +2629,8 @@ mips*-*-linux*)				# Linux MIPS, either
+@@ -2705,7 +2706,8 @@ mips*-*-linux*)				# Linux MIPS, either
  			;;
  		mipsisa64r6*-*-linux-gnuabi64)
  			default_mips_abi=64
@@ -147,7 +147,7 @@
  			enable_mips_multilibs="yes"
  			;;
  		mipsisa64r6*-*-linux*)
-@@ -5845,7 +5847,7 @@ case ${target} in
+@@ -5971,7 +5973,7 @@ case ${target} in
  		;;
  	i[34567]86-*-linux* | x86_64-*-linux*)
  		extra_objs="${extra_objs} gnu-property.o"
@@ -158,7 +158,7 @@
  		tmake_file="$tmake_file i386/t-kfreebsd"
 --- a/src/gcc/Makefile.in
 +++ b/src/gcc/Makefile.in
-@@ -582,7 +582,7 @@ BUILD_SYSTEM_HEADER_DIR = `echo @BUILD_S
+@@ -588,7 +588,7 @@ BUILD_SYSTEM_HEADER_DIR = `echo @BUILD_S
  STMP_FIXINC = @STMP_FIXINC@
  
  # Test to see whether <limits.h> exists in the system header files.

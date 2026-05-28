@@ -52,7 +52,7 @@ ifeq (,$(wildcard debian/soname-cache))
 	v=0; \
 	echo VTV_SONAME=$$v >> $$cache; \
 	echo CC1_SONAME=0 >> $$cache; \
-	echo GCCJIT_SONAME=0 >> $$cache; \
+	echo GCCJIT_SONAME=$(if $(filter yes, $(with_versioned_libgccjit)),$(BASE_VERSION),0) >> $$cache; \
 	v=`awk -F= '/^libtool_VERSION/ {split($$2,v,":"); print v[1]}' \
 		$(srcdir)/libphobos/configure.ac`; \
 	echo GPHOBOS_SONAME=$$v >> $$cache; \
@@ -60,9 +60,15 @@ ifeq (,$(wildcard debian/soname-cache))
 	v=`awk -F= '/^libtool_VERSION/ {split($$2,v,":"); print v[1]}' \
 		$(srcdir)/libgm2/configure.ac`; \
 	echo GM2_SONAME=$$v >> $$cache; \
-	v=`awk -F= '/^LIBDIAGNOSTICS_VERSION_NUM/ {split($$2,v,":"); print v[1]}' \
+	v=`awk -F= '/^LIBGDIAGNOSTICS_VERSION_NUM/ {split($$2,v,":"); print v[1]}' \
 		$(srcdir)/gcc/Makefile.in`; \
 	echo DIAGNOSTICS_SONAME=$$(echo $$v |sed 's/ //g') >> $$cache; \
+	v=`awk -F= '/^LIBGCOBOL_VERSION/ {split($$2,v,":"); print v[1]}' \
+		$(srcdir)/libgcobol/configure.ac`; \
+	echo GCOBOL_SONAME=$$v >> $$cache; \
+	v=`awk -F= '/^libga68_VERSION/ {split($$2,v,":"); print v[1]}' \
+		$(srcdir)/libga68/configure.ac`; \
+	echo GA68_SONAME=$$v >> $$cache; \
 	cat $$cache)
 else
   SONAME_VARS := $(shell cat debian/soname-cache)
@@ -92,6 +98,8 @@ GDRUNTIME_SONAME= $(call vafilt,$(SONAME_VARS),GDRUNTIME_SONAME)
 GM2_SONAME	= $(call vafilt,$(SONAME_VARS),GM2_SONAME)
 HWASAN_SONAME	= $(call vafilt,$(SONAME_VARS),HWASAN_SONAME)
 DIAGNOSTICS_SONAME	= $(call vafilt,$(SONAME_VARS),DIAGNOSTICS_SONAME)
+GCOBOL_SONAME	= $(call vafilt,$(SONAME_VARS),GCOBOL_SONAME)
+GA68_SONAME	= $(call vafilt,$(SONAME_VARS),GA68_SONAME)
 
 # alias
 GFORTRAN_SONAME = $(FORTRAN_SONAME)

@@ -19,7 +19,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
 
 --- a/src/gcc/ada/Makefile.rtl
 +++ b/src/gcc/ada/Makefile.rtl
-@@ -1986,6 +1986,11 @@ ifeq ($(strip $(filter-out s390% linux%,
+@@ -2041,6 +2041,11 @@ ifeq ($(strip $(filter-out s390% linux%,
  endif
  endif
  
@@ -33,8 +33,8 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  ifeq ($(strip $(filter-out hppa% hp hpux11%,$(target_cpu) $(target_vendor) $(target_os))),)
 --- a/src/gcc/ada/gcc-interface/Makefile.in
 +++ b/src/gcc/ada/gcc-interface/Makefile.in
-@@ -507,6 +507,20 @@ gnatlink-re: ../stamp-tools gnatmake-re
- 	  --GCC="$(CC) $(ADA_INCLUDES)" --LINK="$(GCC_LINK)" $(TOOLS_LIBS)
+@@ -516,6 +516,20 @@ gnatlink-re: ../stamp-tools gnatmake-re
+ 	  --LINK="$(GCC_LINK)" $(TOOLS_LIBS)
  	$(MV)  ../../gnatlinknew$(exeext)  ../../gnatlink$(exeext)
  
 +gnatbind-re: ../stamp-tools gnatmake-re gnatlink-re
@@ -54,7 +54,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  # Needs to be built with CC=gcc
  # Since the RTL should be built with the latest compiler, remove the
  #  stamp target in the parent directory whenever gnat1 is rebuilt
-@@ -634,7 +648,7 @@ $(RTSDIR)/s-oscons.ads: ../stamp-gnatlib
+@@ -643,7 +657,7 @@ $(RTSDIR)/s-oscons.ads: ../stamp-gnatlib
  	    $(OSCONS_EXTRACT) ; \
  	    ../bldtools/oscons/xoscons s-oscons)
  
@@ -63,7 +63,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  	test -f $(RTSDIR)/s-oscons.ads || exit 1
  # C files
  	$(MAKE) -C $(RTSDIR) \
-@@ -666,18 +680,30 @@ gnatlib: ../stamp-gnatlib1-$(RTSDIR) ../
+@@ -675,18 +689,30 @@ gnatlib: ../stamp-gnatlib1-$(RTSDIR) ../
  		$(RANLIB_FOR_TARGET) $(RTSDIR)/libgmem$(arext)
          endif
  	$(CHMOD) a-wx $(RTSDIR)/*.ali
@@ -102,7 +102,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  	$(RM) $(RTSDIR)/libgna*$(soext)
  	cd $(RTSDIR); $(GCC_FOR_ADA_RTS) -shared $(GNATLIBCFLAGS) \
  		$(PICFLAG_FOR_TARGET) \
-@@ -688,8 +714,10 @@ gnatlib-shared-default:
+@@ -697,8 +723,10 @@ gnatlib-shared-default:
  	cd $(RTSDIR); $(GCC_FOR_ADA_RTS) -shared $(GNATLIBCFLAGS) \
  		$(PICFLAG_FOR_TARGET) \
  		-o libgnarl$(hyphen)$(LIBRARY_VERSION)$(soext) \
@@ -113,7 +113,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  		$(THREADSLIB)
  	cd $(RTSDIR); $(LN_S) libgnat$(hyphen)$(LIBRARY_VERSION)$(soext) \
  		libgnat$(soext)
-@@ -705,6 +733,10 @@ gnatlib-shared-default:
+@@ -714,6 +742,10 @@ gnatlib-shared-default:
  	   $(addprefix $(RTSDIR)/,$(GNATRTL_TASKING_OBJS))
  	$(RANLIB_FOR_TARGET) $(RTSDIR)/libgnarl_pic$(arext)
  
@@ -124,7 +124,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  gnatlib-shared-dual:
  	$(MAKE) $(FLAGS_TO_PASS) \
               GNATLIBFLAGS="$(GNATLIBFLAGS)" \
-@@ -714,11 +746,8 @@ gnatlib-shared-dual:
+@@ -723,11 +755,8 @@ gnatlib-shared-dual:
  	     MULTISUBDIR="$(MULTISUBDIR)" \
  	     THREAD_KIND="$(THREAD_KIND)" \
  	     LN_S="$(LN_S)" \
@@ -138,7 +138,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  	$(MAKE) $(FLAGS_TO_PASS) \
               GNATLIBFLAGS="$(GNATLIBFLAGS)" \
  	     GNATLIBCFLAGS="$(GNATLIBCFLAGS)" \
-@@ -726,10 +755,7 @@ gnatlib-shared-dual:
+@@ -735,10 +764,7 @@ gnatlib-shared-dual:
  	     MULTISUBDIR="$(MULTISUBDIR)" \
  	     THREAD_KIND="$(THREAD_KIND)" \
  	     LN_S="$(LN_S)" \
@@ -148,9 +148,9 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
 -	$(MV) libgnarl_pic$(arext) $(RTSDIR)
 +	     gnatlib-shared-default
  
- gnatlib-shared-dual-win32:
- 	$(MAKE) $(FLAGS_TO_PASS) \
-@@ -740,9 +766,8 @@ gnatlib-shared-dual-win32:
+ 	# Remove all the object files. They cannot be reused because they have
+ 	# been generated for the static library and the shared library will be
+@@ -757,9 +783,8 @@ gnatlib-shared-dual-win32:
  	     MULTISUBDIR="$(MULTISUBDIR)" \
  	     THREAD_KIND="$(THREAD_KIND)" \
  	     LN_S="$(LN_S)" \
@@ -162,7 +162,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  	$(MAKE) $(FLAGS_TO_PASS) \
               GNATLIBFLAGS="$(GNATLIBFLAGS)" \
  	     GNATLIBCFLAGS="$(GNATLIBCFLAGS)" \
-@@ -750,8 +775,7 @@ gnatlib-shared-dual-win32:
+@@ -767,8 +792,7 @@ gnatlib-shared-dual-win32:
  	     MULTISUBDIR="$(MULTISUBDIR)" \
  	     THREAD_KIND="$(THREAD_KIND)" \
  	     LN_S="$(LN_S)" \
@@ -174,7 +174,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  # the GNATLIBFLAGS when this will be supported by GNAT. At this point we will
 --- a/src/gnattools/Makefile.in
 +++ b/src/gnattools/Makefile.in
-@@ -75,16 +75,23 @@ CXX_LFLAGS = \
+@@ -78,16 +78,23 @@ CXX_LFLAGS = \
   -L../../../$(target_noncanonical)/libstdc++-v3/src/.libs \
   -L../../../$(target_noncanonical)/libstdc++-v3/libsupc++/.libs
  
@@ -184,15 +184,15 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  TOOLS_FLAGS_TO_PASS_NATIVE= \
  	"CC=../../xgcc -B../../" \
  	"CXX=../../xg++ -B../../ $(CXX_LFLAGS)" \
- 	"CFLAGS=$(CFLAGS) $(WARN_CFLAGS)" \
--	"LDFLAGS=$(LDFLAGS)" \
+ 	"CFLAGS=$(CFLAGS) $(WARN_CFLAGS) $(PICFLAG)" \
+-	"LDFLAGS=$(LDFLAGS) $(LD_PICFLAG)" \
 -	"ADAFLAGS=$(ADAFLAGS)" \
-+	"LDFLAGS=$(LDFLAGS) -Wl,--no-allow-shlib-undefined \
++	"LDFLAGS=$(LDFLAGS) $(LD_PICFLAG) -Wl,--no-allow-shlib-undefined \
 +	  -Wl,--no-copy-dt-needed-entries -Wl,--no-undefined" \
 +	"ADAFLAGS=$(ADAFLAGS) -gnatn" \
  	"ADA_CFLAGS=$(ADA_CFLAGS)" \
  	"INCLUDES=$(INCLUDES_FOR_SUBDIR)" \
--	"ADA_INCLUDES=-I- -I../rts $(ADA_INCLUDES_FOR_SUBDIR)"\
+-	"ADA_INCLUDES=-I../rts $(ADA_INCLUDES_FOR_SUBDIR)"\
 +	"ADA_INCLUDES=-I- -nostdinc -I$(rtsdir) $(ADA_INCLUDES_FOR_SUBDIR)" \
 +	"TOOLS_ALREADY_COMPILED=$(foreach d, $(rtsdir), \
 +	  $(patsubst $(d)/%.ali,%.o, $(wildcard $(d)/*.ali)))" \
@@ -201,7 +201,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  	"exeext=$(exeext)" \
  	"fsrcdir=$(fsrcdir)" \
  	"srcdir=$(fsrcdir)" \
-@@ -194,6 +201,10 @@ $(GCC_DIR)/stamp-tools:
+@@ -197,6 +204,10 @@ $(GCC_DIR)/stamp-tools:
  # to be able to build gnatmake without a version of gnatmake around. Once 
  # everything has been compiled once, gnatmake can be recompiled with itself 
  # (see target regnattools) 
@@ -212,7 +212,7 @@ to stamp-gnatlib2 is not necessary anymore with gcc-9.
  gnattools-native: $(GCC_DIR)/stamp-tools $(GCC_DIR)/stamp-gnatlib-rts
  	# gnattools1
  	$(MAKE) -C $(GCC_DIR)/ada/tools -f ../Makefile \
-@@ -202,6 +213,13 @@ gnattools-native: $(GCC_DIR)/stamp-tools
+@@ -205,6 +216,13 @@ gnattools-native: $(GCC_DIR)/stamp-tools
  	# gnattools2
  	$(MAKE) -C $(GCC_DIR)/ada/tools -f ../Makefile \
  	  $(TOOLS_FLAGS_TO_PASS_NATIVE) common-tools

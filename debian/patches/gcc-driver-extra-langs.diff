@@ -7,9 +7,9 @@
 
 --- a/src/gcc/Makefile.in
 +++ b/src/gcc/Makefile.in
-@@ -623,8 +623,8 @@ lang_checks_parallelized=
- ifeq (@enable_libdiagnostics@,yes)
- lang_checks += check-libdiagnostics check-sarif-replay
+@@ -629,8 +629,8 @@ lang_checks_parallelized=
+ ifeq (@enable_libgdiagnostics@,yes)
+ lang_checks += check-libgdiagnostics check-sarif-replay
  endif
 -lang_opt_files=@lang_opt_files@ $(srcdir)/c-family/c.opt $(srcdir)/common.opt $(srcdir)/params.opt $(srcdir)/analyzer/analyzer.opt
 -lang_specs_files=@lang_specs_files@

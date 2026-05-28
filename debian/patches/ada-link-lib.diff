@@ -82,7 +82,7 @@ Author: Matthias Klose <doko@debian.org>
          "PICFLAG_FOR_TARGET=$(PICFLAG)" \
 --- a/src/Makefile.def
 +++ b/src/Makefile.def
-@@ -413,6 +413,7 @@ dependencies = { module=all-libcpp; on=a
+@@ -414,6 +414,7 @@ dependencies = { module=all-libcpp; on=a
  
  dependencies = { module=all-fixincludes; on=all-libiberty; };
  
@@ -92,7 +92,7 @@ Author: Matthias Klose <doko@debian.org>
  
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -68711,6 +68711,7 @@
+@@ -69229,6 +69229,7 @@ configure-target-libgo: maybe-all-target
  @endif gcc-bootstrap
  
  @unless gcc-bootstrap
@@ -114,9 +114,9 @@ Author: Matthias Klose <doko@debian.org>
  # these libraries are built for the target environment, and are built after
  # the host libraries and the host tools (which may be a cross compiler)
  # Note that libiberty is not a target library.
-@@ -162,6 +167,7 @@ target_libraries="target-libgcc \
- 		target-libffi \
+@@ -163,6 +168,7 @@ target_libraries="target-libgcc \
  		target-libobjc \
+ 		target-libgcobol \
  		target-libada \
 +		${target_libiberty} \
  		target-libgm2 \

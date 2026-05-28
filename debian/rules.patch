@@ -12,36 +12,29 @@ series_file	?= $(patchdir)/series
 
 # which patches should be applied?
 
-debian_patches = \
+debian_patches += \
+	git-updates \
 
 #	git-updates \
 
 ifneq ($(GFDL_INVARIANT_FREE),yes)
   debian_patches += \
+	git-doc-updates \
 	rename-info-files \
 
 #	git-doc-updates \
 
 else
-endif
-debian_patches += \
+  debian_patches += \
 	gcc-gfdl-build
+endif
 
 #	libstdc++-pic \
 
 
 debian_patches += \
-	0000-Revert-ada-GNAT-Calendar-Support-for-64-bit-Unix-Tim \
 	0001-Ada-merge-all-timeval-and-timespec-definitions-and-c \
 	0002-Ada-select-64-bits-time-functions-from-GNU-libc-when \
-	0003-Ada-fix-type-name-in-documentation-of-Ada.Calendar.t \
-	0004-Ada-deprecate-System.OS_Lib.time_t \
-	0005-Ada-drop-unneeded-x32-variant-of-System.Linux \
-	0006-Ada-drop-unneeded-posix2008-variant-of-System.Parame \
-	0007-Ada-drop-unneeded-darwin-solaris-x32-variants-of-Sys \
-	0008-Ada-import-nanosleep-from-System.OS_Primitives.Timed \
-	pr117725 \
-	rename-libdiagnostics \
 
 debian_patches += \
 	gcc-textdomain \
@@ -55,7 +48,6 @@ debian_patches += \
 	alpha-no-ev4-directive \
 	note-gnu-stack \
 	libgomp-omp_h-multilib \
-	libgo-testsuite \
 	libgo-cleanfiles \
 	gcc-target-include-asm \
 	libgo-revert-timeout-exp \
@@ -74,17 +66,22 @@ debian_patches += \
 	pr94253 \
 	gcc-arm-disable-guality-tests \
 	musl-ssp \
-	pr79724-revert \
-	pr104290-followup \
 	arc-stddef \
-	pr107475 \
 	gccrs-bootstrap-mipsel \
-	hppa64-libgcov-fallback \
-	gcc-vhdl \
-	soname-bumps \
+	sh-math-fixes \
+	gcc-riscv-extensions \
+	libphobos-ppc64el \
+	D-22464 \
+	pr106641 \
+	libsanitizer-static-tls \
+
+# see https://bugs.debian.org/1108322
+ifneq (,$(filter $(DEB_TARGET_ARCH),hppa m68k powerpc))
+  debian_patches += ada-tv_nsec-size
+endif
 
 ifneq (,$(newlib_tarball))
-  debian_patches += newlib-amdgcn-locks
+  debian_patches +=
 endif
 
 ifneq (,$(filter $(distrelease),lunar))
@@ -96,10 +93,6 @@ ifneq (,$(filter $(distrelease), jessie stretch buster bullseye precise trusty x
   ifneq ($(GFDL_INVARIANT_FREE),yes)
     debian_patches += dwarf5-revert-default-doc
   endif
-endif
-
-ifeq (,$(filter $(distrelease),$(no_timet64_distreleases)))
-  debian_patches += pr99832-distro
 endif
 
 # TODO:
@@ -144,19 +137,12 @@ endif
 # later when working on the specific language.
 ifeq ($(with_ada),yes)
     debian_patches += ada-gcc-name
-    debian_patches += ada-gnat-name
-    debian_patches += ada-verbose
-  ifeq ($(biarch64),yes)
-    debian_patches += ada-nobiarch-check
-  endif
     debian_patches += ada-link-lib
     debian_patches += ada-gnattools-cross
     ifeq ($(with_gnatsjlj),yes)
       debian_patches += ada-sjlj
     endif
     debian_patches += ada-lib-info-source-date-epoch
-    # FIXME: needs updating for 15
-    #debian_patches += ada-749574
     debian_patches += ada-perl-shebang
 endif
 
@@ -175,6 +161,26 @@ ifneq ($(GFDL_INVARIANT_FREE),yes)
   debian_patches += alpha-ieee-doc
 endif
 
+# see https://bugs.debian.org/1107416
+ifeq ($(DEB_TARGET_ARCH),m68k)
+  debian_patches += gcc-m68k-no-fold-mem-offsets
+endif
+ifneq ($(GFDL_INVARIANT_FREE),yes)
+  debian_patches += gcc-m68k-no-fold-mem-offsets-doc
+endif
+
+# see https://gcc.gnu.org/bugzilla/PR55212
+# based on https://github.com/olegendo/gcc/tree/devel/sh-lra
+# plus the patch 59550 from the bug report 55212#comment-422
+# and the changes to the documentation omitted due to DFSG
+ifeq ($(DEB_TARGET_ARCH),sh4)
+  debian_patches += sh-lra-support
+  ifneq ($(GFDL_INVARIANT_FREE),yes)
+    debian_patches += sh-lra-support-doc
+  endif
+endif
+debian_patches += sh-bootstrap-compare
+
 # all patches below this line are applied for gcc-snapshot builds as well
 
 ifneq (,$(findstring gcc-snapshot, $(PKGSOURCE)))
@@ -183,11 +189,12 @@ endif
 
 debian_patches += \
 	gdc-dynamic-link-phobos \
-	ia64-disable-selective-scheduling \
 	libstdc++-pythondir \
 	gcc-verbose-lto-link \
 
 ifeq ($(with_ada),yes)
+  debian_patches += ada-verbose
+  debian_patches += ada-gnat-name
   debian_patches += \
 	ada-armel-libatomic
 endif
@@ -220,6 +227,23 @@ debian_patches += gcc-ice-dump
 debian_patches += gcc-ice-apport
 debian_patches += skip-bootstrap-multilib
 debian_patches += libffi-ro-eh_frame_sect
+debian_patches += libgo-testsuite
+debian_patches += gcc-no-multilib-dejagnu
+debian_patches += libphobos-unittest
+debian_patches += hppa64-libgcov-fallback
+
+debian_patches += algol68
+debian_patches += algol68-link-dynamic
+debian_patches += algol68-sparc
+ifeq ($(single_package),yes)
+  debian_patches += algol68-doc
+else ifeq ($(GFDL_INVARIANT_FREE),yes)
+  debian_patches += ga68-texinfo
+else
+  debian_patches += algol68-doc
+endif
+
+debian_patches += gcc-vhdl
 
 # sigaction on sparc changed between glibc 2.19 and 2.21
 ifeq (,$(filter 2.1%, $(shell dpkg-query -l libc-bin | awk '/^.i/ {print $$3}')))
@@ -309,6 +333,7 @@ $(patch_stamp): $(unpack_stamp) $(series_stamp)
 	  sh -c 'echo "Running autoconf$(autoconf_version) in {}..." ; \
 	  cd $(CURDIR)/{} && rm -f configure && \
 	  AUTOM4TE=/usr/bin/autom4te$(autoconf_version) autoconf$(autoconf_version)'
+	find $(srcdir) -name autom4te.cache | xargs -r rm -rf
 
 	for i in $(debian_patches) $(hardening_patches); do \
 	  echo -e "\n$$i:" >> pxxx; \
@@ -361,6 +386,12 @@ ifneq (,$(filter $(derivative),Ubuntu))
 	echo '#define DIST_DEFAULT_CF_PROTECTION 1' \
 	     >> $(srcdir)/gcc/distro-defaults.h
   endif
+  ifeq (,$(filter $(distrelease),xenial bionic focal jammy noble oracular plucky))
+	echo '#define DIST_DEFAULT_INIT_ZERO_ALL 1' \
+	     >> $(srcdir)/gcc/distro-defaults.h
+	echo '#define DIST_DEFAULT_BIDI_WARNING 1' \
+	     >> $(srcdir)/gcc/distro-defaults.h
+  endif
 else ifneq (,$(filter $(derivative),Debian))
   ifneq (,$(findstring gcc-15, $(PKGSOURCE)))
   endif
@@ -369,16 +400,9 @@ ifeq ($(with_timet64),yes)
 	echo '#define DIST_DEFAULT_TIMET64 1' \
 	     >> $(srcdir)/gcc/distro-defaults.h
 endif
-ifneq (,$(filter $(derivative),Ubuntu))
-  ifeq (,$(filter $(distrelease),lucid precise trusty xenial bionic focal jammy kinetic lunar mantic))
-	echo '#define DIST_DEFAULT_PKG_METADATA_SPEC 1' \
+ifeq ($(with_sframe),yes)
+	echo '#define DIST_DEFAULT_SFRAME 1' \
 	     >> $(srcdir)/gcc/distro-defaults.h
-  endif
-else ifneq (,$(filter $(derivative),Debian))
-  ifeq (,$(filter $(distrelease),lenny squeeze wheezy jessie stretch buster bookworm))
-	echo '#define DIST_DEFAULT_PKG_METADATA_SPEC 1' \
-	     >> $(srcdir)/gcc/distro-defaults.h
-  endif
 endif
 	  echo '#endif' \
 	     >> $(srcdir)/gcc/distro-defaults.h

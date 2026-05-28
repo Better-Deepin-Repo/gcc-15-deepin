@@ -23,7 +23,7 @@ IP	= install -m 755	# Install program
 IS	= install -m 755	# Install script
 
 DWZ	= dwz
-ifneq (,$(filter $(distrelease),jessie stretch trusty xenial))
+ifneq (,$(filter $(distrelease),jessie stretch trusty xenial bionic))
   DWZ	= : dwz
 endif
 
@@ -135,6 +135,7 @@ ifeq ($(with_ada),yes)
 endif
 
 ifneq (,$(filter $(build_type),cross-build-native cross-build-cross))
+  export GNATMAKE_FOR_BUILD = $(DEB_BUILD_GNU_TYPE)-gnatmake-$(BASE_VERSION)
   SET_TARGET_TOOLS = \
 	CC_FOR_TARGET=$(DEB_TARGET_GNU_TYPE)-gcc-$(BASE_VERSION) \
 	CXX_FOR_TARGET=$(DEB_TARGET_GNU_TYPE)-g++-$(BASE_VERSION) \
@@ -180,6 +181,7 @@ ifneq (,$(filter $(build_type), build-cross cross-build-cross))
     LDFLAGS += -Wl,--no-relax
   endif
 else
+  BOOT_CFLAGS	= -g -O2
   BOOT_LDFLAGS	= -Wl,-z,relro
   ifeq ($(DEB_TARGET_ARCH),alpha)
     BOOT_LDFLAGS += -Wl,--no-relax
@@ -216,6 +218,10 @@ ifeq ($(DEB_TARGET_ARCH),arm64)
     CFLAGS_SECURE =
   endif
 
+  ifneq (,$(findstring -mbranch-protection=standard,$(shell DEB_HOST_ARCH=$(DEB_TARGET_ARCH) dpkg-buildflags --get FCFLAGS)))
+    FCFLAGS += -mbranch-protection=standard
+  endif
+
   ifeq ($(DEB_CROSS),yes)
     # Building cross compilers
     CFLAGS_FOR_TARGET += $(CFLAGS_SECURE)
@@ -228,6 +234,7 @@ ifeq ($(DEB_TARGET_ARCH),arm64)
     # Native build
     CFLAGS += $(CFLAGS_SECURE)
     CXXFLAGS += $(CFLAGS_SECURE)
+    BOOT_CFLAGS += $(CFLAGS_SECURE)
   endif
 endif
 
@@ -254,7 +261,7 @@ endif
 # set CFLAGS/LDFLAGS for the configure step only, maybe be modifed for some target
 # all other flags are passed to the make step.
 pass_vars = $(foreach v,$(1),$(if $($(v)),$(v)="$($(v))"))
-flags_to_pass := CFLAGS CXXFLAGS LIBCFLAGS LIBCXXFLAGS LDFLAGS
+flags_to_pass := CFLAGS CXXFLAGS LIBCFLAGS LIBCXXFLAGS LDFLAGS FCFLAGS
 
 docdir		= usr/share/doc
 
@@ -290,6 +297,8 @@ ifneq (,$(filter $(DEB_STAGE),stage1 stage2))
   CONFARGS += \
 	--disable-decimal-float \
 	--disable-libatomic \
+	--disable-libga68 \
+	--disable-libgcobol \
 	--disable-libgomp \
 	--disable-libssp \
 	--disable-libquadmath \
@@ -302,11 +311,6 @@ ifneq (,$(filter $(DEB_STAGE),stage1 stage2))
 	$(if $(findstring build-cross, $(build_type)), \
 		$(if $(with_sysroot),--with-sysroot=$(with_sysroot))) \
 	--enable-linker-build-id
-
-  ifeq ($(with_multiarch_lib),yes)
-    CONFARGS += \
-	--enable-multiarch
-  endif
 
   ifeq ($(DEB_STAGE),stage1)
     CONFARGS += \
@@ -626,7 +630,32 @@ endif
 
 ifneq (,$(findstring riscv64-linux,$(DEB_TARGET_GNU_TYPE)))
   CONFARGS += --disable-multilib
-  CONFARGS += --with-arch=rv64gc --with-abi=lp64d
+  CONFARGS += --with-abi=lp64d
+  ifeq ($(derivative),Ubuntu)
+    ifneq (,$(filter $(distrelease), focal jammy noble oracular plucky))
+      CONFARGS += --with-arch=rv64gc
+    else
+      # Ubuntu 25.10 Questing Quokka is built for the RVA23 family of profiles.
+      # The 'RVA23 Profiles' specification is available in
+      # https://drive.google.com/file/d/12QKRm92cLcEk8-5J9NI91m0fAQOxqNAq/view
+      #
+      # Here we select the RVA23U64 profile and the zifencei extension.
+      # The zifencei extension is in RVA23S64 but fence.i is a U-mode
+      # instruction.
+      RV_EXT = i m a f d c b v zic64b \
+        zicbom zicbop zicboz ziccamoa ziccif \
+        zicclsm ziccrse zicntr zicond zicsr \
+        zifencei zihintntl zihintpause zihpm zimop \
+        zmmul za64rs zaamo zalrsc zawrs zfa \
+        zfhmin zca zcb zcd zcmop zba zbb \
+        zbs zkt zvbb zve32f zve32x zve64d \
+        zve64f zve64x zvfhmin zvkb zvkt zvl128b \
+        zvl32b zvl64b supm
+      CONFARGS += --with-arch=rv64$(subst $(SPACE),_,$(RV_EXT))
+    endif
+  else # Debian
+    CONFARGS += --with-arch=rv64gc
+  endif
 endif
 
 ifneq (,$(findstring s390x-linux,$(DEB_TARGET_GNU_TYPE)))
@@ -635,8 +664,10 @@ ifneq (,$(findstring s390x-linux,$(DEB_TARGET_GNU_TYPE)))
       CONFARGS += --with-arch=zEC12
     else ifneq (,$(filter $(distrelease),jammy kinetic))
       CONFARGS += --with-arch=z13 --with-tune=z15
-    else
+    else ifneq (,$(filter $(distrelease),lunar mantic noble oracular plucky questing))
       CONFARGS += --with-arch=z13 --with-tune=z16
+    else
+      CONFARGS += --with-arch=z15 --with-tune=z16
     endif
   else # Debian
     CONFARGS += --with-arch=z196
@@ -651,6 +682,14 @@ endif
 ifeq ($(DEB_TARGET_ARCH_OS),linux)
   ifneq (,$(findstring $(DEB_TARGET_ARCH), alpha powerpc ppc64 ppc64el s390 s390x sparc sparc64))
     CONFARGS += --with-long-double-128
+  endif
+endif
+
+ifneq (,$(filter $(DEB_TARGET_ARCH), ppc64el))
+  ifneq (,$(filter $(distrelease), $(ppc64el_ibm128_distreleases)))
+    # default to IBM double
+  else
+    CONFARGS += --with-long-double-format=ieee
   endif
 endif
 
@@ -680,6 +719,17 @@ ifneq (,$(filter $(DEB_TARGET_ARCH), amd64 i386))
       CONFARGS += --with-arch-32=i586
     else
       CONFARGS += --with-arch-32=i686
+    endif
+  endif
+endif
+
+ifneq (,$(filter $(derivative),Ubuntu))
+  ifeq ($(DEB_TARGET_ARCH),amd64)
+    # only passed in the environment by dpkg-buildpackage
+    ifeq ($(DEB_HOST_ARCH_VARIANT),amd64v3)
+      CONFARGS += --with-arch-64=x86-64-v3
+    else ifeq ($(DEB_HOST_ARCH_VARIANT),amd64v4)
+      CONFARGS += --with-arch-64=x86-64-v4
     endif
   endif
 endif
@@ -877,10 +927,6 @@ ifneq (,$(offload_targets))
   endif
 endif
 
-ifneq (,$(findstring gdc, $(PKGSOURCE)))
-    CONFARGS += --disable-libquadmath
-endif
-
 ifeq ($(trunk_build),yes)
   ifeq ($(findstring --disable-werror, $(CONFARGS)),)
     CONFARGS += --disable-werror
@@ -966,10 +1012,8 @@ ifeq ($(with_ssp),yes)
     DEJAGNU_RUNS =
   else ifneq (,$(filter $(DEB_TARGET_ARCH),armel))
     DEJAGNU_RUNS =
-  else
-    ifneq ($(single_package),yes)
-      DEJAGNU_RUNS += $(if $(filter yes,$(with_ssp_default)),-fno-stack-protector,-fstack-protector)
-    endif
+  else ifneq ($(single_package),yes)
+    DEJAGNU_RUNS += $(if $(filter yes,$(with_ssp_default)),-fno-stack-protector,-fstack-protector)
   endif
 endif
 endif
@@ -987,7 +1031,7 @@ endif
 # no b-d on g++-multilib, this is run by the built compiler
 abi_run_check = $(strip $(if $(wildcard build/runcheck$(1).out), \
 				$(shell cat build/runcheck$(1).out), \
-				$(shell CC="$(builddir)/gcc/xg++ -B$(builddir)/gcc/ -static-libgcc $(1)" bash debian/runcheck.sh)))
+				$(shell CC="$(builddir)/gcc/xgcc -B$(builddir)/gcc/ -static-libgcc $(1)" bash debian/runcheck.sh)))
 ifeq ($(biarch32),yes)
   DEJAGNU_RUNS += $(call abi_run_check,$(if $(filter $(DEB_TARGET_ARCH_CPU),mips64 mips64el mipsn32 mipsn32el),-mabi=32,-m32))
 endif
@@ -1006,6 +1050,13 @@ ifneq (,$(strip $(DEJAGNU_RUNS)))
 else
   RUNTESTFLAGS = RUNTESTFLAGS="--target_board=unix"
 endif
+
+# used in the libgo testsuite, not using dejagnu
+export CHECK_MULTISUBDIRS = \
+	$(if $(filter -m32 -mabi=32, $(DEJAGNU_RUNS)), /32) \
+	$(if $(filter -m64 -mabi=64, $(DEJAGNU_RUNS)), /64) \
+	$(if $(filter -mabi=n32, $(DEJAGNU_RUNS)), /n32) \
+	$(if $(filter -mx32, $(DEJAGNU_RUNS)), /x32)
 
 # PF is the installation prefix for the package without the leading slash.
 # It's "usr" for gcc releases.
@@ -1145,6 +1196,8 @@ $(configure_stamp):
 	dh_testdir
 	: # give information about the build process
 	@echo "------------------------ Build process variables ------------------------"
+	@echo "Disk space on this machine:"
+	@-df -h . /tmp/.
 	@echo "Memory on this machine:"
 	@egrep '^(Mem|Swap)' /proc/meminfo || true
 	@echo "Number of parallel processes used for the build: $(USE_CPUS)"
@@ -1163,7 +1216,10 @@ endif
 	@echo "CPPFLAGS: $(CPPFLAGS)"
 	@echo "CFLAGS: $(CFLAGS)"
 	@echo "LDFLAGS: $(LDFLAGS)"
+	@echo "FCFLAGS: $(FCFLAGS)"
+	@echo "STAGE1_CFLAGS: $(STAGE1_CFLAGS)"
 	@echo "BOOT_CFLAGS: $(BOOT_CFLAGS)"
+	@echo "BOOT_LDFLAGS: $(BOOT_LDFLAGS)"
 	@echo "DEBIAN_BUILDARCH: $(DEBIAN_BUILDARCH)"
 	@echo "Install prefix: /$(PF)"
 ifeq ($(biarchn32)-$(biarch64),yes-yes)
@@ -1241,12 +1297,22 @@ endif
 ifeq ($(with_m2),yes)
 	@echo "Will build the Modula-2 compiler."
 else
-	@echo "Will not build the Modula-2 compiler: $(with_rs)"
+	@echo "Will not build the Modula-2 compiler: $(with_m2)"
 endif
 ifeq ($(with_rs),yes)
 	@echo "Will build the Rust compiler."
 else
 	@echo "Will not build the Rust compiler: $(with_rs)"
+endif
+ifeq ($(with_cobol),yes)
+	@echo "Will build the COBOL compiler."
+else
+	@echo "Will not build the COBOL compiler: $(with_cobol)"
+endif
+ifeq ($(with_algol),yes)
+	@echo "Will build the Algol 68 compiler."
+else
+	@echo "Will not build the Algol 68 compiler: $(with_algol)"
 endif
 ifneq (,$(offload_targets))
 	@echo "Will build with offload compilers: $(offload_targets)."
@@ -1299,11 +1365,6 @@ endif
 	for i in msgfmt; do \
 	  install -m755 debian/bin-wrapper.in bin/$$i; \
 	done
-ifeq ($(with_ada),yes)
-	: # gnat still needs the unversioned gnatmake and gnatbind
-	ln -sf /usr/bin/$(GNATBIND) bin/gnatbind
-	ln -sf /usr/bin/$(GNATMAKE) bin/gnatmake
-endif
 
 	: # configure
 	if cd $(builddir) \
@@ -1388,10 +1449,9 @@ ifeq ($(build_type),build-native)
 	  status=$$?; \
 	  echo $$status > status; \
 	  echo === TIME $@ ===; \
-	  if [ $$status -eq 0 ] || [ $$try -eq $(MAX_BUILD_TRIES) ]; then \
-	    exit $$status; \
-	  fi; \
-	done
+	  [ $$status -eq 0 ] && exit $$status; \
+	done; \
+	exit 0
 else ifneq (,$(filter $(build_type),build-cross cross-build-native cross-build-cross))
 	: # build cross compiler for $(TARGET_ALIAS)
 	( \
@@ -1400,7 +1460,7 @@ else ifneq (,$(filter $(build_type),build-cross cross-build-native cross-build-c
 	  $(SET_LOCPATH) \
 	    $(time_command) $(MAKE) $(NJOBS) -C $(builddir) \
 		$(call pass_vars, BOOT_CFLAGS       BOOT_LDFLAGS \
-		                  CFLAGS_FOR_TARGET LDFLAGS_FOR_TARGET) \
+		                  CFLAGS_FOR_TARGET LDFLAGS_FOR_TARGET FCFLAGS) \
 		; \
 	  echo $$? > status; \
 	  echo === TIME $@ ===; \
@@ -1454,15 +1514,18 @@ CONFARGS_JIT := \
 		--enable-libstdcxx-debug %bootstrap,\
 	  $(CONFARGS)) \
 	--enable-languages=c++,jit \
+	$(if $(filter yes, $(with_versioned_libgccjit)),--enable-versioned-jit) \
 	--enable-host-shared \
 	--disable-bootstrap
 
 # this needs --enable-host-shared, build it in the jit compiler
-CONFARGS_JIT += --enable-libdiagnostics
+CONFARGS_JIT += --enable-libgdiagnostics
 
 # are other libs also safe to disable?
 CONFARGS_JIT += \
 	--disable-libada \
+	--disable-libga68 \
+	--disable-libgcobol \
 	--disable-libgfortran \
 	--disable-libgm2 \
 	--disable-libgo \
@@ -1545,13 +1608,13 @@ ifneq ($(single_package),yes)
 	mkdir -p $(d)-jit/$(gcc_lib_dir)/include
 	mv $(d)-jit/$(PF)/include/libgccjit*.h \
 		$(d)-jit/$(gcc_lib_dir)/include/.
-	mv $(d)-jit/$(PF)/include/libdiagnostics*.h \
+	mv $(d)-jit/$(PF)/include/libgdiagnostics*.h \
 		$(d)-jit/$(gcc_lib_dir)/include/.
 endif
 ifneq ($(PF)/lib,$(usr_lib))
 	mv $(d)-jit/$(PF)/lib/libgccjit.so* \
 		$(d)-jit/$(usr_lib)/.
-	mv $(d)-jit/$(PF)/lib/lib*diagnostics.so* \
+	mv $(d)-jit/$(PF)/lib/libgdiagnostics.so* \
 		$(d)-jit/$(usr_lib)/.
 endif
 ifeq ($(single_package),yes)
@@ -1559,22 +1622,24 @@ ifeq ($(single_package),yes)
 	    $(PF)/include/libgccjit*.h \
 	    $(usr_lib)/libgccjit.so* \
 	    $(PF)/share/info/libgccjit* \
-	    $(PF)/include/libdiagnostics*.h \
-	    $(usr_lib)/lib*diagnostics.so* \
-	    $(PF)/bin/sarif-replay
+	    $(PF)/include/libgdiagnostics*.h \
+	    $(usr_lib)/libgdiagnostics.so* \
+	    $(PF)/bin/$(cmd_prefix)sarif-replay*
 else
 	cd $(d)-jit && tar cvfJ ../../installed-jit.tar.xz \
 	    $(gcc_lib_dir)/include/libgccjit*.h \
 	    $(usr_lib)/libgccjit.so* \
 	    $(PF)/share/info/libgccjit* \
-	    $(gcc_lib_dir)/include/libdiagnostics*.h \
-	    $(usr_lib)/lib*diagnostics.so* \
-	    $(PF)/bin/sarif-replay
+	    $(gcc_lib_dir)/include/libgdiagnostics*.h \
+	    $(usr_lib)/libgdiagnostics.so* \
+	    $(PF)/bin/$(cmd_prefix)sarif-replay*
 endif
 	if which help2man >/dev/null 2>&1; then \
 	  LD_LIBRARY_PATH=$(CURDIR)/$(d)-jit/$(usr_lib)${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH} \
 	    help2man --no-discard-stderr --help-option=--usage --no-info \
-	    $(d)-jit/$(PF)/bin/sarif-replay > debian/sarif-replay.1; \
+	    $(d)-jit/$(PF)/bin/$(cmd_prefix)sarif-replay* \
+	    $(if $(cmd_prefix),| sed -e "s/$(cmd_prefix)//g" -e "s/$$(echo $(cmd_prefix) | tr 'a-z' 'A-Z')//g") \
+	    > debian/sarif-replay.1; \
 	fi
 	rm -rf $(d)-jit
 
@@ -1597,7 +1662,8 @@ CONFARGS_NVPTX := \
 	--enable-languages=c,c++,fortran,lto \
 	--enable-checking=release \
 	--with-system-zlib \
-	--without-isl
+	--without-isl \
+	--disable-libga68
 
 #	--with-build-time-tools=/$(PF)/nvptx-none/bin
 
@@ -1672,10 +1738,11 @@ CONFARGS_GCN := \
 	--enable-newlib-io-long-long \
 	--target=$(gcn_target_name) \
 	--enable-as-accelerator-for=$(DEB_TARGET_GNU_TYPE) \
-	--enable-languages=c,fortran,lto \
+	--enable-languages=c,c++,fortran,lto \
 	--enable-checking=release \
 	--disable-libstdcxx-pch \
 	--disable-libquadmath-support \
+	--disable-libga68 \
 	--with-system-zlib \
 	--without-isl \
 	--without-gnu-as \
@@ -1800,6 +1867,7 @@ $(configure_hppa64_stamp): $(build_stamp) \
 		--disable-libitm \
 		--disable-libssp \
 		--disable-libquadmath \
+		--disable-libga68 \
 		--enable-plugin \
 		--with-system-zlib \
 		--with-as=/usr/bin/hppa64-linux-gnu-as \
@@ -1933,6 +2001,9 @@ endif
 ifeq ($(with_m2),yes)
   MANUALS += $(srcdir)/gcc/doc/gm2.texi
 endif
+ifeq ($(with_algol),yes)
+  MANUALS += $(srcdir)/gcc/algol68/ga68.texi
+endif
 
 html-docs: $(build_html_stamp)
 #$(build_html_stamp): $(stampdir)/05-build-html-split
@@ -1978,11 +2049,9 @@ $(stampdir)/05-build-html-nosplit: $(build_stamp)
 	touch $@
 
 # start the script only on architectures known to have slow autobuilders ...
-logwatch_archs := alpha arm m68k mips mipsel mips64el riscv64 sparc
-ifeq ($(DEB_HOST_GNU_CPU), $(findstring $(DEB_HOST_GNU_CPU),$(logwatch_archs)))
-  start_logwatch = yes
-endif
-ifeq ($(DEB_HOST_GNU_SYSTEM),gnu)
+logwatch_archs := amd64 i386 alpha armel armhf arm64 loong64 m68k \
+	mips mipsel mips64el riscv64 s390x sparc x32 hurd-amd64 hurd-i386
+ifneq (,$(filter $(DEB_HOST_ARCH),$(logwatch_archs)))
   start_logwatch = yes
 endif
 
@@ -2051,20 +2120,9 @@ ifeq ($(start_logwatch),yes)
 	: # start logwatch script for regular output during test runs
 	chmod +x debian/logwatch.sh
 	-debian/logwatch.sh -t 900 -p $(builddir)/logwatch.pid \
-		-m '\ntestsuite still running ...\n' \
+		-m 'testsuite still running ...' \
 		test-protocol \
-		$(builddir)/gcc/testsuite/gcc/gcc.log \
-		$(builddir)/gcc/testsuite/g++/g++.log \
-		$(builddir)/gcc/testsuite/gfortran/gfortran.log \
-		$(builddir)/gcc/testsuite/objc/objc.log \
-		$(builddir)/gcc/testsuite/obj-c++/obj-c++.log \
-		$(builddir)/gcc/testsuite/gnat/gnat.log \
-		$(builddir)/gcc/testsuite/ada/acats/acats.log \
-		$(builddir)/gcc/testsuite/gfortran/gfortran.log \
-		$(builddir)/gcc/p/test/test_log \
-		$(buildlibdir)/libstdc++-v3/testsuite/libstdc++.log \
-		$(buildlibdir)/libgomp/testsuite/libgomp.log \
-		$(buildlibdir)/libffi/testsuite/libffi.log \
+		$(builddir) \
 		&
 endif
 
@@ -2224,9 +2282,9 @@ ifeq ($(start_logwatch),yes)
 	: # start logwatch script for regular output during test runs
 	chmod +x debian/logwatch.sh
 	-debian/logwatch.sh -t 900 -p $(builddir)/logwatch-inst.pid \
-		-m '\ntestsuite (3.3) still running ...\n' \
+		-m 'testsuite (installed) still running ...' \
 		test-inst-protocol \
-		check-inst/{gcc,g++,g77,objc}.log \
+		$(builddir) \
 		&
 endif
 
@@ -2307,7 +2365,9 @@ clean: debian/control
 	  rm -f $$f2; \
 	done
 	rm -f debian/lib*gcc-s1.symbols
+ifneq ($(single_package),yes)
 	rm -f debian/lib*{atomic$(ATOMIC_SONAME),gfortran$(FORTRAN_SONAME),gomp$(GOMP_SONAME),itm$(ITM_SONAME),quadmath$(QUADMATH_SONAME),stdc++$(CXX_SONAME)}.symbols
+endif
 	find debian -maxdepth 1 -name '*-cross.symbols' -type l | xargs -r rm -f
 	rm -f debian/gcc-{XX,ar,nm,ranlib}-$(BASE_VERSION).1
 	rm -f debian/shlibs.local debian/shlibs.common* debian/substvars.local
@@ -2497,6 +2557,14 @@ endif
 
 ifeq ($(with_rs),yes)
   include debian/rules.d/binary-rust.mk
+endif
+
+ifeq ($(with_cobol),yes)
+  include debian/rules.d/binary-cobol.mk
+endif
+
+ifeq ($(with_algol),yes)
+  include debian/rules.d/binary-algol68.mk
 endif
 
 ifeq ($(with_libcc1),yes)
@@ -2752,7 +2820,7 @@ ifeq ($(DEB_STAGE)-$(DEB_CROSS),rtlibs-yes)
 	done
 else
   ifneq ($(configured_libdir),$(libdir))
-	for i in ada debug go pkgconfig '*.so' '*.so.*' '*.a' '*.la' '*.o' '*.py' '*.spec'; do \
+	for i in ada debug go pkgconfig '*.so' '*.so.*' '*.a' '*.la' '*.o' '*.py' '*.spec' '*.modules.json'; do \
 	  mv $(d)/$(PF)/$(configured_libdir)/$$i \
 		$(d)/$(PF)/$(libdir)/. || true; \
 	done
@@ -2781,13 +2849,17 @@ endif
 	chmod 644 $(d)/$(gcc_lexec_dir)/liblto_plugin.so
 
 	: # remove rpath settings from binaries and shared libs
+	-chrpath -k $(d)/$(PF)/bin/* $(d)/$(PFL)/lib*/lib*.so.* \
+			$(d)/$(gcc_lib_dir)/plugin/* \
+			$(if $(filter $(with_multiarch_lib),yes), \
+			  $(d)/$(PF)/lib/$(DEB_TARGET_MULTIARCH)/lib*.so.*)
+
 	for i in $$(chrpath -k $(d)/$(PF)/bin/* $(d)/$(PFL)/lib*/lib*.so.* \
 			$(d)/$(gcc_lib_dir)/plugin/* \
 			$(if $(filter $(with_multiarch_lib),yes), \
 			  $(d)/$(PF)/lib/$(DEB_TARGET_MULTIARCH)/lib*.so.*) \
 			2>/dev/null | awk -F: '/R(UN)?PATH=/ {print $$1}'); \
 	do \
-	  case "$$i" in ecj1|*gij-*|*libjawt*|*libjvm*) continue; esac; \
 	  [ -h $$i ] && continue; \
 	  chrpath --delete $$i; \
 	  echo "removed RPATH/RUNPATH: $$i"; \
@@ -2863,9 +2935,6 @@ $(install_jit_stamp): $(build_jit_stamp) $(install_stamp)
 	: # install files prepared in the jit build target
 	cd $(d) && tar xvf ../../installed-jit.tar.xz
 
-	mv $(d)/$(PF)/bin/sarif-replay \
-		$(d)/$(PF)/bin/sarif-replay$(pkg_ver)
-
 	@echo XXXXX `date -R`
 	touch $(install_jit_stamp)
 
@@ -2908,9 +2977,6 @@ $(install_nvptx_stamp): $(build_nvptx_stamp)
 	-find $(d)-nvptx -type d -empty -delete
 
 	: # a complete compiler installation needed for running the tests
-ifneq ($(single_package),yes)
-	ln -sf lib $(d)-nvptx/$(PF)/libexec
-endif
 	ln -sf /usr/bin/nvptx-none-ar     $(d)-nvptx/$(gcc_lexec_dir)/accel/nvptx-none/ar
 	ln -sf /usr/bin/nvptx-none-as     $(d)-nvptx/$(gcc_lexec_dir)/accel/nvptx-none/as
 	ln -sf /usr/bin/nvptx-none-ld     $(d)-nvptx/$(gcc_lexec_dir)/accel/nvptx-none/ld
@@ -2964,9 +3030,12 @@ $(install_gcn_stamp): $(build_gcn_stamp)
 	rm -rf $(d)-gcn/$(PF)/lib/gcc/$(DEB_HOST_GNU_TYPE)/$(versiondir)/gfx*
 
 	: # a complete compiler installation needed for running the tests
-ifneq ($(single_package),yes)
-	ln -sf lib $(d)-gcn/$(PF)/libexec
-endif
+ifeq ($(gcn_tools_llvm_version),tools)
+	for t in ar as ld nm ranlib; do \
+	  ln -sf /usr/$(gcn_target_name)/bin/$$t \
+	    $(d)-gcn/$(gcc_lexec_dir)/accel/$(gcn_target_name)/$$t; \
+	done
+else
 	ln -sf /usr/lib/llvm-$(gcn_tools_llvm_version)/bin/llvm-ar \
 	  $(d)-gcn/$(gcc_lexec_dir)/accel/$(gcn_target_name)/ar
 	ln -sf /usr/lib/llvm-$(gcn_tools_llvm_version)/bin/llvm-mc \
@@ -2977,7 +3046,7 @@ endif
 	  $(d)-gcn/$(gcc_lexec_dir)/accel/$(gcn_target_name)/nm
 	ln -sf /usr/lib/llvm-$(gcn_tools_llvm_version)/bin/llvm-ranlib \
 	  $(d)-gcn/$(gcc_lexec_dir)/accel/$(gcn_target_name)/ranlib
-
+endif
 	: # fix permissions of liblto_plugin.so
 	chmod 644 $(d)-gcn/$(gcc_lexec_dir)/accel/$(gcn_target_name)/liblto_plugin.so
 
@@ -3016,8 +3085,11 @@ binary-arch: $(foreach i,$(arch_binaries),$(binary_stamp)-$(i)) debian/arch_bina
 	test ! -s debian/arch_binaries.all || \
 	  dh_compress $(foreach p,$(shell echo `cat debian/arch_binaries.all`),-p$(p)) \
 	    -X.log.xz -X.sum.xz -X.c -X.txt -X.tag -X.map -XREADME.Bugs
+	@echo LTO_PLUGIN debug
+	-find debian -name liblto_plugin.so -ls
 	test ! -s debian/arch_binaries.all || \
 	  dh_fixperms $(foreach p,$(shell echo `cat debian/arch_binaries.all`),-p$(p))
+	-find debian -name liblto_plugin.so -ls
 ifeq ($(with_ada),yes)
 	find $$(ls -d $(d_gnat) $(d_gnatsjlj) $(d_snap) 2>/dev/null) \
 	  -name '*.ali' | xargs -r chmod 444

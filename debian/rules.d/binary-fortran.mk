@@ -108,7 +108,7 @@ define __do_fortran
 	$(ignshld)DIRNAME=$(subst n,,$(2)) $(cross_shlibdeps) dh_shlibdeps -p$(p_l) \
 		$(call shlibdirs_to_search, \
 			$(subst gfortran$(FORTRAN_SONAME),gcc-s$(GCC_SONAME),$(p_l)) \
-			$(subst gfortran$(FORTRAN_SONAME),gcc$(QUADMATH_SONAME),$(p_l)) \
+			$(subst gfortran$(FORTRAN_SONAME),quadmath$(QUADMATH_SONAME),$(p_l)) \
 		,$(2)) \
 		$(if $(filter yes, $(with_common_libs)),,-- -Ldebian/shlibs.common$(2))
 	$(call cross_mangle_substvars,$(p_l))

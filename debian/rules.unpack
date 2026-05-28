@@ -182,10 +182,13 @@ endif
 # ---------------------------------------------------------------------------
 ifneq (,$(newlib_tarball))
 $(unpack_stamp)-$(newlib_tarball): $(newlib_tarpath) $(unpack_stamp)-$(gcc_tarball)
-	: # unpack newlib-nvptx tarball
+	: # unpack newlib tarball
 	mkdir -p $(stampdir)
 	: # rm -rf $(newlib_srcdir)
 	tar -x -f $(newlib_tarpath)
+	patch -p1 < debian/patches/newlib-pr119325.diff
+	patch -p1 < debian/patches/newlib-p2.diff
+	patch -p1 < debian/patches/newlib-p3.diff
 	echo "$(newlib_tarball) unpacked." > $@
 endif
 

@@ -21,7 +21,7 @@ Author: Nicolas Boulenguez <nicolas@debian.org>
     -------------------------------------
     -- Use of Name_Find and Name_Enter --
     -------------------------------------
-@@ -1126,8 +1130,14 @@ package body Osint is
+@@ -1125,8 +1129,14 @@ package body Osint is
     is
        function Internal (N : C_File_Name; A : System.Address) return OS_Time;
        pragma Import (C, Internal, "__gnat_file_time_name_attr");
@@ -37,7 +37,7 @@ Author: Nicolas Boulenguez <nicolas@debian.org>
     end File_Time_Stamp;
  
     function File_Time_Stamp
-@@ -1150,6 +1160,7 @@ package body Osint is
+@@ -1149,6 +1159,7 @@ package body Osint is
     ----------------
  
     function File_Stamp (Name : File_Name_Type) return Time_Stamp_Type is
@@ -45,7 +45,7 @@ Author: Nicolas Boulenguez <nicolas@debian.org>
     begin
        if Name = No_File then
           return Empty_Time_Stamp;
-@@ -1161,9 +1172,13 @@ package body Osint is
+@@ -1160,9 +1171,13 @@ package body Osint is
        --  not exist, and OS_Time_To_GNAT_Time will convert this value to
        --  Empty_Time_Stamp. Therefore we do not need to first test whether
        --  the file actually exists, which saves a system call.
@@ -62,7 +62,7 @@ Author: Nicolas Boulenguez <nicolas@debian.org>
     end File_Stamp;
  
     function File_Stamp (Name : Path_Name_Type) return Time_Stamp_Type is
-@@ -3261,4 +3276,34 @@ begin
+@@ -3213,4 +3228,34 @@ begin
        Osint.Initialize;
     end Initialization;
  
@@ -99,7 +99,7 @@ Author: Nicolas Boulenguez <nicolas@debian.org>
  end Osint;
 --- a/src/gcc/ada/osint.ads
 +++ b/src/gcc/ada/osint.ads
-@@ -196,6 +196,7 @@ package Osint is
+@@ -195,6 +195,7 @@ package Osint is
     --  information in order to locate it. If the source file cannot be opened,
     --  or Name = No_File, and all blank time stamp is returned (this is not an
     --  error situation).
@@ -107,7 +107,7 @@ Author: Nicolas Boulenguez <nicolas@debian.org>
  
     function File_Stamp (Name : Path_Name_Type) return Time_Stamp_Type;
     --  Same as above for a path name
-@@ -303,6 +304,11 @@ package Osint is
+@@ -302,6 +303,11 @@ package Osint is
       (Name : Path_Name_Type;
        Attr : access File_Attributes) return Time_Stamp_Type;
     --  Return the time stamp of the file

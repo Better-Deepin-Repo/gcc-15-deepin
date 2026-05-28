@@ -276,8 +276,15 @@ define __do_libstdcxx_dev
 	$(if $(2),,
 	mv $(d)/$(usr_lib$(2))/libstdc++.modules.json \
 		$(d_l)/$(gcc_lib_dir$(2))/
+	sed -i '/source-path/s,\.\./include,/$(PF)/include,' \
+		$(d_l)/$(gcc_lib_dir$(2))/libstdc++.modules.json
 	)
 
+	$(if $(filter yes, $(with_common_libs)),,
+	rm -f $(d_l)/$(gcc_lib_dir$(2))/libstdc++.so
+	cp -a $(d)/$(usr_lib$(2))/libstdc++.so.$(CXX_SONAME).*[0-9] \
+		$(d_l)/$(gcc_lib_dir$(2))/libstdc++.so
+	)
 	debian/dh_doclink -p$(p_l) $(p_lbase)
 	debian/dh_rmemptydirs -p$(p_l)
 	dh_strip -p$(p_l)
@@ -356,9 +363,10 @@ $(binary_stamp)-libstdcxx-dev: $(libcxxdev_deps)
 	mv $(d)/$(usr_lib)/libstdc++fs.a $(d)/$(gcc_lib_dir)/
 	mv $(d)/$(usr_lib)/libstdc++exp.a $(d)/$(gcc_lib_dir)/
 	mv $(d)/$(usr_lib)/libstdc++.{a,so} $(d)/$(gcc_lib_dir)/
-	ln -sf ../../../$(DEB_TARGET_GNU_TYPE)/libstdc++.so.$(CXX_SONAME) \
-		$(d)/$(gcc_lib_dir)/libstdc++.so
-	mv $(d)/$(usr_lib)/../libstdc++.modules.json $(d)/$(gcc_lib_dir)/
+
+	mv $(d)/$(usr_lib)/libstdc++.modules.json $(d)/$(gcc_lib_dir)/
+	sed -i '/source-path/s,\.\./include,/$(PF)/include,' \
+		$(d)/$(gcc_lib_dir)/libstdc++.modules.json
 
 	: # FIXME: update libstdc++-pic patch
 #	mv $(d)/$(usr_lib)/libstdc++_pic.a $(d)/$(gcc_lib_dir)/
@@ -381,9 +389,18 @@ ifeq ($(with_cxx_debug),yes)
 	$(dh_compat2) dh_movefiles -p$(p_dbg) $(files_dbg)
 endif
 
+ifeq ($(with_common_libs),yes)
 	dh_link -p$(p_dev) \
 		/$(usr_lib)/libstdc++.so.$(CXX_SONAME) \
 		/$(gcc_lib_dir)/libstdc++.so
+else
+	: # PR libstdc++/103382, install the library in the gcc_lib_dir
+	: # to link against the libstdc++ from this GCC version.
+	rm -f $(d_dev)/$(gcc_lib_dir)/libstdc++.so
+	cp -a $(d)/$(usr_lib$(2))/libstdc++.so.$(CXX_SONAME).*[0-9] \
+		$(d_dev)/$(gcc_lib_dir)/libstdc++.so
+	ls -l $(d_dev)/$(gcc_lib_dir)/libstdc++.so
+endif
 
 	debian/dh_doclink -p$(p_dev) $(p_lbase)
 	debian/dh_doclink -p$(p_pic) $(p_lbase)

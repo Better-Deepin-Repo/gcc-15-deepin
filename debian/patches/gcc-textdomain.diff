@@ -15,7 +15,7 @@
    open_quote = _("`");
 --- a/src/gcc/Makefile.in
 +++ b/src/gcc/Makefile.in
-@@ -4515,8 +4515,8 @@ install-po:
+@@ -4774,8 +4774,8 @@ install-po:
  	  dir=$(localedir)/$$lang/LC_MESSAGES; \
  	  echo $(mkinstalldirs) $(DESTDIR)$$dir; \
  	  $(mkinstalldirs) $(DESTDIR)$$dir || exit 1; \
@@ -28,7 +28,7 @@
  # Rule for regenerating the message template (gcc.pot).
 --- a/src/libcpp/init.cc
 +++ b/src/libcpp/init.cc
-@@ -183,7 +183,7 @@ init_library (void)
+@@ -210,7 +210,7 @@ init_library (void)
        init_trigraph_map ();
  
  #ifdef ENABLE_NLS

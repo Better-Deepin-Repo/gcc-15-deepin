@@ -22,11 +22,7 @@ ifeq ($(with_offload_nvptx),yes)
   snapshot_depends += nvptx-tools,
 endif
 ifeq ($(with_offload_gcn),yes)
- ifeq ($(gcn_tools_llvm_version),tools)
-   snapshot_depends += amdgcn-tools,
- else
-   snapshot_depends += llvm-$(gcn_tools_llvm_version), lld-$(gcn_tools_llvm_version),
- endif
+ snapshot_depends += $(AMDGCN_TOOLS_DEP)
 endif
 
 common_substvars += '-Vsnap:depends=$(snapshot_depends)' '-Vsnap:recommends=$(snapshot_recommends)'
@@ -43,6 +39,11 @@ $(binary_stamp)-snapshot: $(install_snap_stamp) \
 	dh_installdirs -p$(p_snap) $(dirs_snap)
 
 	mv $(d)/$(PF) $(d_snap)/usr/lib/
+
+	if [ -f $(d)/gcobol.3 ]; then \
+	  mkdir -p $(d_snap)/$(PF)/share/man/man3; \
+	  mv $(d)/gcobol.3 $(d_snap)/$(PF)/share/man/man3/.; \
+	fi
 
 ifeq ($(with_jit),yes)
 	tar -C $(d_snap) -x -v -f installed-jit.tar.xz

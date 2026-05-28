@@ -56,7 +56,7 @@ XSBC-Original-Maintainer: MAINTAINER
 Maintainer: MAINTAINER
 ')dnl DIST
 Uploaders: Matthias Klose <doko@debian.org>
-Standards-Version: 4.6.2
+Standards-Version: 4.7.4
 ifdef(`TARGET',`dnl cross
 Build-Depends: DEBHELPER_BUILD_DEP DPKG_BUILD_DEP
   LIBC_BUILD_DEP, LIBC_BIARCH_BUILD_DEP
@@ -69,7 +69,7 @@ Build-Depends: DEBHELPER_BUILD_DEP DPKG_BUILD_DEP
   PKGCONF_BUILD_DEP libgc-dev,
   zlib1g-dev, SDT_BUILD_DEP USAGE_BUILD_DEP
   bison, flex, GNAT_BUILD_DEP GDC_BUILD_DEP GM2_BUILD_DEP
-  coreutils, lsb-release, quilt, time
+  lsb-release, quilt, time
 ',`dnl native
 Build-Depends: DEBHELPER_BUILD_DEP DPKG_BUILD_DEP GCC_MULTILIB_BUILD_DEP
   LIBC_BUILD_DEP, LIBC_BIARCH_BUILD_DEP LIBC_DBG_DEP
@@ -84,7 +84,7 @@ Build-Depends: DEBHELPER_BUILD_DEP DPKG_BUILD_DEP GCC_MULTILIB_BUILD_DEP
   texinfo, LOCALES, sharutils,
   procps, FORTRAN_BUILD_DEP GNAT_BUILD_DEP GO_BUILD_DEP GDC_BUILD_DEP GM2_BUILD_DEP RS_BUILD_DEP
   ISL_BUILD_DEP MPC_BUILD_DEP MPFR_BUILD_DEP GMP_BUILD_DEP PHOBOS_BUILD_DEP
-  CHECK_BUILD_DEP coreutils, chrpath, lsb-release, quilt, time,
+  CHECK_BUILD_DEP chrpath, lsb-release, quilt, time,
   PKGCONF_BUILD_DEP libgc-dev,
   TARGET_TOOL_BUILD_DEP
 Build-Depends-Indep: LIBSTDCXX_BUILD_INDEP
@@ -94,9 +94,10 @@ Homepage: http://gdcproject.org/
 ', `dnl
 Homepage: http://gcc.gnu.org/
 ')dnl SRCNAME
-Vcs-Browser: https://salsa.debian.org/toolchain-team/gcc
-Vcs-Git: https://salsa.debian.org/toolchain-team/gcc.git
+Vcs-Browser: https://salsa.debian.org/toolchain-team/gcc/tree/gcc-15-debian
+Vcs-Git: https://salsa.debian.org/toolchain-team/gcc.git -b gcc-15-debian
 XS-Testsuite: autopkgtest
+Rules-Requires-Root: binary-targets
 
 ifelse(regexp(SRCNAME, `gcc-snapshot'),0,`dnl
 Package: gcc-snapshot`'TS
@@ -609,6 +610,7 @@ ifdef(`TARGET',`Provides: libn32gcc1`'LS (= ${gcc:EpochVersion}), libn32gcc-s1-T
 ',`')`'dnl
 Breaks: libn32gcc1`'LS (<< 1:10)
 Replaces: libn32gcc1`'LS (<< 1:10)
+ifdef(`TARGET',`dnl',`Conflicts: lib32gcc-s1 [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GCC support library`'ifdef(`TARGET',` (TARGET)', `') (n32)
  Shared version of the support library, a library of internal subroutines
@@ -628,6 +630,7 @@ ifdef(`TARGET',`dnl',`Section: libs')
 Depends: BASELDEP, libn32gcc-s1`'LS, ${dep:libcbiarch}, ${misc:Depends}
 ifdef(`TARGET',`Provides: libn32gcc1-TARGET-dcv1
 ',`')`'dnl
+ifdef(`TARGET',`dnl',`Conflicts: lib32gcc1 [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GCC support library`'ifdef(`TARGET',` (TARGET)', `') (n32)
  This is a dependency package, and can be safely removed after upgrade.
@@ -641,6 +644,7 @@ Section: debug
 Depends: BASELDEP, libdep(gcc-s1,n32,=,${gcc:Version}), ${misc:Depends}
 Breaks: libn32gcc1-dbg`'LS (<< 1:10)
 Replaces: libn32gcc1-dbg`'LS (<< 1:10)
+ifdef(`TARGET',`dnl',`Conflicts: lib32gcc-s1-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GCC support library (debug symbols)`'ifdef(`TARGET',` (TARGET)', `')
  Debug symbols for the GCC support library.
@@ -656,6 +660,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Section: debug
 Depends: BASELDEP, libn32gcc-s1-dbg`'LS, libdep(gcc1,n32,=,${gcc:EpochVersion}), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32gcc1-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GCC support library (debug symbols)`'ifdef(`TARGET',` (TARGET)', `')
  This is a dependency package, and can be safely removed after upgrade.
@@ -920,9 +925,9 @@ Description: GNU C preprocessor for arch_gnu
  A macro processor that is used automatically by the GNU C compiler
  to transform programs before actual compilation.
  .
- This package has been separated from gcc for the benefit of those who
- require the preprocessor configured for arch_gnu architecture but not
- the compiler.
+ This package has been separated from gcc for the benefit of those
+ who require the preprocessor configured for the
+ arch_gnu architecture but not the compiler.
 ')`'dnl for_each_arch
 
 Package: cpp`'PV`'-for-host
@@ -1010,10 +1015,11 @@ Depends: BASEDEP, gcc`'PV`'arch_gnusuffix (= ${gcc:Version}), libidevdep(stdc++`
 Provides: c++-compiler`'arch_gnusuffix
 Suggests: gcc`'PV-doc (>= ${gcc:SoftVersion}), libdbgdep(stdc++CXX_SO`'PV-dbg,)
 BUILT_USING`'dnl
-Description: GNU C++ compiler for arch_gnu architecture
+Description: GNU C++ compiler for the arch_gnu architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for arch_gnu architecture.
+ This package contains C++ cross-compiler for the
+ arch_gnu architecture.
 ')`'dnl for_each_arch
 
 Package: g++`'PV`'-for-host
@@ -1041,7 +1047,8 @@ BUILT_USING`'dnl
 Description: GNU C++ compiler for the build architecture
  This is the GNU C++ compiler, a fairly portable optimizing compiler for C++.
  .
- This package contains C++ cross-compiler for arch_gnu architecture.
+ This package contains C++ cross-compiler for the
+ arch_gnu architecture.
  .
  This is a dependency package.
 
@@ -1119,6 +1126,7 @@ Architecture: biarchn32_archs
 Section: libs
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
 Replaces: libssp0 (<< 4.1)
+ifdef(`TARGET',`dnl',`Conflicts: lib32ssp`'SSP_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GCC stack smashing protection library (n32)
  GCC can now emit code for protecting applications from stack-smashing attacks.
@@ -1218,6 +1226,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32gomp`'GOMP_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GCC OpenMP (GOMP) support library (n32)
  GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
@@ -1229,6 +1238,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Section: debug
 Depends: BASELDEP, libdep(gomp`'GOMP_SO,n32,=), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32ssp`'GOMP_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GCC OpenMP (GOMP) support library (n32 debug symbols)
  GOMP is an implementation of OpenMP for the C, C++, and Fortran compilers
@@ -1342,6 +1352,7 @@ Description: GNU Transactional Memory Library (64bit debug symbols)
 #Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 #Priority: optional
 #Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32itm`'ITM_SO [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: GNU Transactional Memory Library (n32)
 # GNU Transactional Memory Library (libitm) provides transaction support for
@@ -1353,6 +1364,7 @@ Description: GNU Transactional Memory Library (64bit debug symbols)
 #Section: debug
 #Priority: optional
 #Depends: BASELDEP, libdep(itm`'ITM_SO,n32,=), ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32itm`'ITM_SO-dbg [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: GNU Transactional Memory Library (n32 debug symbols)
 # GNU Transactional Memory Library (libitm) provides transaction support for
@@ -1464,6 +1476,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32atomic`'ATOMIC_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: support library providing __atomic built-in functions (n32)
  library providing __atomic built-in functions. When an atomic call cannot
@@ -1475,6 +1488,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Section: debug
 Depends: BASELDEP, libdep(atomic`'ATOMIC_SO,n32,=), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32atomic`'ATOMIC_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: support library providing __atomic built-in functions (n32 debug symbols)
  library providing __atomic built-in functions. When an atomic call cannot
@@ -1584,6 +1598,7 @@ Description: AddressSanitizer -- a fast memory error detector (64bit debug symbo
 #Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 #Priority: optional
 #Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32asan`'ASAN_SO [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: AddressSanitizer -- a fast memory error detector (n32)
 # AddressSanitizer (ASan) is a fast memory error detector.  It finds
@@ -1594,6 +1609,7 @@ Description: AddressSanitizer -- a fast memory error detector (64bit debug symbo
 #Section: debug
 #Priority: optional
 #Depends: BASELDEP, libdep(asan`'ASAN_SO,n32,=), ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32asan`'ASAN_SO-dbg [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: AddressSanitizer -- a fast memory error detector (n32 debug symbols)
 # AddressSanitizer (ASan) is a fast memory error detector.  It finds
@@ -1736,6 +1752,7 @@ ifenabled(`libn32lsan',`
 #Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 #Priority: optional
 #Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32lsan`'LSAN_SO [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: LeakSanitizer -- a memory leak detector (n32)
 # LeakSanitizer (Lsan) is a memory leak detector which is integrated
@@ -1747,6 +1764,7 @@ ifenabled(`libdbg',`
 #Section: debug
 #Priority: optional
 #Depends: BASELDEP, libdep(lsan`'LSAN_SO,n32,=), ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32lsan`'LSAN_SO-dbg [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: LeakSanitizer -- a memory leak detector (n32 debug symbols)
 # LeakSanitizer (Lsan) is a memory leak detector which is integrated
@@ -1862,6 +1880,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32tsan`'TSAN_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: ThreadSanitizer -- a Valgrind-based detector of data races (n32)
  ThreadSanitizer (Tsan) is a data race detector for C/C++ programs.
@@ -1873,6 +1892,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Section: debug
 Depends: BASELDEP, libdep(tsan`'TSAN_SO,n32,=), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32tsan`'TSAN_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: ThreadSanitizer -- a Valgrind-based detector of data races (n32 debug symbols)
  ThreadSanitizer (Tsan) is a data race detector for C/C++ programs.
@@ -1994,6 +2014,7 @@ ifenabled(`libn32ubsan',`
 #Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 #Priority: optional
 #Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32ubsan`'UBSAN_SO [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: UBSan -- undefined behaviour sanitizer (n32)
 # UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
@@ -2006,6 +2027,7 @@ ifenabled(`libdbg',`
 #Section: debug
 #Priority: optional
 #Depends: BASELDEP, libdep(ubsan`'UBSAN_SO,n32,=), ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32ubsan`'UBSAN_SO-dbg [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: UBSan -- undefined behaviour sanitizer (n32 debug symbols)
 # UndefinedBehaviorSanitizer can be enabled via -fsanitize=undefined.
@@ -2136,6 +2158,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32vtv`'VTV_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GNU vtable verification library (n32)
  Vtable verification is a new security hardening feature for GCC that
@@ -2149,6 +2172,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Section: debug
 Depends: BASELDEP, libdep(vtv`'VTV_SO,n32,=), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32vtv`'VTV_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GNU vtable verification library (n32 debug symbols)
  Vtable verification is a new security hardening feature for GCC that
@@ -2265,6 +2289,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32backtrace`'BTRACE_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: stack backtrace library (n32)
  libbacktrace uses the GCC unwind interface to collect a stack trace,
@@ -2276,6 +2301,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Section: debug
 Depends: BASELDEP, libdep(backtrace`'BTRACE_SO,n32,=), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32backtrace`'BTRACE_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: stack backtrace library (n32 debug symbols)
  libbacktrace uses the GCC unwind interface to collect a stack trace,
@@ -2388,6 +2414,7 @@ Description: GCC Quad-Precision Math Library  (64bit debug symbols)
 #Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 #Priority: optional
 #Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32quadmath`'QMATH_SO [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: GCC Quad-Precision Math Library (n32)
 # A library, which provides quad-precision mathematical functions on targets
@@ -2400,6 +2427,7 @@ ifenabled(`libdbg',`
 #Section: debug
 #Priority: optional
 #Depends: BASELDEP, libdep(quadmath`'QMATH_SO,n32,=), ${misc:Depends}
+#ifdef(`TARGET',`dnl',`Conflicts: lib32quadmath`'QMATH_SO-dbg [biarch32_conflicts]')
 #BUILT_USING`'dnl
 #Description: GCC Quad-Precision Math Library (n32 debug symbols)
 # A library, which provides quad-precision mathematical functions on targets
@@ -2483,7 +2511,7 @@ Architecture: all
 Depends: gcc`'PV-base (>= ${gcc:SoftVersion}), ${misc:Depends}
 Conflicts: libgccjit-5-doc, libgccjit-6-doc, libgccjit-7-doc, libgccjit-8-doc,
   libgccjit-9-doc, libgccjit-10-doc, libgccjit-11-doc, libgccjit-12-doc,
-   libgccjit-13-doc,
+  libgccjit-13-doc, libgccjit-14-doc,
 Description: GCC just-in-time compilation (documentation)
  libgccjit provides an embeddable shared library with an API for adding
  compilation to existing programs using GCC.
@@ -2580,9 +2608,9 @@ Depends: BASEDEP, libgdiagnostics`'DIAGNOSTICS_SO (>= ${gcc:Version}),
  ${shlibs:Depends}, ${misc:Depends}
 BUILT_USING`'dnl
 Description: GCC diagnostic tools
-  Currently only provides the sarif-replay command-line tool, which takes
-  SARIF files as input, and uses libdiagnostics to replay any diagnostics
-  within them as if they were GCC diagnostics.
+ Currently only provides the sarif-replay command-line tool, which takes
+ SARIF files as input, and uses libdiagnostics to replay any diagnostics
+ within them as if they were GCC diagnostics.
 ')`'dnl gdiag
 
 ifenabled(`objpp',`
@@ -2596,8 +2624,9 @@ Suggests: ${gobjcxx:multilib}, gcc`'PV-doc (>= ${gcc:SoftVersion})
 Provides: objc++-compiler`'arch_gnusuffix
 BUILT_USING`'dnl
 Description: GNU Objective-C++ compiler for the arch_gnu architecture
- This is the GNU Objective-C++ compiler for the arch_gnu architecture,
- which compiles Objective-C++ on platforms supported by the gcc compiler.
+ This is the GNU Objective-C++ compiler for the
+ arch_gnu architecture, which compiles Objective-C++
+ on platforms supported by the gcc compiler.
  It uses the gcc backend to generate optimized code.
 ')`'dnl for_each_arch
 
@@ -2673,9 +2702,9 @@ Suggests: gcc`'PV-doc (>= ${gcc:SoftVersion}), libdbgdep(objc`'OBJC_SO-dbg,)
 Provides: objc-compiler`'arch_gnusuffix
 BUILT_USING`'dnl
 Description: GNU Objective-C compiler for the arch_gnu architecture
- This is the GNU Objective-C compiler for the arch_gnu architecture,
- which compiles Objective-C on platforms supported by the gcc compiler.
- It uses the gcc backend to generate optimized code.
+ This is the GNU Objective-C compiler for the arch_gnu
+ architecture, which compiles Objective-C on platforms supported by the
+ gcc compiler. It uses the gcc backend to generate optimized code.
 ')`'dnl for_each_arch
 
 Package: gobjc`'PV`'-for-host
@@ -2867,6 +2896,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32objc`'OBJC_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Runtime library for GNU Objective-C applications (n32)
  Library needed for GNU ObjC applications linked against the shared library.
@@ -2877,6 +2907,7 @@ TARGET_PACKAGE`'dnl
 Section: debug
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, libdep(objc`'OBJC_SO,n32,=), libdbgdep(gcc-s`'GCC_SO-dbg,n32,>=,${gcc:EpochVersion}), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32objc`'OBJC_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Runtime library for GNU Objective-C applications (n32 debug symbols)
  Library needed for GNU ObjC applications linked against the shared library.
@@ -3129,6 +3160,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32gfortran`'FORTRAN_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Runtime library for GNU Fortran applications (n32)
  Library needed for GNU Fortran applications linked against the
@@ -3140,6 +3172,7 @@ TARGET_PACKAGE`'dnl
 Section: debug
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, libdep(gfortran`'FORTRAN_SO,n32,=), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32gfortran`'FORTRAN_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Runtime library for GNU Fortran applications (n32 debug symbols)
  Library needed for GNU Fortran applications linked against the
@@ -3400,6 +3433,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${dep:libcbiarch}, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32go`'GO_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Runtime library for GNU Go applications (n32)
  Library needed for GNU Go applications linked against the
@@ -3411,6 +3445,7 @@ TARGET_PACKAGE`'dnl
 Section: debug
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, libdep(go`'GO_SO,n32,=), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32go`'GO_SO-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Runtime library for GNU Go applications (n32 debug symbols)
  Library needed for GNU Go applications linked against the
@@ -3525,6 +3560,7 @@ ifdef(`TARGET',`dnl',`Section: libs')
 Depends: BASELDEP, libdep(gcc-s1,n32), ${shlibs:Depends}, ${misc:Depends}
 ifdef(`TARGET',`Provides: libn32stdc++CXX_SO-TARGET-dcv1
 ',`')`'dnl
+ifdef(`TARGET',`dnl',`Conflicts: lib32stdc++`'CXX_SO [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GNU Standard C++ Library v3`'ifdef(`TARGET',` (TARGET)', `') (n32)
  This package contains an additional runtime library for C++ programs
@@ -3597,7 +3633,7 @@ ifdef(`MULTIARCH', `Multi-Arch: same
 ')`'dnl
 ifdef(`TARGET',`dnl',`Section: libdevel')
 Depends: BASELDEP, libdep(stdc++CXX_SO,),
- libdevdep(stdc++`'PV-dev,), ${misc:Depends}
+ libdevdep(stdc++`'PV-dev,), ${shlibs:Depends}, ${misc:Depends}
 ifdef(`TARGET',`Provides: libstdc++-pic-TARGET-dcv1
 ',`')`'dnl
 BUILT_USING`'dnl
@@ -3629,7 +3665,7 @@ Conflicts: libstdc++5-dbg`'LS, libstdc++5-3.3-dbg`'LS, libstdc++6-dbg`'LS,
  libstdc++6-4.9-dbg`'LS, libstdc++6-5-dbg`'LS, libstdc++6-6-dbg`'LS,
  libstdc++6-7-dbg`'LS, libstdc++6-8-dbg`'LS, libstdc++6-9-dbg`'LS,
  libstdc++6-10-dbg`'LS, libstdc++6-11-dbg`'LS, libstdc++6-12-dbg`'LS,
- libstdc++6-13-dbg`'LS,
+ libstdc++6-13-dbg`'LS, libstdc++6-14-dbg`'LS,
 BUILT_USING`'dnl
 ifelse(index(enabled_languages, `libdbg'), -1, `dnl
 Description: GNU Standard C++ Library v3 (debug build)`'ifdef(`TARGET',` (TARGET)', `')
@@ -3651,7 +3687,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch32_archs')
 ifdef(`TARGET',`dnl',`Section: libdevel')
 Depends: BASELDEP, libdevdep(gcc`'PV-dev,32),
- libdep(stdc++CXX_SO,32), libdevdep(stdc++`'PV-dev,), ${misc:Depends}
+ libdep(stdc++CXX_SO,32), libdevdep(stdc++`'PV-dev,), ${shlibs:Depends}, ${misc:Depends}
 BUILT_USING`'dnl
 Description: GNU Standard C++ Library v3 (development files)`'ifdef(`TARGET',` (TARGET', `')
  This package contains the headers and static library files necessary for
@@ -3682,6 +3718,7 @@ Conflicts: lib32stdc++6-dbg`'LS, lib32stdc++6-4.0-dbg`'LS,
  lib32stdc++6-5-dbg`'LS, lib32stdc++6-6-dbg`'LS, lib32stdc++6-7-dbg`'LS,
  lib32stdc++6-8-dbg`'LS, lib32stdc++6-9-dbg`'LS, lib32stdc++6-10-dbg`'LS,
  lib32stdc++6-11-dbg`'LS, lib32stdc++6-12-dbg`'LS, lib32stdc++6-13-dbg`'LS,
+ lib32stdc++6-14-dbg`'LS,
 BUILT_USING`'dnl
 ifelse(index(enabled_languages, `libdbg'), -1, `dnl
 Description: GNU Standard C++ Library v3 (debug build)`'ifdef(`TARGET',` (TARGET)', `')
@@ -3703,7 +3740,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch64_archs')
 ifdef(`TARGET',`dnl',`Section: libdevel')
 Depends: BASELDEP, libdevdep(gcc`'PV-dev,64),
- libdep(stdc++CXX_SO,64), libdevdep(stdc++`'PV-dev,), ${misc:Depends}
+ libdep(stdc++CXX_SO,64), libdevdep(stdc++`'PV-dev,), ${shlibs:Depends}, ${misc:Depends}
 BUILT_USING`'dnl
 Description: GNU Standard C++ Library v3 (development files)`'ifdef(`TARGET',` (TARGET)', `')
  This package contains the headers and static library files necessary for
@@ -3734,6 +3771,7 @@ Conflicts: lib64stdc++6-dbg`'LS, lib64stdc++6-4.0-dbg`'LS,
  lib64stdc++6-5-dbg`'LS, lib64stdc++6-6-dbg`'LS, lib64stdc++6-7-dbg`'LS,
  lib64stdc++6-8-dbg`'LS, lib64stdc++6-9-dbg`'LS, lib64stdc++6-10-dbg`'LS,
  lib64stdc++6-11-dbg`'LS, lib64stdc++6-12-dbg`'LS, lib64stdc++6-13-dbg`'LS,
+ lib64stdc++6-14-dbg`'LS,
 BUILT_USING`'dnl
 ifelse(index(enabled_languages, `libdbg'), -1, `dnl
 Description: GNU Standard C++ Library v3 (debug build)`'ifdef(`TARGET',` (TARGET)', `')
@@ -3755,7 +3793,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 ifdef(`TARGET',`dnl',`Section: libdevel')
 Depends: BASELDEP, libdevdep(gcc`'PV-dev,n32),
- libdep(stdc++CXX_SO,n32), libdevdep(stdc++`'PV-dev,), ${misc:Depends}
+ libdep(stdc++CXX_SO,n32), libdevdep(stdc++`'PV-dev,), ${shlibs:Depends}, ${misc:Depends}
 BUILT_USING`'dnl
 Description: GNU Standard C++ Library v3 (development files)`'ifdef(`TARGET',` (TARGET', `')
  This package contains the headers and static library files necessary for
@@ -3786,6 +3824,7 @@ Conflicts: libn32stdc++6-dbg`'LS, libn32stdc++6-4.0-dbg`'LS,
  libn32stdc++6-5-dbg`'LS, libn32stdc++6-6-dbg`'LS, libn32stdc++6-7-dbg`'LS,
  libn32stdc++6-8-dbg`'LS, libn32stdc++6-9-dbg`'LS, libn32stdc++6-10-dbg`'LS,
  libn32stdc++6-11-dbg`'LS, libn32stdc++6-12-dbg`'LS, libn32stdc++6-13-dbg`'LS,
+ libn32stdc++6-14-dbg`'LS,
 BUILT_USING`'dnl
 ifelse(index(enabled_languages, `libdbg'), -1, `dnl
 Description: GNU Standard C++ Library v3 (debug build)`'ifdef(`TARGET',` (TARGET)', `')
@@ -3808,7 +3847,7 @@ TARGET_PACKAGE`'dnl
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchx32_archs')
 ifdef(`TARGET',`dnl',`Section: libdevel')
 Depends: BASELDEP, libdevdep(gcc`'PV-dev,x32), libdep(stdc++CXX_SO,x32),
- libdevdep(stdc++`'PV-dev,), ${misc:Depends}
+ libdep(stdc++CXX_SO,x32), libdevdep(stdc++`'PV-dev,), ${shlibs:Depends}, ${misc:Depends}
 BUILT_USING`'dnl
 Description: GNU Standard C++ Library v3 (development files)`'ifdef(`TARGET',` (TARGET)', `')
  This package contains the headers and static library files necessary for
@@ -3839,6 +3878,7 @@ Conflicts: libx32stdc++6-dbg`'LS, libx32stdc++6-4.6-dbg`'LS,
  libx32stdc++6-5-dbg`'LS, libx32stdc++6-6-dbg`'LS, libx32stdc++6-7-dbg`'LS,
  libx32stdc++6-8-dbg`'LS, libx32stdc++6-9-dbg`'LS, libx32stdc++6-10-dbg`'LS,
  libx32stdc++6-11-dbg`'LS, libx32stdc++6-12-dbg`'LS, libx32stdc++6-13-dbg`'LS,
+ libx32stdc++6-14-dbg`'LS,
 BUILT_USING`'dnl
 ifelse(index(enabled_languages, `libdbg'), -1, `dnl
 Description: GNU Standard C++ Library v3 (debug build)`'ifdef(`TARGET',` (TARGET)', `')
@@ -3867,7 +3907,7 @@ Conflicts: libstdc++5-doc, libstdc++5-3.3-doc, libstdc++6-doc,
  libstdc++6-4.4-doc, libstdc++6-4.5-doc, libstdc++6-4.6-doc, libstdc++6-4.7-doc,
  libstdc++-4.8-doc, libstdc++-4.9-doc, libstdc++-5-doc, libstdc++-6-doc,
  libstdc++-7-doc, libstdc++-8-doc, libstdc++-9-doc, libstdc++-10-doc,
- libstdc++-11-doc, libstdc++-12-doc, libstdc++-13-doc,
+ libstdc++-11-doc, libstdc++-12-doc, libstdc++-13-doc, libstdc++-14-doc,
 Description: GNU Standard C++ Library v3 (documentation files)
  This package contains documentation files for the GNU stdc++ library.
  .
@@ -3888,9 +3928,14 @@ ifdef(`MULTIARCH', `Pre-Depends: ${misc:Pre-Depends}
 ')`'dnl
 Depends: BASEDEP, gcc`'PV`'${target:suffix} (>= ${gcc:SoftVersion}), ${dep:libgnat}, ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
 Suggests: gnat`'PV-doc, ada-reference-manual-2012
+ifdef(`TARGET',`',`dnl
 Provides: gnat`'-GNAT_V-${libgnat:alihash}
+')`'dnl
 Conflicts: gnat-4.9, gnat-5`'TS, gnat-6`'TS, gnat-7`'TS, gnat-8`'TS, gnat-9`'TS,
- gnat-10`'TS, gnat-11`'TS, gnat-12`'TS, gnat-13`'TS,
+ gnat-10`'TS, gnat-11`'TS, gnat-12`'TS, gnat-13`'TS, gnat-14`'TS,
+ gnat-7`'arch_gnusuffix, gnat-8`'arch_gnusuffix,
+ gnat-9`'arch_gnusuffix, gnat-10`'arch_gnusuffix,
+ gnat-11`'arch_gnusuffix, gnat-12`'arch_gnusuffix,
 # Previous versions conflict for (at least) /usr/bin/gnatmake.
 BUILT_USING`'dnl
 Description: GNU Ada compiler for the arch_gnu architecture
@@ -3941,7 +3986,6 @@ ifdef(`MULTIARCH', `Pre-Depends: ${misc:Pre-Depends}
 ')`'dnl
 Depends: gnat`'-GNAT_V`'${target:suffix} (= ${gcc:Version}), BASEDEP, gcc`'PV (>= ${gcc:SoftVersion}), ${misc:Depends}
 Suggests: gnat`'PV-doc, ada-reference-manual-2012, gnat`'-GNAT_V-sjlj
-Provides: gnat`'-GNAT_V-${libgnat:alihash}
 BUILT_USING`'dnl
 Description: GNU Ada compiler
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4033,7 +4077,7 @@ Depends: ${misc:Depends}
 Suggests: gnat`'PV
 Conflicts: gnat-4.9-doc,
   gnat-5-doc, gnat-6-doc, gnat-7-doc, gnat-8-doc, gnat-9-doc, gnat-10-doc,
-  gnat-11-doc, gnat-12-doc, gnat-13-doc,
+  gnat-11-doc, gnat-12-doc, gnat-13-doc, gnat-14-doc,
 BUILT_USING`'dnl
 Description: GNU Ada compiler (documentation)
  GNAT is a compiler for the Ada programming language. It produces optimized
@@ -4284,6 +4328,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32phobos`'PHOBOS_V [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Phobos D standard library (runtime library)
  This is the Phobos standard library that comes with the D2 compiler.
@@ -4296,6 +4341,7 @@ TARGET_PACKAGE`'dnl
 Section: debug
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, libn32gphobos`'PHOBOS_V`'LS (= ${gdc:Version}), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32phobos`'PHOBOS_V-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: Phobos D standard library (debug symbols)
  This is the Phobos standard library that comes with the D2 compiler.
@@ -4540,6 +4586,7 @@ TARGET_PACKAGE`'dnl
 ifdef(`TARGET',`dnl',`Section: libs')
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32-gm2`'GM2_V [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GNU Modula-2 standard library (runtime library)
  This is the GNU Modula-2 standard library that comes with the gm2 compiler.
@@ -4550,6 +4597,7 @@ TARGET_PACKAGE`'dnl
 Section: debug
 Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
 Depends: BASELDEP, libn32gm2`'-GM2_V`'LS (= ${gm2:Version}), ${misc:Depends}
+ifdef(`TARGET',`dnl',`Conflicts: lib32-gm2`'GM2_V-dbg [biarch32_conflicts]')
 BUILT_USING`'dnl
 Description: GNU Modula-2 standard library (debug symbols)
  This is the GNU Modula-2 standard library that comes with the gm2 compiler.
@@ -4667,6 +4715,517 @@ Description: GNU Rust compiler
  and not usable yet for compiling real Rust programs !!!!!
 ')`'dnl rust
 
+ifenabled(`cobol ',`dnl
+for_each_arch(`ifelse(index(` 'cobol_no_archs` ',` !'arch_deb` '),`-1',`
+Package: gcobol`'PV`'arch_gnusuffix
+Architecture: ifdef(`TARGET',`any',arch_deb)
+Multi-Arch: foreign
+Depends: SOFTBASEDEP, g++`'PV`'arch_gnusuffix (>= ${gcc:Version}), ${dep:gcobolcross},
+  libidevdep(gcobol`'PV-dev,,=),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL compiler for the arch_gnu architecture
+ This is the GNU COBOL compiler for the arch_gnu architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+')')`'dnl for_each_arch
+
+Package: gcobol`'PV`'-for-host
+Architecture: ifdef(`TARGET',`TARGET',`any')
+TARGET_PACKAGE`'dnl
+Multi-Arch: same
+Depends: BASEDEP, gcobol`'PV`'${target:suffix} (>= ${gcc:SoftVersion}),
+  g++`'PV`'-for-host (= ${gcc:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL compiler for the host architecture
+ This is the GNU COBOL compiler for the host architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ When using this package, tools must be invoked with an architecture prefix.
+ .
+ This is a dependency package.
+ifdef(`TARGET',`',`
+Package: gcobol`'PV`'-for-build
+Architecture: all
+Multi-Arch: foreign
+Depends: SOFTBASEDEP, gcobol`'PV (>= ${gcc:Version}),
+  cpp`'PV`'-for-build (= ${gcc:Version}), g++`'PV`'-for-build (= ${gcc:Version}),
+  ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL compiler for the build architecture
+ This is the GNU COBOL compiler for the build architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ This is a dependency package.
+
+Package: gcobol`'PV
+Architecture: any
+Depends: gcobol`'PV`'${target:suffix} (= ${gcc:Version}), SOFTBASEDEP, g++`'PV (>= ${gcc:SoftVersion}), ${dep:gcobolcross}, ${misc:Depends}
+Provides: gcobol, cobol-compiler
+BUILT_USING`'dnl
+Description: GNU COBOL compiler
+ This is the GNU COBOL compiler, which compiles COBOL on platforms
+ supported by gcc.  It uses the gcc backend to generate optimised code.
+')`'dnl TARGET
+
+ifenabled(`multigcobollib',`
+Package: gcobol`'PV-multilib`'TS
+Architecture: any
+ifdef(`TARGET',`Multi-Arch: foreign
+')dnl
+Depends: SOFTBASEDEP, gcobol`'PV`'TS (= ${gcc:Version}), g++`'PV-multilib`'TS (= ${gcc:Version}), ${dep:libgcobolbiarchdev}${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL compiler (multilib support)`'ifdef(`TARGET',` (cross compiler for TARGET architecture)', `')
+ This is the GNU COBOL compiler, which compiles COBOL on platforms supported by gcc.
+ It uses the gcc backend to generate optimised code.
+ .
+ This is a dependency package, depending on development packages
+ for the non-default multilib architecture(s).
+')`'dnl multigcobollib
+
+ifenabled(`libdevgcobol',`
+Package: libgcobol`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`any')
+ifdef(`MULTIARCH', `Multi-Arch: same
+')`'dnl
+Section: libdevel
+Depends: BASELDEP, libgcobol`'GCOBOL_V`'LS (>= ${gcobol:Version}),
+  ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library
+ This is the COBOL standard library that comes with the gcobol compiler.
+
+ifenabled(`multigcobollib',`
+Package: lib64gcobol`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch64_archs')
+Section: libdevel
+Depends: BASELDEP, lib64gcobol`'GCOBOL_V`'LS (>= ${gcobol:Version}),
+  libdevdep(gcc`'PV-dev,64), ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (64bit development files)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+Package: lib32gcobol`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch32_archs')
+Section: libdevel
+Depends: BASELDEP, lib32gcobol`'GCOBOL_V`'LS (>= ${gcobol:Version}),
+  libdevdep(gcc`'PV-dev,32), ifdef(`TARGET',`',`lib32z1-dev,') ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (32bit development files)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+ifenabled(`libdevn32gcobol',`
+Package: libn32gcobol`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
+Section: libdevel
+Depends: BASELDEP, libn32gcobol`'GCOBOL_V`'LS (>= ${gcobol:Version}),
+  libdevdep(gcc`'PV-dev,n32), ifdef(`TARGET',`',`libn32z1-dev,') ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (n32 development files)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+')`'dnl libn32gcobol
+
+ifenabled(`libdevx32gcobol',`
+Package: libx32gcobol`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchx32_archs')
+Section: libdevel
+Depends: BASELDEP, libx32gcobol`'GCOBOL_V`'LS (>= ${gcobol:Version}),
+  libdevdep(gcc`'PV-dev,x32), ifdef(`TARGET',`',`${dep:libx32z},') ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (x32 development files)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+')`'dnl libx32gcobol
+')`'dnl multigcobollib
+')`'dnl libdevgcobol
+
+ifenabled(`libgcobol',`
+Package: libgcobol`'GCOBOL_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`any')
+ifdef(`MULTIARCH', `Multi-Arch: same
+')`'dnl
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (runtime library)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+ifenabled(`libdbg',`
+Package: libgcobol`'GCOBOL_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`any')
+ifdef(`MULTIARCH', `Multi-Arch: same
+')`'dnl
+Depends: BASELDEP, libgcobol`'GCOBOL_V`'LS (= ${gcobol:Version}), ${misc:Depends}
+Replaces: libgcobol68-dbg`'LS
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (debug symbols)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+')`'dnl libdbg
+
+ifenabled(`multigcobollib',`
+Package: lib64gcobol`'GCOBOL_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch64_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+Replaces: lib64gcobol68`'LS
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (runtime library)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+ifenabled(`libdbg',`
+Package: lib64gcobol`'GCOBOL_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch64_archs')
+Depends: BASELDEP, lib64gcobol`'GCOBOL_V`'LS (= ${gcobol:Version}), ${misc:Depends}
+Replaces: lib64gcobol68-dbg`'LS
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (debug symbols)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+')`'dnl libdbg
+
+Package: lib32gcobol`'GCOBOL_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch32_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+Replaces: lib32gcobol68`'LS
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (runtime library)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+ifenabled(`libdbg',`
+Package: lib32gcobol`'GCOBOL_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch32_archs')
+Depends: BASELDEP, lib32gcobol`'GCOBOL_V`'LS (= ${gcobol:Version}), ${misc:Depends}
+Replaces: lib32gcobol68-dbg`'LS
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (debug symbols)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+')`'dnl libdbg
+
+ifenabled(`libn32gcobol',`
+Package: libn32gcobol`'GCOBOL_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (runtime library)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+ifenabled(`libdbg',`
+Package: libn32gcobol`'GCOBOL_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
+Depends: BASELDEP, libn32gcobol`'GCOBOL_V`'LS (= ${gcobol:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (debug symbols)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+')`'dnl libdbg
+')`'dnl libn32gcobol
+
+ifenabled(`libx32gcobol',`
+Package: libx32gcobol`'GCOBOL_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchx32_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (runtime library)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+
+ifenabled(`libdbg',`
+Package: libx32gcobol`'GCOBOL_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchx32_archs')
+Depends: BASELDEP, libx32gcobol`'GCOBOL_V`'LS (= ${gcobol:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU COBOL standard library (debug symbols)
+ This is the GNU COBOL standard library that comes with the gcobol compiler.
+')`'dnl libdbg
+')`'dnl libx32gcobol
+')`'dnl multigcobollib
+')`'dnl libgcobol
+
+ifenabled(`doccobol',`
+Package: gcobol`'PV-doc
+Architecture: all
+Section: doc
+Depends: gcc`'PV-base (>= ${gcc:SoftVersion}), ${misc:Depends}
+Suggests: gcobol`'PV
+Description: Documentation for the GNU COBOL compiler (gcobol)
+ Documentation for the GNU COBOL compiler in HTML and info `format'.
+')`'dnl doccobol
+')`'dnl cobol
+
+
+ifenabled(`algol ',`dnl
+for_each_arch(`ifelse(index(` 'algol_no_archs` ',` !'arch_deb` '),`-1',`
+Package: ga68`'PV`'arch_gnusuffix
+Architecture: ifdef(`TARGET',`any',arch_deb)
+Multi-Arch: foreign
+Depends: SOFTBASEDEP, gcc`'PV`'arch_gnusuffix (>= ${gcc:Version}), ${dep:ga68cross},
+  libidevdep(ga68`'PV-dev,,=),
+  ${dep:libcdev}, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 compiler for the arch_gnu architecture
+ This is the GNU Algol 68 compiler for the arch_gnu architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+')')`'dnl for_each_arch
+
+Package: ga68`'PV`'-for-host
+Architecture: ifdef(`TARGET',`TARGET',`any')
+TARGET_PACKAGE`'dnl
+Multi-Arch: same
+Depends: BASEDEP, ga68`'PV`'${target:suffix} (>= ${gcc:SoftVersion}),
+  gcc`'PV`'-for-host (= ${gcc:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 compiler for the host architecture
+ This is the GNU Algol 68 compiler for the host architecture,
+ which compiles Algol 68 on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ When using this package, tools must be invoked with an architecture prefix.
+ .
+ This is a dependency package.
+ifdef(`TARGET',`',`
+Package: ga68`'PV`'-for-build
+Architecture: all
+Multi-Arch: foreign
+Depends: SOFTBASEDEP, ga68`'PV (>= ${gcc:Version}),
+  cpp`'PV`'-for-build (= ${gcc:Version}), gcc`'PV`'-for-build (= ${gcc:Version}),
+  ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 compiler for the build architecture
+ This is the GNU Algol 68 compiler for the build architecture,
+ which compiles COBOL on platforms supported by gcc.  It uses the gcc
+ backend to generate optimised code.
+ .
+ This is a dependency package.
+
+Package: ga68`'PV
+Architecture: any
+Depends: ga68`'PV`'${target:suffix} (= ${gcc:Version}), SOFTBASEDEP, gcc`'PV (>= ${gcc:SoftVersion}), ${dep:ga68cross}, ${misc:Depends}
+Provides: ga68, algol68-compiler
+BUILT_USING`'dnl
+Description: GNU Algol 68 compiler
+ This is the GNU Algol 68 compiler, which compiles Algol 68 on platforms
+ supported by gcc.  It uses the gcc backend to generate optimised code.
+')`'dnl TARGET
+
+ifenabled(`multiga68lib',`
+Package: ga68`'PV-multilib`'TS
+Architecture: any
+ifdef(`TARGET',`Multi-Arch: foreign
+')dnl
+Depends: SOFTBASEDEP, ga68`'PV`'TS (= ${gcc:Version}), gcc`'PV-multilib`'TS (= ${gcc:Version}), ${dep:libga68biarchdev}${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 compiler (multilib support)`'ifdef(`TARGET',` (cross compiler for TARGET architecture)', `')
+ This is the GNU Algol 68 compiler, which compiles Algol 68 on platforms supported by gcc.
+ It uses the gcc backend to generate optimised code.
+ .
+ This is a dependency package, depending on development packages
+ for the non-default multilib architecture(s).
+')`'dnl multiga68lib
+
+ifenabled(`libdevga68',`
+Package: libga68`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`any')
+ifdef(`MULTIARCH', `Multi-Arch: same
+')`'dnl
+Section: libdevel
+Depends: BASELDEP, libga68-`'GA68_V`'LS (>= ${ga68:Version}),
+  ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library
+ This is the Algol 68 standard library that comes with the ga68 compiler.
+
+ifenabled(`multiga68lib',`
+Package: lib64ga68`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch64_archs')
+Section: libdevel
+Depends: BASELDEP, lib64ga68-`'GA68_V`'LS (>= ${ga68:Version}),
+  libdevdep(gcc`'PV-dev,64), ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (64bit development files)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+Package: lib32ga68`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch32_archs')
+Section: libdevel
+Depends: BASELDEP, lib32ga68-`'GA68_V`'LS (>= ${ga68:Version}),
+  libdevdep(gcc`'PV-dev,32), ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (32bit development files)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+ifenabled(`libdevn32ga68',`
+Package: libn32ga68`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
+Section: libdevel
+Depends: BASELDEP, libn32ga68-`'GA68_V`'LS (>= ${ga68:Version}),
+  libdevdep(gcc`'PV-dev,n32), ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (n32 development files)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+')`'dnl libn32ga68
+
+ifenabled(`libdevx32ga68',`
+Package: libx32ga68`'PV-dev`'LS
+TARGET_PACKAGE`'dnl
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchx32_archs')
+Section: libdevel
+Depends: BASELDEP, libx32ga68-`'GA68_V`'LS (>= ${ga68:Version}),
+  libdevdep(gcc`'PV-dev,x32), ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (x32 development files)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+')`'dnl libx32ga68
+')`'dnl multiga68lib
+')`'dnl libdevga68
+
+ifenabled(`libga68',`
+Package: libga68-`'GA68_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`any')
+ifdef(`MULTIARCH', `Multi-Arch: same
+')`'dnl
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (runtime library)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+ifenabled(`libdbg',`
+Package: libga68-`'GA68_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`any')
+ifdef(`MULTIARCH', `Multi-Arch: same
+')`'dnl
+Depends: BASELDEP, libga68-`'GA68_V`'LS (= ${ga68:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (debug symbols)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+')`'dnl libdbg
+
+ifenabled(`multiga68lib',`
+Package: lib64ga68-`'GA68_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch64_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (runtime library)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+ifenabled(`libdbg',`
+Package: lib64ga68-`'GA68_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch64_archs')
+Depends: BASELDEP, lib64ga68-`'GA68_V`'LS (= ${ga68:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (debug symbols)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+')`'dnl libdbg
+
+Package: lib32ga68-`'GA68_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch32_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (runtime library)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+ifenabled(`libdbg',`
+Package: lib32ga68-`'GA68_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarch32_archs')
+Depends: BASELDEP, lib32ga68-`'GA68_V`'LS (= ${ga68:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (debug symbols)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+')`'dnl libdbg
+
+ifenabled(`libn32ga68',`
+Package: libn32ga68-`'GA68_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (runtime library)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+ifenabled(`libdbg',`
+Package: libn32ga68-`'GA68_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchn32_archs')
+Depends: BASELDEP, libn32ga68-`'GA68_V`'LS (= ${ga68:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (debug symbols)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+')`'dnl libdbg
+')`'dnl libn32ga68
+
+ifenabled(`libx32ga68',`
+Package: libx32ga68-`'GA68_V`'LS
+TARGET_PACKAGE`'dnl
+ifdef(`TARGET',`dnl',`Section: libs')
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchx32_archs')
+Depends: BASELDEP, ${shlibs:Depends}, ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (runtime library)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+
+ifenabled(`libdbg',`
+Package: libx32ga68-`'GA68_V-dbg`'LS
+TARGET_PACKAGE`'dnl
+Section: debug
+Architecture: ifdef(`TARGET',`CROSS_ARCH',`biarchx32_archs')
+Depends: BASELDEP, libx32ga68-`'GA68_V`'LS (= ${ga68:Version}), ${misc:Depends}
+BUILT_USING`'dnl
+Description: GNU Algol 68 standard library (debug symbols)
+ This is the GNU Algol 68 standard library that comes with the ga68 compiler.
+')`'dnl libdbg
+')`'dnl libx32ga68
+')`'dnl multiga68lib
+')`'dnl libga68
+
+Package: ga68`'PV-doc
+Architecture: all
+Section: doc
+Depends: gcc`'PV-base (>= ${gcc:SoftVersion}), ${misc:Depends}
+Suggests: ga68`'PV
+Description: Documentation for the GNU Algol 68 compiler (ga68)
+ Documentation for the GNU Algol 68 compiler in HTML and info `format'.
+')`'dnl algol
+
+
 ifdef(`TARGET',`',`dnl
 ifenabled(`libs',`
 #Package: gcc`'PV-soft-float
@@ -4731,7 +5290,7 @@ ifdef(`TARGET',`Multi-Arch: foreign
 ')dnl
 Depends: BASEDEP, gcc`'PV (= ${gcc:Version}), ${dep:libcdev},
   libgomp-plugin-amdgcn`'GOMP_SO (>= ${gcc:Version}),
-  LLVM_DEP ${shlibs:Depends}, ${misc:Depends}
+  AMDGCN_TOOLS_DEP ${shlibs:Depends}, ${misc:Depends}
 BUILT_USING`'dnl
 Description: GCC offloading compiler to GCN
  The package provides offloading support for AMD GCN.  OpenMP and OpenACC
